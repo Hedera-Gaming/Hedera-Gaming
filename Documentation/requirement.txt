@@ -1,0 +1,259 @@
+Hedera Gaming
+
+Objective
+
+The goal of Hedera Gaming  is to build a blockchain-based multiplayer game on Hedera where players earn unique NFT rewards for their achievements and progress. These NFTs represent true digital ownership, meaning players retain their in-game assets permanently, even if the game server is discontinued.
+
+- a frontend implementation as a web-based game application. It will focus on creating an interactive gaming experience with wallet connectivity and NFT management interfaces.
+
+- a backend implementation as a game API server. It will expose game functionalities, NFT minting, and marketplace operations through a REST API.
+
+Technical Constraints
+
+This section lists the technical boundaries and technologies required for the project.
+
+
+- Programming Language: TypeScript
+- Package Manager: pnpm
+- Hedera Integration: @hashgraph/sdk for Hedera network interactions
+- Smart Contract Language: Solidity for Hedera smart contracts
+- Testing Library: Jest for unit and integration tests
+- NFT Standard: Hedera Token Service (HTS) for NFT creation
+
+Frontend Specific Requirements
+
+These requirements apply only to the frontend game project.
+
+- Framework: React
+- Game Rendering: Phaser.js for 2D game development Link: https://phaser.io/
+- Wallet Integration: MetaMask wallet connector libraries
+- Storage: Browser localStorage for temporary game state, IndexedDB for offline progress persistence
+- Access: A playable web-based game interface with wallet connection
+
+Backend Specific Requirements
+
+These requirements apply only to the backend game server project.
+
+- Framework: NestJS
+- Database: SQLite for player data and game state persistence
+- Smart Contract Deployment: Integration with Hedera smart contract service
+- Access: Interactive Swagger documentation for all API endpoints
+- Real-time Communication: WebSocket support for multiplayer functionality
+
+Functional Requirements
+
+This section describes all the features that your game application must implement. Each feature includes expected inputs, outputs, and a detailed explanation of its purpose and implementation approach.
+
+1. Player Registration and Wallet Connection
+
+The player can create a game account and connect their Hedera-compatible wallet to manage their NFT assets.
+
+Input:
+- Player username or display name
+- Hedera wallet connection (via MetaMask)
+
+Output:
+- Confirmation of successful registration
+- Display of connected wallet address and current HBAR balance
+- Player profile created with unique identifier
+
+Explanation:
+This feature establishes the connection between the player's game identity and their Hedera account. For the frontend implementation, you should integrate a wallet connector library that allows players to connect popular wallets without manually entering private keys. For the backend implementation, you need to create an authentication system that securely stores the association between player profiles and their Hedera account IDs. The private keys should never be stored on the server; instead, transactions should be signed client-side or through secure wallet providers. This feature is the foundation for all subsequent blockchain interactions in the game.
+
+2. Core Gameplay Mechanics
+
+The player can play the actual game, complete challenges, and achieve milestones that trigger NFT rewards.
+
+Input:
+- Player actions within the game (movement, interactions, combat, puzzle-solving, etc.)
+- Game state updates from player inputs
+
+Output:
+- Real-time game state updates
+- Visual feedback for player actions
+- Achievement notifications when milestones are reached
+- Trigger events for NFT minting when specific achievements are unlocked
+
+Explanation:
+You need to implement at least one playable game mechanic. This could be a simple platformer, a card game, a puzzle game, or any genre of your choice. The game should have clear objectives and measurable achievements. For example, you might track metrics like "defeat 10 enemies," "reach level 5," "complete the first world," or "achieve a high score above 1000." These achievements serve as triggers for NFT rewards. For the frontend, you'll build the actual playable game interface. For the backend, you'll create the game logic API that tracks player progress and validates achievement completion. The game doesn't need to be complex, but it should be functional enough to demonstrate achievement tracking and reward triggers.
+
+3. NFT Reward Minting
+
+The system automatically mints unique NFTs when players achieve specific milestones in the game.
+
+Input:
+- Achievement identifier (which achievement was completed)
+- Player Hedera account ID
+- Achievement metadata (timestamp, difficulty level, additional context)
+
+Output:
+- Newly minted NFT with unique token ID
+- Transaction details including transaction ID and timestamp
+- NFT metadata including achievement name, description, rarity level, and artwork reference
+- Confirmation message displayed to the player
+
+Explanation:
+This is the core blockchain feature of your game. When a player completes an achievement, the system should automatically trigger an NFT minting process on the Hedera network. Each NFT should be unique and contain metadata that represents the specific achievement. For example, a "First Victory" NFT might have different artwork and metadata than a "Speed Runner" NFT. You should use Hedera Token Service to create non-fungible tokens. Consider implementing rarity tiers (common, rare, epic, legendary) based on achievement difficulty. For the backend implementation, you'll need to create smart contracts or use Hedera SDK methods to mint tokens. For the frontend, you'll need to call these minting functions and display the NFT to the player once minted. Important: Consider gas costs and optimization, perhaps batching rewards or allowing players to claim rewards manually rather than automatic minting for every small achievement.
+
+4. Player NFT Inventory
+
+The player can view all NFTs they have earned through gameplay, including details about each achievement.
+
+Input:
+- Player Hedera account ID
+
+Output:
+- Complete list of NFTs owned by the player
+- For each NFT: token ID, achievement name, description, rarity, artwork/image, mint date
+- Visual gallery display of NFT collection
+- Filtering and sorting options (by date, rarity, achievement type)
+
+Explanation:
+This feature allows players to view their complete collection of earned NFTs. You should query the Hedera network to retrieve all NFTs associated with the player's account. For the frontend, create an attractive gallery view where players can browse their achievements. For the backend, provide an API endpoint that fetches and returns NFT data from both your game database and the Hedera network. You can cache NFT metadata in your database for faster retrieval, but always verify ownership through the blockchain. Consider including statistics like total NFTs earned, rarity breakdown, and completion percentage if you have a fixed set of achievable NFTs. This inventory should clearly demonstrate that these are real blockchain assets, not just database entries.
+
+5. NFT Marketplace
+
+Players can list their NFTs for sale, browse available NFTs from other players, and purchase NFTs using HBAR.
+
+Input:
+For listing NFT:
+- Token ID of the NFT to sell
+- Asking price in HBAR
+- Optional description or sale notes
+
+For browsing marketplace:
+- Optional filters (rarity, achievement type, price range)
+- Sorting preferences (newest, cheapest, rarest)
+
+For purchasing NFT:
+- Token ID of the NFT to purchase
+- Buyer Hedera account ID
+- Payment amount in HBAR
+
+Output:
+For listing:
+- Confirmation of successful listing
+- Listing details and estimated transaction fees
+
+For browsing:
+- Grid or list view of available NFTs with prices
+- Seller information and listing timestamps
+
+For purchasing:
+- Transaction confirmation
+- Updated NFT ownership on blockchain
+- Transfer of HBAR to seller
+- Transfer of NFT to buyer
+
+Explanation:
+The marketplace enables the secondary economy where players can trade their achievement NFTs. This demonstrates true digital ownership since players can monetize their gameplay achievements. For implementation, you can either create smart contracts that handle escrow and automatic transfers, or implement a simpler approach where listings are managed in your database and transfers are executed when purchases occur. Security is critical here: ensure that listed NFTs are actually owned by the seller, prevent double-selling, and handle failed transactions gracefully. For the frontend, create an intuitive marketplace UI similar to NFT marketplaces like OpenSea but tailored to your game's theme. For the backend, implement secure transaction handling and marketplace state management. Consider adding features like offer systems, auction mechanics, or trading history.
+
+6. Decentralized Leaderboard
+
+The game maintains a transparent leaderboard on the Hedera network that tracks player rankings and scores.
+
+Input:
+- Player Hedera account ID
+- Score or ranking metric
+- Timestamp of achievement
+
+Output:
+- Current leaderboard standings showing top players
+- Player's current rank and score
+- Historical ranking data
+- Proof of leaderboard authenticity via blockchain verification
+
+Explanation:
+A traditional leaderboard could be manipulated by the game server administrator. By storing leaderboard data on Hedera, you create a transparent and immutable record of player achievements. You can implement this using the Hedera Consensus Service (HCS) by publishing leaderboard updates as messages to a topic, or by using smart contracts to maintain the leaderboard state. Each score submission should be verifiable and timestamped on the blockchain. For the frontend, display the leaderboard prominently and update it in real-time as new scores are submitted. For the backend, create endpoints that submit verified scores to the blockchain and retrieve current rankings. Consider implementing anti-cheat measures such as requiring multiple validations or proof-of-gameplay before accepting score submissions. The leaderboard should also track cumulative achievements, not just high scores, to reward consistent players.
+
+7. Game State Persistence and Recovery
+
+Players can save their game progress on the Hedera network, ensuring they can recover their progress even if the game server is offline.
+
+Input:
+- Player Hedera account ID
+- Current game state data (level, progress, inventory, statistics)
+- Checkpoint identifier
+
+Output:
+- Confirmation of successful state save to blockchain
+- Transaction ID for state storage
+- Ability to retrieve and restore game state from blockchain
+- Display of last saved checkpoint information
+
+Explanation:
+This feature is crucial for ensuring true decentralization and player ownership. By storing essential game state on Hedera, players can prove their progress even if your game server shuts down permanently. They could potentially use this data with future versions of the game or third-party implementations. You can use the Hedera File Service to store game state snapshots, or use HCS to publish state updates as consensus messages. Consider what data is essential: completed levels, achievement progress, skill points, character attributes, etc. For the frontend, provide clear "Save to Blockchain" functionality and show players when their progress is secured. For the backend, implement serialization of game state and methods to reconstruct the game state from blockchain data. Balance between frequent saves (expensive but more secure) and periodic checkpoints (cheaper but risk of data loss).
+
+8. Smart Contract Reward Automation
+
+Smart contracts automatically distribute rewards, manage NFT minting rules, and enforce game logic on the blockchain.
+
+Input:
+- Achievement conditions met (verified game state)
+- Player Hedera account ID
+- Reward parameters (NFT type, rarity, bonus HBAR, etc.)
+
+Output:
+- Automatic execution of reward distribution
+- Smart contract transaction receipt
+- Event logs for reward issuance
+- Updated player rewards balance
+
+Explanation:
+Smart contracts add trustless automation to your game's reward system. Instead of relying on your game server to fairly distribute rewards, you can encode the reward rules in Solidity smart contracts deployed on Hedera. For example, a smart contract could check if a player has reached level 10 and automatically mint the appropriate NFT without any manual intervention. The contract ensures that rewards are distributed according to predetermined rules that cannot be changed arbitrarily. For implementation, write Solidity smart contracts that define reward tiers, minting logic, and validation rules. Deploy these contracts to the Hedera network and call them from your game application. For the frontend, show players when smart contract actions are executed. For the backend, create services that interact with deployed contracts and verify that reward conditions are met before triggering contract functions. This feature demonstrates the power of decentralized game economies.
+
+9. Anti-Cheat and Security Measures
+
+The game implements verification mechanisms to prevent cheating, fraudulent NFT minting, and exploitation.
+
+Input:
+- Player actions and game events
+- Achievement completion claims
+- Transaction requests
+
+Output:
+- Validation results for player actions
+- Rejection of suspicious or invalid transactions
+- Flagging of potential cheating behavior
+- Secure execution of legitimate transactions
+
+Explanation:
+Since NFTs have real value in the marketplace, preventing cheating is essential. Implement multiple layers of security: validate game logic server-side (for backend) or use cryptographic proofs (for frontend with smart contracts), rate-limit reward claims to prevent spam, verify that achievement conditions were actually met before minting NFTs, and implement cooldowns or anti-bot measures. For the frontend, you might use techniques like signed messages from the server that prove achievement completion. For the backend, implement comprehensive validation logic that checks player progression makes sense (e.g., a player can't complete level 10 without completing levels 1-9). Consider implementing reputation systems or manual review for high-value NFT mints. Log all significant actions to the blockchain for transparency and auditability. Balance security with user experience - don't make legitimate players jump through excessive hoops, but make cheating sufficiently difficult that it's not worth attempting.
+
+Environment configuration requirements:
+- Include a sample .env.example file showing required variables
+- Document how to obtain Hedera testnet credentials
+- Provide instructions for setting up test accounts with testnet HBAR
+
+
+Smart contracts:
+- Include all Solidity contract source code
+- Provide deployment scripts
+- Document deployed contract addresses on testnet
+- Include contract ABIs for frontend integration
+
+
+Useful Resources
+
+Development Tools:
+- Hedera Network Explorer (HashScan): https://hashscan.io
+- Hedera Mirror Node API: https://docs.hedera.com/hedera/sdks-and-apis/rest-api
+- Hedera SDK for JavaScript: https://github.com/hashgraph/hedera-sdk-js
+- Remix IDE for Solidity smart contracts
+
+Game Development:
+- React Documentation: https://react.dev
+- Phaser.js Game Framework: https://phaser.io
+- HTML5 Canvas Tutorial
+- NestJS Documentation: https://docs.nestjs.com
+- WebSocket in NestJS guide
+
+Testing:
+- Jest Documentation: https://jestjs.io
+- Testing Library for React
+- Jest Coverage Reports
+
+NFT Standards and Best Practices:
+- HIP-412 NFT Token Metadata JSON Schema
+- IPFS for decentralized NFT storage
+- NFT metadata best practices

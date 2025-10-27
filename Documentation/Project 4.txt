@@ -1,0 +1,23 @@
+Objective Project 4, Hedera Use case in Gaming
+
+
+Create a Hedera-based multiplayer game where players earn unique NFTs as rewards for achievements, ensuring true ownership of in-game assets that persist even if the game server shuts down.
+
+Requirements Description
+
+Functional Requirements
+1. NFT Reward System
+Mint unique NFTs as rewards for player achievements and milestones.
+NFTs must be securely stored on Hedera network for permanent ownership.
+2. Game Persistence
+Ensure players retain NFT assets and progress data even if the game server is offline or discontinued.
+3. Marketplace Integration
+Provide a platform for players to trade, sell, or showcase their NFTs.
+4. Smart Contract Automation
+Automate reward issuance and NFT minting using smart contracts.
+5. Wallet Connectivity
+Allow players to connect popular crypto wallets (e.g., HashPack, MetaMask) for NFT management.
+6. Transparent Leaderboard
+Implement a decentralized leaderboard on Hedera to track player rankings.
+7. Security and Fairness
+Prevent cheating and fraudulent NFT minting through verifiable on-chain logic.

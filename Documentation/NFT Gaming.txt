@@ -1,0 +1,143 @@
+Use Cases for HCS-Based Records in Play-to-Earn/NFT Gaming
+“Play-to-Earn” gaming has grown to a $3 Billion dollar market in less than a year, and investors are taking notice. The era of play-to-earn gaming has…
+
+Use Cases for HCS-Based Records in Play-to-Earn/NFT Gaming
+
+
+
+Starting January 2026, the price for the ConsensusSubmitMessage transaction will increase from $0.0001 to $0.0008 USD. This change will take effect with the v0.69 mainnet release and applies only to ConsensusSubmitMessage transactions. This update improves the long-term economic sustainability of the Hedera network, while preserving predictable and USD-fixed pricing for developers. For more information, visit https://hedera.com/blog/price-update-to-consensussubmitmessage-in-consensus-service-january-2026.
+
+Abstract
+Recording game histories in the HCS would allow developers to validate said histories prior to issuing play-to-earn rewards.
+
+Having HCS-based payout smart contracts would allow developers to consolidate play-to-earn rewards into single interactions.
+
+HCS-based meta records would enable developers to create achievement NFTs with skill-based scarcity (and offload some token sell pressure).
+
+Introduction
+“Play-to-Earn” gaming has grown to a $3 Billion dollar market in less than a year, and investors are taking notice. Animoca Brands, a developer with an NFT-driven focus, recently closed their seed funding round at $10 Million dollars. This explosive growth has even attracted the attention of major game publishers such as Ubisoft and Electronic Arts. The era of play-to-earn gaming has begun, presenting an exciting new frontier for game development – as well as several potential pitfalls. All the risks associated with decentralized finance are also present in play-to-earn, namely smart contract exploits. But the Hedera Consensus Service (HCS) offers a solution to these inherent problems.
+
+Previously, I had written an article on the possibility of using the HCS to record game data. This concept was demonstrated through my Hashgraph Chess app, which allows users to play chess matches by sending their moves to an HCS topic. The HCS can likewise be used to record the histories of more advanced games, such as those developed in Unity or the Unreal Engine. But what would the advantages be of implementing HCS-based game records in a play-to-earn game? There are two answers to this: security and efficiency.
+
+In its infant state, play-to-earn gaming is both insecure and inefficient. Let’s explore these two problems with some examples…
+
+
+Play-to-Earn & Exploits
+Play-to-earn gaming, like its DeFi parent, is prone to exploits. Flawed smart contracts have hobbled and even scuttled numerous DeFi projects, and we can expect this problem to carry on into the play-to-earn market. Furthermore, the risk of exploits is actually greater in play-to-earn because hackers now have a second surface area to probe: the game’s codebase.
+
+All games suffer from exploits. And in-game exploits are of particular concern to the play-to-earn market because these in-game exploits can quickly translate to token exploits. For example, let’s look at an exploit discovered in World of Warcraft Classic. In short, the game featured a “layering” system to account for overcrowded servers. One guild discovered that they could abuse this layering system to repeatedly skip to the end of a dungeon and reap its rewards. In doing so, they managed to generate over 100,000 gold. Were an exploit of this magnitude to occur in a play-to-earn game, hackers could potentially drain the game’s token ecosystem overnight. Furthermore, WoW Classic was developed by a highly experienced team – far more so than anyone currently building for play-to-earn. We cannot expect these developers to produce flawless games bereft of exploits. And there is a significant chance of any given exploit having a detrimental effect on the game’s tokenomy.
+
+We’ve already seen one poignant example of a play-to-earn game being scuttled by an exploit: the Sunflower Farmers hack. Sunflower Farmers was a farming-themed play-to-earn game. A flaw in the Sunflower Farmers smart contract allowed a hacker to give himself control over the game’s entire iron pickaxe supply. This event sounded a death knell for Sunflower Farmers and drew public attention to the risks of play-to-earn.
+
+Given the lucrative reward for discovering play-to-earn exploits, we should expect these games to attract hackers in quantities we’ve never seen before. After all, their rewards for hacking are no longer an unearned first place on some multiplayer server; now they can get paid for cheating. It might only take a few public incidents to sour non-crypto gamers’ perceptions of play-to-earn (who present the largest demographic for potential growth). Given this, all play-to-earn projects should retain some validation process between their game and its token rewards.
+
+Inefficiency in Play-to-Earn
+In addition to its security risks, play-to-earn gaming also suffers from inefficiency. This can be demonstrated by describing another problem that plagued Sunflower Farmers: its own design. As explained in this excellent write-up, the game was built with a smart contract interaction-heavy design. Each in-game event constituted its own smart contract interaction, meaning it occupied a transactions-per-second slot. This design resulted in a pseudo-DDOSing of the Polygon network; gas fees jumped 600% as players spammed the chain with virtual turnip picking.
+
+While not every play-to-earn game’s design will produce such an extreme strain on its host chain, crypto’s transactions-per-second limitation still presents an enduring problem. For example, let’s imagine a play-to-earn football game in which each goal earns the scorer a reward. With an average of three goals per game, this might not seem like a potential problem. However, if there are 10,000 games being played, that’s 30,000 smart contract interactions. The problem becomes exponentially worse in more complex games. A First Person Shooter that issues tokens for frags might see fifty or more reward events in a single match. In addition, we must consider that a chain (or even its sidechains) might be shared by tens, hundreds, or thousands of simultaneous play-to-earn games. In order to reduce play-to-earn stress, we’ll need a method of decoupling reward events from smart contract interactions so that we can consolidate them.
+
+HCS-Based Game Records
+In the previous section, we explored two major pitfalls facing play-to-earn: security and inefficiency. Combined, these problems might sour public perception of play-to-earn and stifle market growth. However, we can kill both birds with one stone: HCS-based game records.
+
+
+Diagram 1: Example HCS-Based Game Record Architecture
+
+The driving concept behind this article is that we can use the HCS to record consequential in-game events during live gameplay. In doing so, we can decouple these events from their game, allowing us to postpone and consolidate smart contract interactions.
+
+What constitutes “consequential” for in-game events changes drastically depending on the game’s design. As a general rule, they’re events needed for either validating the fairness of a game, or calculating its play-to-earn rewards. So, not every step a player takes needs to be recorded (unless that’s integral to the game’s play-to-earn rewards). We are looking only for key events such as deaths, goals, discovered treasure, captured flags, etc.
+
+There are a few advantages to this approach:
+
+The complete history of consequential in-game events is recorded. This allows us to validate each game’s history prior to distributing any play-to-earn rewards.
+
+The HCS topic is publicly accessible, meaning it can be utilized by an external app for payout distribution. Developers using HCS-based game records won’t have to worry about interacting with EVM from within their game’s engine.
+
+With Smart Contracts 2.0, Hedera smart contracts will soon be interoperable with the HCS. This will enable payout smart contracts to calculate rewards by ingesting the game’s topic. Therefore, users will only need to invoke a single smart contract interaction per game.
+
+The HCS topic is publicly available long after the game is finished, allowing developers (or any interested party) to perform data analysis.
+
+Lastly, the process is much cheaper and faster than writing to a blockchain.
+
+With HCS topic creation costing $0.02, and each message costing $0.0001, we could record a game with 1,000 events for $0.12. For twelve cents, we gain more than enough leeway for a complex multiplayer match with tens of players.
+
+However, using HCS-based game records also necessitates a few components, namely: a game engine that writes to the HCS, a properly architected log structure, payout smart contracts capable of reading HCS topics, and a game history validation tool.
+
+The Game History Validation Tool & Arbitration Process
+One key component of HCS-based game records would be the development of a game history validation tool. This tool would function similarly to unit testing suites like Mocha or JUnit. The tool would provide a means for ingesting a game’s history from the HCS; it would then be up to the developers to write their own tests. I would recommend making this tool an open-source project in order to incentivize adoption.
+
+This tool could be run in either a centralized or decentralized manner. A centralized process would involve the game’s developers maintaining a tool instance on a private server. They’d be responsible for validating each game’s history prior to issuing rewards. However, we could also devise a decentralized approach to this: users could be incentivized to validate games by “mining” game histories in return for a token reward. Either way, some entities must be responsible for validating game topics by running their histories through rigorous tests.
+
+If we go back to our WoW Classic example, the dungeon layering exploit could be caught in the same way developers catch all potential exploits: by writing good tests. A dungeon’s boss should only die once, its treasure chest should only be opened once, and the game topic should stop receiving new events after the treasure has been distributed. Running afoul of those checks should flag a game history as suspicious, and in need of arbitration before any play-to-earn rewards can be distributed.
+
+Like validation, the arbitration process (or, “what to do when a game has been flagged”) can either be centralized or decentralized. A centralized process would mean that the developers are entirely responsible for verifying whether an exploit was used (as well as remediating false positives). However, developers could also rely on a DAO-based decentralized court. The latter method would necessitate that jurors have ample information about the flagged game’s events in order to make an informed decision. This would require additional resources (like ShadowPlay gameplay recordings) to be added to the arbitration docket.
+
+The validation tool would not replace traditional anti-cheat methods. In fact, it would behoove developers to use traditional anti-cheat programs in tandem with HCS-based game records. For example, if such a tool were to detect a player running malicious third-party software, the game should flag that player via an HCS message.
+
+Lastly, flagging in multiplayer games should be done on a per-player basis, not per game. Individual players flagged for arbitration should not interfere with the payout rewards of the rest of the match’s occupants (unless it’s a team-based game, in which case this might be arguable).
+
+Payout Smart Contracts
+Players should interact with the game’s payout smart contract through a front-end (either web-based or in-game). Players would request a payout via the game’s topic ID. The payout contract would then check that topic for a validation message(s), calculate the player’s rewards, and then distribute the payout.
+
+This method allows us to condense payouts down to a single interaction, which will save users on gas fees – and the ecosystem from unnecessary transactions. This payout smart contract will also need to update the game’s HCS topic with a “paid” message to prevent players from repeatedly reaping the same reward.
+
+The Server Operator
+One drawback to using HCS-based records is that they’ll require a centralized server operator to service ongoing games. This server operator will be responsible for creating topics and sending messages on behalf of the game and all its players.
+
+We cannot use individual players’ Hedera accounts for this process, because:
+
+This would necessitate having players sign off on every sent message. Or, they would need to give the game permission to use their account for sending messages. This presents an unnecessary security risk.
+
+If a player is allowed to send messages to an HCS topic, then they can send any message. This would allow players to fabricate in-game events, and we would have to devise some method of catching dishonest game histories.
+
+Relying on a server operator to send the game’s HCS topic means that the developer must keep a store of $HBAR for this purpose. The server operator would require a “gas tank” wallet of $HBAR that would be used for creating HCS topics and recording game histories. This may necessitate an entry fee for each game, or some other method for covering the overhead of HCS interactions.
+
+
+Lastly, it would be difficult for a play-to-earn project to enable community-hosted game servers. If the game’s users were able to host their own servers, they would also be entrusted with creating and populating HCS topics for payouts. This would necessitate some method of checking for dishonest server operators in addition to cheating players. It isn’t an impossible task, but it certainly adds complexity and a new surface area for exploits.
+
+Chain Agnosticism
+Another advantage to using the HCS is that it’s chain agnostic. Projects that are not based on the Hedera Token Service can still interact with the HCS. Currently, the Smart Contracts 2.0 upgrade is set to make Hedera smart contracts natively interoperable with the HCS. However, oracles could be developed for any chain that desires to read HCS topics. Creating game topics and sending messages would still require a Hedera-based server operator with an $HBAR store, but these interactions do not lock developers into using the Hedera Token Service.
+
+HCS-Based Meta Records
+There is another benefit to using the HCS to record game histories: meta records. Because HCS-based game records decouple gameplay events from smart contract interactions, this methodology allows us to abstract gameplay information. This could be particularly useful for maintaining records of player histories.
+
+A meta record would be a log of player activities that persists across games. Developers can create a unique HCS topic for each player tied to their Hedera ID (or DID), and use this to track the player’s history. This would be accomplished via the game’s payout smart contract, which would update the player’s meta record in addition to distributing their play-to-earn rewards.
+
+Meta records would enable developers to track player statistics across games. Because these statistics are recorded on the HCS, they’re also made available to additional Hedera smart contracts. There are numerous possibilities enabled by this. In particular, it would allow developers to lock NFT minting rights behind player statistics or in-game achievements.
+
+Achievement NFTs
+The concept of achievement-based NFT minting is interesting because it would produce NFTs with skill-based scarcity. Typically, NFTs are either publicly minted or sold as a pre-minted cohort. A publicly minted NFT whose minting rights are locked behind in-game achievements creates an entirely new dynamic.
+
+The scarcity of these NFTs would be skill-based. However, scarcity alone doesn’t guarantee value. These NFTs should also retain some sort of utility, even if that utility is purely cosmetic. For example, partnerships with Metaverse-type projects could allow these NFTs to exist as avatar wearables or displayable objects in virtual residences. Or, these NFTs could function as items in their parent game. In addition, they could serve as items in other play-to-earn games, which would create an interesting cross-game NFT ecosystem.
+
+NFT Minting Rights via Faux Tokens
+I would recommend that these NFT minting rights be awarded on a per-attainment basis, not permanently. In other words, each individual attainment would grant the player a single minting right, which is exhausted in the process of minting it. Otherwise, this dynamic would only benefit the first attainers who would repeatedly mint the NFT until its value is reduced to its minting cost. Such a dynamic might be fine if the NFTs are meant to be plentiful, such as in-game items that are exhausted by usage. However, a per-attainment basis would allow achievement NFTs to retain scarcity if they’re locked behind a sufficiently difficult triumph.
+
+The methodology for per-attainment minting rights would be meta record-based “faux tokens.” Payout smart contracts would update players’ meta records with messages related to attainments (both granting and exhausting them). Faux tokens would simply be a calculation of the player’s remaining attainments (i.e: attainments minus minting events). The roster of available minting rights would be displayed to the user via a web front-end that reads their meta record.
+
+
+Furthermore, attainments do not need to be tied to a single achievement. In fact, it would be beneficial to award players with generic faux tokens (diamond, ruby, onyx, etc) that can be exhausted to mint various NFTs of that tier. This would allow developers to create new NFTs to be minted via pre-existing attainments. In addition, it would enable NFTs to require multiple faux tokens (i.e: an NFT that costs two rubies, or a ruby and a diamond).
+
+Lastly, since faux tokens do not exist on the actual HTS, they have a significantly reduced cost associated with them. However, players wouldn’t be able to trade these faux tokens unless we implement an entirely new kind of HCS-based decentralized exchange for them.
+
+Alleviating Token Sell Pressure through NFT Minting
+A major puzzle that must be solved when designing for play-to-earn is how to avoid creating a constantly devaluing token. Play-to-earn games often reward players with a token that must be sold (usually via DEX) in order to actually “earn” from play-to-earn. This creates immense sell pressure for the game’s native token.
+
+However, if achievement NFTs were to be minted with the play-to-earn token, then this could alleviate much of that pressure. Rather than dumping their play-to-earn tokens onto a DEX, gamers would be incentivized to sink them into NFT minting. This dynamic depends on the NFTs retaining a demand greater than their minting cost.
+
+Conclusion
+There are three primary benefits to utilizing the HCS in play-to-earn/NFT gaming:
+
+Recording game histories in the HCS would allow developers to validate said histories prior to issuing play-to-earn rewards.
+
+Having HCS-based payout smart contracts would allow developers to consolidate play-to-earn rewards into single interactions.
+
+HCS-based meta records would enable developers to create achievement NFTs with skill-based scarcity (and offload some token sell pressure).
+
+Play-to-earn and NFT gaming are brand new frontiers, and best practices have yet to form. However, Hedera is in a unique position when it comes to play-to-earn, owing to the Hedera Consensus Service. This tool provides a wealth of opportunities when it comes to play-to-earn, and does so in a decentralized manner.
+
+I have written another demo app to demonstrate HCS-based game records. It is a short, simple Roguelike entitled Hash & Slash. It is available on its dedicated website and is running on the Hedera testnet. The game records every Roguelike “turn” in a unique HCS topic and uses that topic’s history to recreate the game when a player reloads it.
+
+NOTE: In order to test the game loading feature, you must completely close the game tab. This is owing to some architecture that is unrelated to the app’s HCS usage and will be addressed in a future update. In the meantime, you must close the game tab and open the app in another tab to “kill” your game and allow it to be reloaded.
+
+
+Link: https://hedera.com/blog/use-cases-for-hcs-based-records-in-play-to-earn-nft-gaming

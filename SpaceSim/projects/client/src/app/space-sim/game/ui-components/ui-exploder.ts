@@ -41,16 +41,38 @@ export class UiExploder extends Exploder {
         );
         TryCatch.run(
             () =>
-                (this._flareParticleEmitter =
-                    this.scene.add.particles('flares')),
+                (this._flareParticleEmitter = this.scene.add.particles(
+                    0,
+                    0,
+                    'flares',
+                    {
+                        speed: { min: 200, max: 600 },
+                        lifespan: { min: 100, max: 500 },
+                        scale: { start: 1, end: 0 },
+                        angle: { min: 0, max: 360 },
+                        blendMode: 'ADD',
+                        emitting: false,
+                    }
+                )),
             'warn',
             'unable to load flares sprite as particles',
             'none'
         );
         TryCatch.run(
             () =>
-                (this._explosionParticleEmitter =
-                    this.scene.add.particles('explosion')),
+                (this._explosionParticleEmitter = this.scene.add.particles(
+                    0,
+                    0,
+                    'explosion',
+                    {
+                        speed: { min: 0, max: 2 },
+                        lifespan: { min: 500, max: 1000 },
+                        scale: { start: 1, end: 0 },
+                        angle: { min: 0, max: 360 },
+                        blendMode: 'ADD',
+                        emitting: false,
+                    }
+                )),
             'warn',
             'unable to load explosion sprite as particles',
             'none'
@@ -58,47 +80,44 @@ export class UiExploder extends Exploder {
     }
 
     override explode(options: ExploderOptions): this {
-        // create particle systems for destruction
-        this._flareParticleEmitter.setPosition(
-            options.location.x,
-            options.location.y
-        );
-        this._flareParticleEmitter.setDepth(
-            SpaceSimClient.Constants.UI.Layers.PLAYER
-        );
-        this._explosionParticleEmitter.setPosition(
-            options.location.x,
-            options.location.y
-        );
+        TryCatch.run(() => this._destroyedSound.play(), 'none');
+
+        // Configuration et explosion principale
         this._explosionParticleEmitter.setDepth(
             SpaceSimClient.Constants.UI.Layers.PLAYER
         );
-
-        TryCatch.run(() => this._destroyedSound.play(), 'none');
-
-        this._explosionParticleEmitter.createEmitter({
+        this._explosionParticleEmitter.setConfig({
             lifespan: { min: 500, max: 1000 },
-            speedX: { min: -1, max: 1 },
-            speedY: { min: -1, max: 1 },
-            angle: { min: -180, max: 179 },
+            speed: { min: 0, max: 2 },
+            scale: { start: options.scale ?? 1, end: 0 },
             gravityX: 0,
             gravityY: 0,
-            scale: { start: options.scale ?? 1, end: 0 },
             blendMode: 'ADD',
-            maxParticles: 3,
         });
-        this._flareParticleEmitter.createEmitter({
+        this._explosionParticleEmitter.explode(
+            3,
+            options.location.x,
+            options.location.y
+        );
+
+        // Configuration et explosion des flares
+        this._flareParticleEmitter.setDepth(
+            SpaceSimClient.Constants.UI.Layers.PLAYER
+        );
+        this._flareParticleEmitter.setConfig({
             frame: SpaceSimClient.Constants.UI.SpriteMaps.Flares.red as number,
             lifespan: { min: 100, max: 500 },
-            speedX: { min: -600, max: 600 },
-            speedY: { min: -600, max: 600 },
-            angle: { min: -180, max: 179 },
+            speed: { min: 200, max: 600 },
+            scale: { start: options.scale ?? 1, end: 0 },
             gravityX: 0,
             gravityY: 0,
-            scale: { start: options.scale ?? 1, end: 0 },
             blendMode: 'ADD',
-            maxParticles: 10,
         });
+        this._flareParticleEmitter.explode(
+            10,
+            options.location.x,
+            options.location.y
+        );
 
         return this;
     }

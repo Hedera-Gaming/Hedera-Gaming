@@ -351,6 +351,8 @@ export class MultiplayerScene extends BaseScene implements Resizable {
             this._camera.destroy();
         }
         this._camera = new Camera(this, {
+            x: 0,
+            y: 0,
             name: 'main',
             zoom: zoom,
             ignore: [
@@ -364,7 +366,6 @@ export class MultiplayerScene extends BaseScene implements Resizable {
         });
         this._camera.cam.fadeIn(1000, 255, 255, 255);
     }
-
     private _createMiniMap(): void {
         const miniWidth = this._width / 4;
         const miniHeight = this._height / 4;

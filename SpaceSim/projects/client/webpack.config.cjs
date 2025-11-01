@@ -33,4 +33,16 @@ module.exports = {
             },
         }),
     ],
+
+    watchOptions: {
+        ignored: [
+            "**/node_modules/**",
+            "**/dist/**",
+            "C:/System Volume Information",
+            "C:/pagefile.sys",
+            "C:/hiberfil.sys",
+            "C:/swapfile.sys",
+            "C:/DumpStack.log.tmp",
+        ],
+    },
 };

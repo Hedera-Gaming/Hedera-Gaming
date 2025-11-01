@@ -1,0 +1,1545 @@
+<svg version="1.1" baseProfile="full" width="7133.8" height="1655.0" viewBox="0 0 7133.75 1655" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+
+[AiController|-_lastKnownEnemyLocation: Vector2Like;-_lastSawEnemyTime: number;-_nextWeaponsFireAt: number;-_nextThrusterFireAt: number;-_canCheckView: boolean;-_medPriUpdateAt: number;-_lowPriUpdateAt: number;-_ultraLowPriUpdateAt: number;-_previousState: AiState;-_state: AiState;-_enemyIds: string\[\];-_patrolPath: Vector2Like\[\];-_ship: Ship|+update(): void;+setEnemyIds(): this;+canSee(): boolean;+canSeeEnemy(): Ship;+hasAttacker(): Ship;+hasLastKnown(): boolean;+canUseWeapons(): boolean;+canUseEngines(): boolean;+isAggro(): boolean;-_setState(): void;-_patrol(): void;-_attack(): void;-_goToWorldLocation(): boolean;-_goToTileLocation(): boolean;-_getPathTo(): Vector2Like\[\];-_useEngines(): boolean;-_useWeapons(): boolean;-_lookAtLastKnown(): void;-_setLastKnown(): void;-_clearLastKnown(): void]
+[InputController]&lt;:-[AiController]
+[InputController|+id: string;-_scene: Scene;+active: boolean|+abstract update(): void]
+[Updatable]&lt;:--[InputController]
+[&lt;type&gt;CanTarget||+lookAt(): void]
+[&lt;type&gt;DamageMetadata|+timestamp: number;+attackerId?: string;+message?: string|]
+[&lt;type&gt;HasEngine||+getThruster(): Engine]
+[&lt;type&gt;HasFuel||+reduceFuel(): void;+addFuel(): void;+getRemainingFuel(): number]
+[&lt;type&gt;HasGameObject&lt;T&gt;||+getGameObject(): T;+getRotation(): number;+setRotation(): void]
+[&lt;type&gt;HasId|+id: string|]
+[&lt;type&gt;HasIntegrity|+integrity: number|+sustainDamage(): void;+repair(): void;+selfDestruct(): void;+cancelSelfDestruct(): void;+destroy(): void]
+[&lt;type&gt;HasLocation|+location: Vector2Like;+locationInView: Vector2Like|]
+[&lt;interface&gt;HasPhysicsBody||+getPhysicsBody(): Body;+getHeading(): Vector2;+getSpeed(): number;+getVelocity(): Vector2]
+[&lt;interface&gt;HasState&lt;T&gt;|+currentState: T|+setCurrentState(): this]
+[&lt;type&gt;HasTemperature|+temperature: number|+isOverheating(): boolean;+applyHeating(): void;+applyCooling(): void]
+[&lt;type&gt;HasWeapons||+getWeapons(): Weapon]
+[&lt;type&gt;NumberRange|+min: number;+max: number|]
+[&lt;type&gt;PhysicsObject|+location: Vector2Like;+velocity: Vector2Like;+angle: number;+angularVelocity: number|]
+[&lt;type&gt;Size|+width: number;+height: number|]
+[&lt;type&gt;SocketData&lt;T&gt;|+sent: number;+data: T|]
+[&lt;type&gt;Updatable||+update(): void]
+[GameLevel|+scene: BaseScene;-_rooms: GameRoom\[\];-_wallsLayer: TilemapLayer;-_radarLayer: TilemapLayer|+setCurrentState(): this;+setAlpha(): this;+getMapTileWorldLocation(): Vector2;+isWithinTile(): boolean;+getRoomAt(): GameRoom;+getRoomAtWorldXY(): GameRoom;+getRoomClosestToOrigin(): GameRoom;+getRoomFurthestFromOrigin(): GameRoom;+getActiveShipsWithinRadius(): Ship\[\];+findPathTo(): Vector2Like\[\];+isWallObscuring(): boolean;-_createRooms(): GameRoom\[\];-_createLayers(): void]
+[&lt;type&gt;GameTile|+name: string;+index?: number;+x: number;+y: number|]
+[&lt;type&gt;GameRoom|+width: number;+height: number;+left: number;+top: number;+collisionTiles: GameTile\[\];+nonCollisionTiles: GameTile\[\];+visible?: boolean|]
+[&lt;type&gt;GameLevelConfig|+rooms: GameRoom\[\]|]
+[Tilemap]&lt;:-[GameLevel]
+[HasState&lt;T&gt;]&lt;:--[GameLevel]
+[BaseScene|-_highPriorityActions: Map&lt;string, UpdateAction&gt;;-_mediumPriorityActions: Map&lt;string, UpdateAction&gt;;-_lowPriorityActions: Map&lt;string, UpdateAction&gt;;-_ultraLowPriorityActions: Map&lt;string, UpdateAction&gt;;-_medPriElapsed: number;-_lowPriElapsed: number;-_ultraLowPriElapsed: number|+abstract getLevel(): T;+abstract getShip(): T;+abstract getShips(): T\[\];+abstract getSupply(): T;+abstract getSupplies(): T\[\];+abstract queueGameLevelUpdate(): BaseScene;+abstract queueShipUpdates(): BaseScene;+abstract queueShipRemoval(): BaseScene;+abstract queueSupplyUpdates(): BaseScene;+abstract queueSupplyRemoval(): BaseScene;+abstract queueSupplyFlicker(): BaseScene;+abstract queueEndScene(): BaseScene;+update(): void;+addRepeatingAction(): this;+removeRepeatingAction(): this]
+[Scene]&lt;:-[BaseScene]
+[Ship|+name: string;-_lastDamagedBy: DamageMetadata\[\];-_id: string;-_temperature: number;-_integrity: number;-_remainingFuel: number;-_weaponsKey: number;-_wingsKey: number;-_cockpitKey: number;-_engineKey: number;-_engine: Engine;-_weapon: Weapon;-_rotationContainer: Container;+destroyAtTime: number;+scene: BaseScene;+body: Body|+setCurrentState(): this;+setEngine(): this;+setWeapon(): this;+update(): void;+lookAt(): void;+addHeat(): void;+subtractHeat(): void;+subtractFuel(): void;+addFuel(): void;+subtractIntegrity(): void;+addIntegrity(): void;+selfDestruct(): void;+cancelSelfDestruct(): void;+death(): void;-_checkOverheatCondition(): void;-_createGameObj(): void;-_updateLastDamagedBy(): void]
+[Container]&lt;:-[Ship]
+[HasId]&lt;:--[Ship]
+[HasLocation]&lt;:--[Ship]
+[HasState&lt;T&gt;]&lt;:--[Ship]
+[Exploder|+scene: Scene|+explode(): this;+emitSupplies(): ShipSupplyOptions\[\]]
+[&lt;type&gt;ExploderOptions|+scale?: number;+location: Vector2Like|]
+[GameScoreTracker||+start(): void;+shotFired(): void;+shotLanded(): void;+opponentDestroyed(): void;+getScore(): number;+getLeaderboard(): UserScore\[\];+getStats(): GameStats;+getAllStats(): GameStats\[\];+updateStats(): void;+updateAllStats(): void;+getAccuracy(): number]
+[DynamicDataStore&lt;T&gt;]&lt;:-[GameScoreTracker]
+[ShipAttachment|+scene: BaseScene;-_ship: Ship;-_enabled: boolean|+setShip(): this;+abstract update(): void;+setEnabled(): void]
+[Updatable]&lt;:--[ShipAttachment]
+[AmmoSupply||+apply(): void]
+[ShipSupply]&lt;:-[AmmoSupply]
+[CoolantSupply||+apply(): void]
+[ShipSupply]&lt;:-[CoolantSupply]
+[FuelSupply||+apply(): void]
+[ShipSupply]&lt;:-[FuelSupply]
+[RepairsSupply||+apply(): void]
+[ShipSupply]&lt;:-[RepairsSupply]
+[ShipSupply|-_id: string;-_amount: number;-_type: SupplyType;-_createdAt: number;+scene: BaseScene;+body: Body|+setCurrentState(): this;+abstract apply(): void]
+[Container]&lt;:-[ShipSupply]
+[HasId]&lt;:--[ShipSupply]
+[HasState&lt;T&gt;]&lt;:--[ShipSupply]
+[Bullet|+id: string;+scene: BaseScene;+force: number;+damage: number;+heat: number;+radius: number;+weapon: Weapon;+timeout: number;+mass: number;+startingLoc: Vector2Like;+startingA: number;+startingV: Vector2Like;+body: Body|+onShipCollision(): void;-_setInMotion(): void;-_createGameObj(): void;-_addCollisionDetection(): void]
+[&lt;type&gt;BulletOptions|+startingLoc: Vector2Like;+weapon: Weapon;+force: number;+damage: number;+heat: number;+startingA: number;+startingV: Vector2Like;+radius: number;+timeout: number;+mass: number|]
+[Container]&lt;:-[Bullet]
+[BulletOptions]&lt;:--[Bullet]
+[HasId]&lt;:--[Bullet]
+[HasLocation]&lt;:--[Bullet]
+[Cannon||]
+[Weapon]&lt;:-[Cannon]
+[MachineGun||]
+[Weapon]&lt;:-[MachineGun]
+[PlasmaGun||]
+[Weapon]&lt;:-[PlasmaGun]
+[Weapon|+model: &quot;machinegun&quot; \| &quot;cannon&quot; \| &quot;plasma&quot; \| &quot;invalid&quot;;+maxAmmo: number;+firingDelay: number;+heatPerShot: number;+bulletMass: number;+bulletScale: number;+damagePerHit: number;+heatPerHit: number;+bulletTimeout: number;+force: number;+remainingAmmo: number;-_lastFired: number|+setEnabled(): void;+addAmmo(): this;+update(): void;+getBullet(): Bullet;-_canFire(): boolean;-_fire(): void]
+[&lt;type&gt;WeaponOptions|+model: &quot;machinegun&quot; \| &quot;cannon&quot; \| &quot;plasma&quot; \| &quot;invalid&quot;;+maxAmmo: number;+firingDelay: number;+remainingAmmo?: number;+heatPerShot: number;+bulletMass?: number;+bulletRadius: number;+damagePerHit: number;+heatPerHit: number;+bulletTimeout: number;+force: number|]
+[ShipAttachment]&lt;:-[Weapon]
+[EconomyEngine||]
+[Engine]&lt;:-[EconomyEngine]
+[Engine|-_lastUsedAt: number;+model: &quot;invalid&quot; \| &quot;economy&quot; \| &quot;standard&quot; \| &quot;sports&quot; \| &quot;premium&quot;;+force: number;+fuelPerUse: number;+heatPerUse: number;+usageDelayMs: number|+setEnabled(): void;+update(): void;-_applyThrust(): void;-_canThrust(): boolean]
+[&lt;type&gt;EngineOptions|+model: &quot;invalid&quot; \| &quot;economy&quot; \| &quot;standard&quot; \| &quot;sports&quot; \| &quot;premium&quot;;+force: number;+fuelPerUse: number;+heatPerUse: number;+usageDelay: number|]
+[ShipAttachment]&lt;:-[Engine]
+[SportsEngine||]
+[Engine]&lt;:-[SportsEngine]
+[StandardEngine||]
+[Engine]&lt;:-[StandardEngine]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+<g font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="1655.0" width="7133.8" stroke="none"></rect>
+</g>
+<g transform="translate(8, 8)" fill="#33322E">
+<g transform="translate(20, 20)" fill="#eee8d5" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<path d="M1031.0 650.8 L1031 892 L1031 912 L1031.0 912.0 " fill="none"></path>
+<path d="M1036.3 650.8 L1031.0 650.8 L1025.7 650.8 L1031.0 637.5 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M1703.1 166.1 L1687.25 254 L1133.5 523.1752380952381 L1133.5 523.2 " fill="none"></path>
+</g>
+<path d="M1708.4 167.1 L1703.1 166.1 L1697.9 165.2 L1705.5 153.0 Z"></path>
+<path d="M39.0 146.3 L39 254 L1173.5 528.8997341435625 L1173.5 528.9 " fill="none"></path>
+<path d="M44.3 146.3 L39.0 146.3 L33.7 146.3 L39.0 133.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M2133.7 176.0 L2080.5 254 L1537.5 492.92 L1537.5 492.9 " fill="none"></path>
+</g>
+<path d="M2138.1 179.0 L2133.7 176.0 L2129.3 173.0 L2141.2 165.0 Z"></path>
+<path d="M1302.0 146.3 L1302 254 L888.5 462.8780680918448 L888.5 462.9 " fill="none"></path>
+<path d="M1307.3 146.3 L1302.0 146.3 L1296.7 146.3 L1302.0 133.0 Z"></path>
+<path d="M4622.5 144.8 L4565.5 254 L4674.75 384.40505144995325 L4674.8 384.4 " fill="none"></path>
+<path d="M4627.2 147.3 L4622.5 144.8 L4617.8 142.4 L4628.6 133.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M4863.2 166.1 L4846 254 L4845.169278996866 274 L4845.2 274.0 " fill="none"></path>
+</g>
+<path d="M4868.4 167.1 L4863.2 166.1 L4857.9 165.1 L4865.7 153.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M5572.1 167.5 L5416.75 254 L4990.75 486.69520547945206 L4990.8 486.7 " fill="none"></path>
+</g>
+<path d="M5574.7 172.1 L5572.1 167.5 L5569.5 162.8 L5583.7 161.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M2287.1 136.3 L2976.5 254 L4674.75 545.8474074074074 L4674.8 545.8 " fill="none"></path>
+</g>
+<path d="M2288.0 131.1 L2287.1 136.3 L2286.2 141.6 L2274.0 134.1 Z"></path>
+<path d="M4428.5 146.3 L4428.5 254 L4322.275862068966 456 L4322.3 456.0 " fill="none"></path>
+<path d="M4433.8 146.3 L4428.5 146.3 L4423.2 146.3 L4428.5 133.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M1778.6 160.3 L1923 254 L2365.25 512.9770536943552 L2365.3 513.0 " fill="none"></path>
+</g>
+<path d="M1781.5 155.8 L1778.6 160.3 L1775.7 164.7 L1767.4 153.0 Z"></path>
+<path d="M4422.7 626.1 L3861.75 892 L3861.75 1175.5 L3861.8 1175.5 " fill="none"></path>
+<path d="M4425.0 630.9 L4422.7 626.1 L4420.4 621.3 L4434.8 620.4 Z"></path>
+<path d="M4423.5 643.2 L4029.25 892 L4029.25 1175.5 L4029.3 1175.5 " fill="none"></path>
+<path d="M4426.3 647.7 L4423.5 643.2 L4420.6 638.7 L4434.8 636.1 Z"></path>
+<path d="M4425.1 676.5 L4196.75 892 L4196.75 1175.5 L4196.8 1175.5 " fill="none"></path>
+<path d="M4428.7 680.4 L4425.1 676.5 L4421.4 672.7 L4434.8 667.4 Z"></path>
+<path d="M4570.7 682.2 L4639.75 892 L4639.75 1175.5 L4639.8 1175.5 " fill="none"></path>
+<path d="M4575.7 680.5 L4570.7 682.2 L4565.6 683.8 L4566.5 669.5 Z"></path>
+<path d="M4641.3 146.2 L4657 254 L4571.7315830721 476.5 L4571.7 476.5 " fill="none"></path>
+<path d="M4646.5 145.4 L4641.3 146.2 L4636.0 147.0 L4639.3 133.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M4932.2 139.9 L5227.75 254 L4634.75 526.968253968254 L4634.8 527.0 " fill="none"></path>
+</g>
+<path d="M4934.1 135.0 L4932.2 139.9 L4930.3 144.9 L4919.8 135.1 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M2287.2 130.8 L3301.25 254 L4434.75 547.1386299148763 L4434.8 547.1 " fill="none"></path>
+</g>
+<path d="M2287.9 125.5 L2287.2 130.8 L2286.6 136.1 L2274.0 129.2 Z"></path>
+<path d="M4667.1 141.4 L4806 254 L5648.75 530.5104139881718 L5648.8 530.5 " fill="none"></path>
+<path d="M4670.5 137.3 L4667.1 141.4 L4663.7 145.5 L4656.7 133.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M5933.8 239.3 L5933.75 254 L5861.118338557993 403 L5861.1 403.0 " fill="none"></path>
+</g>
+<path d="M5939.1 239.3 L5933.8 239.3 L5928.4 239.3 L5933.8 226.0 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M4932.3 137.7 L5267.75 254 L5648.75 492.0783545543585 L5648.8 492.1 " fill="none"></path>
+</g>
+<path d="M4934.1 132.6 L4932.3 137.7 L4930.6 142.7 L4919.8 133.3 Z"></path>
+<g stroke-dasharray="6 6">
+<path d="M5708.4 171.2 L5778.25 254 L5778.25 403 L5778.3 403.0 " fill="none"></path>
+</g>
+<path d="M5712.5 167.8 L5708.4 171.2 L5704.4 174.6 L5699.8 161.0 Z"></path>
+<path d="M2426.9 1402.0 L2399.25 1531 L2399.25 1551 L2399.3 1551.0 " fill="none"></path>
+<path d="M2432.1 1403.2 L2426.9 1402.0 L2421.7 1400.9 L2429.7 1389.0 Z"></path>
+<path d="M2527.4 1401.7 L2568 1531 L2568 1551 L2568.0 1551.0 " fill="none"></path>
+<path d="M2532.5 1400.1 L2527.4 1401.7 L2522.3 1403.3 L2523.4 1389.0 Z"></path>
+<path d="M2623.8 1399.3 L2733.25 1531 L2733.25 1551 L2733.3 1551.0 " fill="none"></path>
+<path d="M2627.9 1395.8 L2623.8 1399.3 L2619.7 1402.7 L2615.3 1389.0 Z"></path>
+<path d="M2467.8 667.3 L2467.75 892 L2467.75 1034 L2467.8 1034.0 " fill="none"></path>
+<path d="M2473.1 667.3 L2467.8 667.3 L2462.4 667.3 L2467.8 654.0 Z"></path>
+<path d="M2951.2 1337.4 L2898.75 1531 L2898.75 1551 L2898.8 1551.0 " fill="none"></path>
+<path d="M2956.3 1338.8 L2951.2 1337.4 L2946.0 1336.0 L2954.7 1324.5 Z"></path>
+<path d="M2581.6 643.2 L2985.25 892 L2985.25 1098.5 L2985.3 1098.5 " fill="none"></path>
+<path d="M2584.4 638.6 L2581.6 643.2 L2578.8 647.7 L2570.3 636.2 Z"></path>
+<path d="M3019.3 1337.4 L3071.75 1531 L3071.75 1551 L3071.8 1551.0 " fill="none"></path>
+<path d="M3024.5 1336.0 L3019.3 1337.4 L3014.2 1338.8 L3015.8 1324.5 Z"></path>
+<path d="M3085.2 1334.9 L3244.25 1531 L3244.25 1551 L3244.3 1551.0 " fill="none"></path>
+<path d="M3089.4 1331.5 L3085.2 1334.9 L3081.1 1338.2 L3076.9 1324.5 Z"></path>
+<g data-name="AiController">
+<g fill="#eee8d5" stroke="#33322E" data-name="AiController">
+<rect x="861.5" y="912.0" height="599.0" width="339.0" data-name="AiController"></rect>
+<path d="M861.5 944.0 L1200.5 944.0" fill="none" data-name="AiController"></path>
+<path d="M861.5 1171.0 L1200.5 1171.0" fill="none" data-name="AiController"></path>
+</g>
+<g transform="translate(861.5, 912)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AiController" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AiController" data-compartment="0">
+<a id="projects\shared\src\controllers\ai-controller.ts.AiController" xlink:href="projects\shared\src\controllers\ai-controller.ts"><text x="161.5" y="14.1" stroke="none" text-anchor="middle" data-name="AiController" data-compartment="0">AiController</text></a>
+
+</g>
+</g>
+<g transform="translate(861.5, 944)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AiController" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AiController" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="AiController" data-compartment="1">-_lastKnownEnemyLocation: Vector2Like</text>
+<text x="0.0" y="30.3" stroke="none" data-name="AiController" data-compartment="1">-_lastSawEnemyTime: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="AiController" data-compartment="1">-_nextWeaponsFireAt: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="AiController" data-compartment="1">-_nextThrusterFireAt: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="AiController" data-compartment="1">-_canCheckView: boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="AiController" data-compartment="1">-_medPriUpdateAt: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="AiController" data-compartment="1">-_lowPriUpdateAt: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="AiController" data-compartment="1">-_ultraLowPriUpdateAt: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="AiController" data-compartment="1">-_previousState: AiState</text>
+<text x="0.0" y="159.9" stroke="none" data-name="AiController" data-compartment="1">-_state: AiState</text>
+<text x="0.0" y="176.1" stroke="none" data-name="AiController" data-compartment="1">-_enemyIds: string[]</text>
+<text x="0.0" y="192.3" stroke="none" data-name="AiController" data-compartment="1">-_patrolPath: Vector2Like[]</text>
+<text x="0.0" y="208.5" stroke="none" data-name="AiController" data-compartment="1">-_ship: Ship</text>
+
+</g>
+</g>
+<g transform="translate(861.5, 1171)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AiController" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AiController" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="AiController" data-compartment="2">+update(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="AiController" data-compartment="2">+setEnemyIds(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="AiController" data-compartment="2">+canSee(): boolean</text>
+<text x="0.0" y="62.7" stroke="none" data-name="AiController" data-compartment="2">+canSeeEnemy(): Ship</text>
+<text x="0.0" y="78.9" stroke="none" data-name="AiController" data-compartment="2">+hasAttacker(): Ship</text>
+<text x="0.0" y="95.1" stroke="none" data-name="AiController" data-compartment="2">+hasLastKnown(): boolean</text>
+<text x="0.0" y="111.3" stroke="none" data-name="AiController" data-compartment="2">+canUseWeapons(): boolean</text>
+<text x="0.0" y="127.5" stroke="none" data-name="AiController" data-compartment="2">+canUseEngines(): boolean</text>
+<text x="0.0" y="143.7" stroke="none" data-name="AiController" data-compartment="2">+isAggro(): boolean</text>
+<text x="0.0" y="159.9" stroke="none" data-name="AiController" data-compartment="2">-_setState(): void</text>
+<text x="0.0" y="176.1" stroke="none" data-name="AiController" data-compartment="2">-_patrol(): void</text>
+<text x="0.0" y="192.3" stroke="none" data-name="AiController" data-compartment="2">-_attack(): void</text>
+<text x="0.0" y="208.5" stroke="none" data-name="AiController" data-compartment="2">-_goToWorldLocation(): boolean</text>
+<text x="0.0" y="224.7" stroke="none" data-name="AiController" data-compartment="2">-_goToTileLocation(): boolean</text>
+<text x="0.0" y="240.9" stroke="none" data-name="AiController" data-compartment="2">-_getPathTo(): Vector2Like[]</text>
+<text x="0.0" y="257.1" stroke="none" data-name="AiController" data-compartment="2">-_useEngines(): boolean</text>
+<text x="0.0" y="273.3" stroke="none" data-name="AiController" data-compartment="2">-_useWeapons(): boolean</text>
+<text x="0.0" y="289.5" stroke="none" data-name="AiController" data-compartment="2">-_lookAtLastKnown(): void</text>
+<text x="0.0" y="305.7" stroke="none" data-name="AiController" data-compartment="2">-_setLastKnown(): void</text>
+<text x="0.0" y="321.9" stroke="none" data-name="AiController" data-compartment="2">-_clearLastKnown(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="InputController">
+<g fill="#eee8d5" stroke="#33322E" data-name="InputController">
+<rect x="928.5" y="508.5" height="129.0" width="205.0" data-name="InputController"></rect>
+<path d="M928.5 540.5 L1133.5 540.5" fill="none" data-name="InputController"></path>
+<path d="M928.5 605.5 L1133.5 605.5" fill="none" data-name="InputController"></path>
+</g>
+<g transform="translate(928.5, 508.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="InputController" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="InputController" data-compartment="0">
+<a id="projects\shared\src\controllers\input-controller.ts.InputController" xlink:href="projects\shared\src\controllers\input-controller.ts"><text x="94.5" y="14.1" stroke="none" text-anchor="middle" data-name="InputController" data-compartment="0">InputController</text></a>
+
+</g>
+</g>
+<g transform="translate(928.5, 540.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="InputController" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="InputController" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="InputController" data-compartment="1">+id: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="InputController" data-compartment="1">-_scene: Scene</text>
+<text x="0.0" y="46.5" stroke="none" data-name="InputController" data-compartment="1">+active: boolean</text>
+
+</g>
+</g>
+<g transform="translate(928.5, 605.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="InputController" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="InputController" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="InputController" data-compartment="2">+abstract update(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Updatable">
+<g fill="lightgray" stroke="#33322E" data-name="Updatable">
+<rect x="1644.0" y="81.0" height="72.0" width="136.0" data-name="Updatable"></rect>
+<path d="M1644.0 113.0 L1780.0 113.0" fill="none" data-name="Updatable"></path>
+<path d="M1644.0 121.0 L1780.0 121.0" fill="none" data-name="Updatable"></path>
+</g>
+<g transform="translate(1644, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Updatable" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Updatable" data-compartment="0">
+<a id="projects\shared\src\interfaces\updatable.ts.Updatable" xlink:href="projects\shared\src\interfaces\updatable.ts"><text x="60.0" y="14.1" stroke="none" text-anchor="middle" data-name="Updatable" data-compartment="0">Updatable</text></a>
+
+</g>
+</g>
+<g transform="translate(1644, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Updatable" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="Updatable" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1644, 121)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Updatable" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Updatable" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Updatable" data-compartment="2">+update(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="CanTarget">
+<g fill="lightgray" stroke="#33322E" data-name="CanTarget">
+<rect x="118.0" y="81.0" height="72.0" width="130.0" data-name="CanTarget"></rect>
+<path d="M118.0 113.0 L248.0 113.0" fill="none" data-name="CanTarget"></path>
+<path d="M118.0 121.0 L248.0 121.0" fill="none" data-name="CanTarget"></path>
+</g>
+<g transform="translate(118, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CanTarget" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CanTarget" data-compartment="0">
+<a id="projects\shared\src\interfaces\can-target.ts.CanTarget" xlink:href="projects\shared\src\interfaces\can-target.ts"><text x="57.0" y="14.1" stroke="none" text-anchor="middle" data-name="CanTarget" data-compartment="0">CanTarget</text></a>
+
+</g>
+</g>
+<g transform="translate(118, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CanTarget" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CanTarget" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(118, 121)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CanTarget" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CanTarget" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="CanTarget" data-compartment="2">+lookAt(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="DamageMetadata">
+<g fill="lightgray" stroke="#33322E" data-name="DamageMetadata">
+<rect x="288.0" y="64.5" height="105.0" width="177.0" data-name="DamageMetadata"></rect>
+<path d="M288.0 96.5 L465.0 96.5" fill="none" data-name="DamageMetadata"></path>
+<path d="M288.0 161.5 L465.0 161.5" fill="none" data-name="DamageMetadata"></path>
+</g>
+<g transform="translate(288, 64.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DamageMetadata" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="DamageMetadata" data-compartment="0">
+<a id="projects\shared\src\interfaces\damage-metadata.ts.DamageMetadata" xlink:href="projects\shared\src\interfaces\damage-metadata.ts"><text x="80.5" y="14.1" stroke="none" text-anchor="middle" data-name="DamageMetadata" data-compartment="0">DamageMetadata</text></a>
+
+</g>
+</g>
+<g transform="translate(288, 96.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DamageMetadata" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="DamageMetadata" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="DamageMetadata" data-compartment="1">+timestamp: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="DamageMetadata" data-compartment="1">+attackerId?: string</text>
+<text x="0.0" y="46.5" stroke="none" data-name="DamageMetadata" data-compartment="1">+message?: string</text>
+
+</g>
+</g>
+<g transform="translate(288, 161.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DamageMetadata" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="DamageMetadata" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="HasEngine">
+<g fill="lightgray" stroke="#33322E" data-name="HasEngine">
+<rect x="505.0" y="81.0" height="72.0" width="194.0" data-name="HasEngine"></rect>
+<path d="M505.0 113.0 L699.0 113.0" fill="none" data-name="HasEngine"></path>
+<path d="M505.0 121.0 L699.0 121.0" fill="none" data-name="HasEngine"></path>
+</g>
+<g transform="translate(505, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasEngine" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasEngine" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-engine.ts.HasEngine" xlink:href="projects\shared\src\interfaces\has-engine.ts"><text x="89.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasEngine" data-compartment="0">HasEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(505, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasEngine" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasEngine" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(505, 121)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasEngine" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasEngine" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasEngine" data-compartment="2">+getThruster(): Engine</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasFuel">
+<g fill="lightgray" stroke="#33322E" data-name="HasFuel">
+<rect x="739.0" y="64.5" height="105.0" width="251.0" data-name="HasFuel"></rect>
+<path d="M739.0 96.5 L990.0 96.5" fill="none" data-name="HasFuel"></path>
+<path d="M739.0 104.5 L990.0 104.5" fill="none" data-name="HasFuel"></path>
+</g>
+<g transform="translate(739, 64.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasFuel" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasFuel" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-fuel.ts.HasFuel" xlink:href="projects\shared\src\interfaces\has-fuel.ts"><text x="117.5" y="14.1" stroke="none" text-anchor="middle" data-name="HasFuel" data-compartment="0">HasFuel</text></a>
+
+</g>
+</g>
+<g transform="translate(739, 96.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasFuel" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasFuel" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(739, 104.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasFuel" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasFuel" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasFuel" data-compartment="2">+reduceFuel(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasFuel" data-compartment="2">+addFuel(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HasFuel" data-compartment="2">+getRemainingFuel(): number</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasGameObject&lt;T&gt;">
+<g fill="lightgray" stroke="#33322E" data-name="HasGameObject&lt;T&gt;">
+<rect x="1030.0" y="64.5" height="105.0" width="199.0" data-name="HasGameObject&lt;T&gt;"></rect>
+<path d="M1030.0 96.5 L1229.0 96.5" fill="none" data-name="HasGameObject&lt;T&gt;"></path>
+<path d="M1030.0 104.5 L1229.0 104.5" fill="none" data-name="HasGameObject&lt;T&gt;"></path>
+</g>
+<g transform="translate(1030, 64.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasGameObject&lt;T&gt;" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasGameObject&lt;T&gt;" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-game-object.ts.HasGameObject&lt;T&gt;" xlink:href="projects\shared\src\interfaces\has-game-object.ts"><text x="91.5" y="14.1" stroke="none" text-anchor="middle" data-name="HasGameObject&lt;T&gt;" data-compartment="0">HasGameObject&lt;T&gt;</text></a>
+
+</g>
+</g>
+<g transform="translate(1030, 96.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasGameObject&lt;T&gt;" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasGameObject&lt;T&gt;" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1030, 104.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasGameObject&lt;T&gt;" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasGameObject&lt;T&gt;" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasGameObject&lt;T&gt;" data-compartment="2">+getGameObject(): T</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasGameObject&lt;T&gt;" data-compartment="2">+getRotation(): number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HasGameObject&lt;T&gt;" data-compartment="2">+setRotation(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasId">
+<g fill="lightgray" stroke="#33322E" data-name="HasId">
+<rect x="4825.8" y="81.0" height="72.0" width="94.0" data-name="HasId"></rect>
+<path d="M4825.8 113.0 L4919.8 113.0" fill="none" data-name="HasId"></path>
+<path d="M4825.8 145.0 L4919.8 145.0" fill="none" data-name="HasId"></path>
+</g>
+<g transform="translate(4825.75, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasId" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasId" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-id.ts.HasId" xlink:href="projects\shared\src\interfaces\has-id.ts"><text x="39.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasId" data-compartment="0">HasId</text></a>
+
+</g>
+</g>
+<g transform="translate(4825.75, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasId" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasId" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="HasId" data-compartment="1">+id: string</text>
+
+</g>
+</g>
+<g transform="translate(4825.75, 145)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasId" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasId" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="HasIntegrity">
+<g fill="lightgray" stroke="#33322E" data-name="HasIntegrity">
+<rect x="1375.0" y="36.5" height="161.0" width="229.0" data-name="HasIntegrity"></rect>
+<path d="M1375.0 68.5 L1604.0 68.5" fill="none" data-name="HasIntegrity"></path>
+<path d="M1375.0 100.5 L1604.0 100.5" fill="none" data-name="HasIntegrity"></path>
+</g>
+<g transform="translate(1375, 36.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasIntegrity" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasIntegrity" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-integrity.ts.HasIntegrity" xlink:href="projects\shared\src\interfaces\has-integrity.ts"><text x="106.5" y="14.1" stroke="none" text-anchor="middle" data-name="HasIntegrity" data-compartment="0">HasIntegrity</text></a>
+
+</g>
+</g>
+<g transform="translate(1375, 68.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasIntegrity" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasIntegrity" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="HasIntegrity" data-compartment="1">+integrity: number</text>
+
+</g>
+</g>
+<g transform="translate(1375, 100.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasIntegrity" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasIntegrity" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasIntegrity" data-compartment="2">+sustainDamage(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasIntegrity" data-compartment="2">+repair(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HasIntegrity" data-compartment="2">+selfDestruct(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="HasIntegrity" data-compartment="2">+cancelSelfDestruct(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="HasIntegrity" data-compartment="2">+destroy(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasLocation">
+<g fill="lightgray" stroke="#33322E" data-name="HasLocation">
+<rect x="5540.8" y="73.0" height="88.0" width="244.0" data-name="HasLocation"></rect>
+<path d="M5540.8 105.0 L5784.8 105.0" fill="none" data-name="HasLocation"></path>
+<path d="M5540.8 153.0 L5784.8 153.0" fill="none" data-name="HasLocation"></path>
+</g>
+<g transform="translate(5540.75, 73)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasLocation" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasLocation" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-location.ts.HasLocation" xlink:href="projects\shared\src\interfaces\has-location.ts"><text x="114.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasLocation" data-compartment="0">HasLocation</text></a>
+
+</g>
+</g>
+<g transform="translate(5540.75, 105)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasLocation" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasLocation" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="HasLocation" data-compartment="1">+location: Vector2Like</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasLocation" data-compartment="1">+locationInView: Vector2Like</text>
+
+</g>
+</g>
+<g transform="translate(5540.75, 153)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasLocation" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasLocation" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="HasPhysicsBody">
+<g fill="lightblue" stroke="#33322E" data-name="HasPhysicsBody">
+<rect x="1820.0" y="56.5" height="121.0" width="214.0" data-name="HasPhysicsBody"></rect>
+<path d="M1820.0 88.5 L2034.0 88.5" fill="none" data-name="HasPhysicsBody"></path>
+<path d="M1820.0 96.5 L2034.0 96.5" fill="none" data-name="HasPhysicsBody"></path>
+</g>
+<g transform="translate(1820, 56.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasPhysicsBody" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasPhysicsBody" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-physics-body.ts.HasPhysicsBody" xlink:href="projects\shared\src\interfaces\has-physics-body.ts"><text x="99.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasPhysicsBody" data-compartment="0">HasPhysicsBody</text></a>
+
+</g>
+</g>
+<g transform="translate(1820, 88.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasPhysicsBody" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasPhysicsBody" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1820, 96.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasPhysicsBody" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasPhysicsBody" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasPhysicsBody" data-compartment="2">+getPhysicsBody(): Body</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasPhysicsBody" data-compartment="2">+getHeading(): Vector2</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HasPhysicsBody" data-compartment="2">+getSpeed(): number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="HasPhysicsBody" data-compartment="2">+getVelocity(): Vector2</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasState&lt;T&gt;">
+<g fill="lightblue" stroke="#33322E" data-name="HasState&lt;T&gt;">
+<rect x="2074.0" y="69.0" height="96.0" width="200.0" data-name="HasState&lt;T&gt;"></rect>
+<path d="M2074.0 101.0 L2274.0 101.0" fill="none" data-name="HasState&lt;T&gt;"></path>
+<path d="M2074.0 133.0 L2274.0 133.0" fill="none" data-name="HasState&lt;T&gt;"></path>
+</g>
+<g transform="translate(2074, 69)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasState&lt;T&gt;" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasState&lt;T&gt;" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-state.ts.HasState&lt;T&gt;" xlink:href="projects\shared\src\interfaces\has-state.ts"><text x="92.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasState&lt;T&gt;" data-compartment="0">HasState&lt;T&gt;</text></a>
+
+</g>
+</g>
+<g transform="translate(2074, 101)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasState&lt;T&gt;" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasState&lt;T&gt;" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="HasState&lt;T&gt;" data-compartment="1">+currentState: T</text>
+
+</g>
+</g>
+<g transform="translate(2074, 133)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasState&lt;T&gt;" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasState&lt;T&gt;" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasState&lt;T&gt;" data-compartment="2">+setCurrentState(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasTemperature">
+<g fill="lightgray" stroke="#33322E" data-name="HasTemperature">
+<rect x="2314.0" y="52.5" height="129.0" width="222.0" data-name="HasTemperature"></rect>
+<path d="M2314.0 84.5 L2536.0 84.5" fill="none" data-name="HasTemperature"></path>
+<path d="M2314.0 116.5 L2536.0 116.5" fill="none" data-name="HasTemperature"></path>
+</g>
+<g transform="translate(2314, 52.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasTemperature" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasTemperature" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-temperature.ts.HasTemperature" xlink:href="projects\shared\src\interfaces\has-temperature.ts"><text x="103.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasTemperature" data-compartment="0">HasTemperature</text></a>
+
+</g>
+</g>
+<g transform="translate(2314, 84.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasTemperature" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasTemperature" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="HasTemperature" data-compartment="1">+temperature: number</text>
+
+</g>
+</g>
+<g transform="translate(2314, 116.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasTemperature" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasTemperature" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasTemperature" data-compartment="2">+isOverheating(): boolean</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HasTemperature" data-compartment="2">+applyHeating(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HasTemperature" data-compartment="2">+applyCooling(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasWeapons">
+<g fill="lightgray" stroke="#33322E" data-name="HasWeapons">
+<rect x="2576.0" y="81.0" height="72.0" width="214.0" data-name="HasWeapons"></rect>
+<path d="M2576.0 113.0 L2790.0 113.0" fill="none" data-name="HasWeapons"></path>
+<path d="M2576.0 121.0 L2790.0 121.0" fill="none" data-name="HasWeapons"></path>
+</g>
+<g transform="translate(2576, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasWeapons" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HasWeapons" data-compartment="0">
+<a id="projects\shared\src\interfaces\has-weapons.ts.HasWeapons" xlink:href="projects\shared\src\interfaces\has-weapons.ts"><text x="99.0" y="14.1" stroke="none" text-anchor="middle" data-name="HasWeapons" data-compartment="0">HasWeapons</text></a>
+
+</g>
+</g>
+<g transform="translate(2576, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasWeapons" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="HasWeapons" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(2576, 121)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HasWeapons" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HasWeapons" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="HasWeapons" data-compartment="2">+getWeapons(): Weapon</text>
+
+</g>
+</g>
+</g>
+<g data-name="NumberRange">
+<g fill="lightgray" stroke="#33322E" data-name="NumberRange">
+<rect x="2830.0" y="73.0" height="88.0" width="130.0" data-name="NumberRange"></rect>
+<path d="M2830.0 105.0 L2960.0 105.0" fill="none" data-name="NumberRange"></path>
+<path d="M2830.0 153.0 L2960.0 153.0" fill="none" data-name="NumberRange"></path>
+</g>
+<g transform="translate(2830, 73)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="NumberRange" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="NumberRange" data-compartment="0">
+<a id="projects\shared\src\interfaces\number-range.ts.NumberRange" xlink:href="projects\shared\src\interfaces\number-range.ts"><text x="57.0" y="14.1" stroke="none" text-anchor="middle" data-name="NumberRange" data-compartment="0">NumberRange</text></a>
+
+</g>
+</g>
+<g transform="translate(2830, 105)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="NumberRange" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="NumberRange" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="NumberRange" data-compartment="1">+min: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="NumberRange" data-compartment="1">+max: number</text>
+
+</g>
+</g>
+<g transform="translate(2830, 153)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="NumberRange" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="NumberRange" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="PhysicsObject">
+<g fill="lightgray" stroke="#33322E" data-name="PhysicsObject">
+<rect x="3000.0" y="56.5" height="121.0" width="218.0" data-name="PhysicsObject"></rect>
+<path d="M3000.0 88.5 L3218.0 88.5" fill="none" data-name="PhysicsObject"></path>
+<path d="M3000.0 169.5 L3218.0 169.5" fill="none" data-name="PhysicsObject"></path>
+</g>
+<g transform="translate(3000, 56.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PhysicsObject" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="PhysicsObject" data-compartment="0">
+<a id="projects\shared\src\interfaces\physics-object.ts.PhysicsObject" xlink:href="projects\shared\src\interfaces\physics-object.ts"><text x="101.0" y="14.1" stroke="none" text-anchor="middle" data-name="PhysicsObject" data-compartment="0">PhysicsObject</text></a>
+
+</g>
+</g>
+<g transform="translate(3000, 88.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PhysicsObject" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="PhysicsObject" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PhysicsObject" data-compartment="1">+location: Vector2Like</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PhysicsObject" data-compartment="1">+velocity: Vector2Like</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PhysicsObject" data-compartment="1">+angle: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PhysicsObject" data-compartment="1">+angularVelocity: number</text>
+
+</g>
+</g>
+<g transform="translate(3000, 169.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PhysicsObject" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="PhysicsObject" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Size">
+<g fill="lightgray" stroke="#33322E" data-name="Size">
+<rect x="3258.0" y="73.0" height="88.0" width="145.0" data-name="Size"></rect>
+<path d="M3258.0 105.0 L3403.0 105.0" fill="none" data-name="Size"></path>
+<path d="M3258.0 153.0 L3403.0 153.0" fill="none" data-name="Size"></path>
+</g>
+<g transform="translate(3258, 73)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Size" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Size" data-compartment="0">
+<a id="projects\shared\src\interfaces\size.ts.Size" xlink:href="projects\shared\src\interfaces\size.ts"><text x="64.5" y="14.1" stroke="none" text-anchor="middle" data-name="Size" data-compartment="0">Size</text></a>
+
+</g>
+</g>
+<g transform="translate(3258, 105)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Size" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Size" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Size" data-compartment="1">+width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Size" data-compartment="1">+height: number</text>
+
+</g>
+</g>
+<g transform="translate(3258, 153)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Size" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="Size" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SocketData&lt;T&gt;">
+<g fill="lightgray" stroke="#33322E" data-name="SocketData&lt;T&gt;">
+<rect x="3443.0" y="73.0" height="88.0" width="137.0" data-name="SocketData&lt;T&gt;"></rect>
+<path d="M3443.0 105.0 L3580.0 105.0" fill="none" data-name="SocketData&lt;T&gt;"></path>
+<path d="M3443.0 153.0 L3580.0 153.0" fill="none" data-name="SocketData&lt;T&gt;"></path>
+</g>
+<g transform="translate(3443, 73)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SocketData&lt;T&gt;" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SocketData&lt;T&gt;" data-compartment="0">
+<a id="projects\shared\src\interfaces\socket-data.ts.SocketData&lt;T&gt;" xlink:href="projects\shared\src\interfaces\socket-data.ts"><text x="60.5" y="14.1" stroke="none" text-anchor="middle" data-name="SocketData&lt;T&gt;" data-compartment="0">SocketData&lt;T&gt;</text></a>
+
+</g>
+</g>
+<g transform="translate(3443, 105)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SocketData&lt;T&gt;" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SocketData&lt;T&gt;" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="SocketData&lt;T&gt;" data-compartment="1">+sent: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SocketData&lt;T&gt;" data-compartment="1">+data: T</text>
+
+</g>
+</g>
+<g transform="translate(3443, 153)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SocketData&lt;T&gt;" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="SocketData&lt;T&gt;" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="GameLevel">
+<g fill="#eee8d5" stroke="#33322E" data-name="GameLevel">
+<rect x="1173.5" y="403.0" height="340.0" width="364.0" data-name="GameLevel"></rect>
+<path d="M1173.5 435.0 L1537.5 435.0" fill="none" data-name="GameLevel"></path>
+<path d="M1173.5 516.0 L1537.5 516.0" fill="none" data-name="GameLevel"></path>
+</g>
+<g transform="translate(1173.5, 403)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameLevel" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GameLevel" data-compartment="0">
+<a id="projects\shared\src\levels\game-level.ts.GameLevel" xlink:href="projects\shared\src\levels\game-level.ts"><text x="174.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameLevel" data-compartment="0">GameLevel</text></a>
+
+</g>
+</g>
+<g transform="translate(1173.5, 435)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameLevel" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameLevel" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameLevel" data-compartment="1">+scene: BaseScene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameLevel" data-compartment="1">-_rooms: GameRoom[]</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameLevel" data-compartment="1">-_wallsLayer: TilemapLayer</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameLevel" data-compartment="1">-_radarLayer: TilemapLayer</text>
+
+</g>
+</g>
+<g transform="translate(1173.5, 516)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameLevel" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameLevel" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="GameLevel" data-compartment="2">+setCurrentState(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameLevel" data-compartment="2">+setAlpha(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameLevel" data-compartment="2">+getMapTileWorldLocation(): Vector2</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameLevel" data-compartment="2">+isWithinTile(): boolean</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameLevel" data-compartment="2">+getRoomAt(): GameRoom</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameLevel" data-compartment="2">+getRoomAtWorldXY(): GameRoom</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameLevel" data-compartment="2">+getRoomClosestToOrigin(): GameRoom</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameLevel" data-compartment="2">+getRoomFurthestFromOrigin(): GameRoom</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameLevel" data-compartment="2">+getActiveShipsWithinRadius(): Ship[]</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameLevel" data-compartment="2">+findPathTo(): Vector2Like[]</text>
+<text x="0.0" y="176.1" stroke="none" data-name="GameLevel" data-compartment="2">+isWallObscuring(): boolean</text>
+<text x="0.0" y="192.3" stroke="none" data-name="GameLevel" data-compartment="2">-_createRooms(): GameRoom[]</text>
+<text x="0.0" y="208.5" stroke="none" data-name="GameLevel" data-compartment="2">-_createLayers(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="GameTile">
+<g fill="lightgray" stroke="#33322E" data-name="GameTile">
+<rect x="3620.0" y="56.5" height="121.0" width="149.0" data-name="GameTile"></rect>
+<path d="M3620.0 88.5 L3769.0 88.5" fill="none" data-name="GameTile"></path>
+<path d="M3620.0 169.5 L3769.0 169.5" fill="none" data-name="GameTile"></path>
+</g>
+<g transform="translate(3620, 56.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameTile" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GameTile" data-compartment="0">
+<a id="projects\shared\src\levels\game-level.ts.GameTile" xlink:href="projects\shared\src\levels\game-level.ts"><text x="66.5" y="14.1" stroke="none" text-anchor="middle" data-name="GameTile" data-compartment="0">GameTile</text></a>
+
+</g>
+</g>
+<g transform="translate(3620, 88.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameTile" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameTile" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameTile" data-compartment="1">+name: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameTile" data-compartment="1">+index?: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameTile" data-compartment="1">+x: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameTile" data-compartment="1">+y: number</text>
+
+</g>
+</g>
+<g transform="translate(3620, 169.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameTile" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="GameTile" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="GameRoom">
+<g fill="lightgray" stroke="#33322E" data-name="GameRoom">
+<rect x="3809.0" y="32.5" height="169.0" width="255.0" data-name="GameRoom"></rect>
+<path d="M3809.0 64.5 L4064.0 64.5" fill="none" data-name="GameRoom"></path>
+<path d="M3809.0 193.5 L4064.0 193.5" fill="none" data-name="GameRoom"></path>
+</g>
+<g transform="translate(3809, 32.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameRoom" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GameRoom" data-compartment="0">
+<a id="projects\shared\src\levels\game-level.ts.GameRoom" xlink:href="projects\shared\src\levels\game-level.ts"><text x="119.5" y="14.1" stroke="none" text-anchor="middle" data-name="GameRoom" data-compartment="0">GameRoom</text></a>
+
+</g>
+</g>
+<g transform="translate(3809, 64.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameRoom" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameRoom" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameRoom" data-compartment="1">+width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameRoom" data-compartment="1">+height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameRoom" data-compartment="1">+left: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameRoom" data-compartment="1">+top: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameRoom" data-compartment="1">+collisionTiles: GameTile[]</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameRoom" data-compartment="1">+nonCollisionTiles: GameTile[]</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameRoom" data-compartment="1">+visible?: boolean</text>
+
+</g>
+</g>
+<g transform="translate(3809, 193.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameRoom" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="GameRoom" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="GameLevelConfig">
+<g fill="lightgray" stroke="#33322E" data-name="GameLevelConfig">
+<rect x="4104.0" y="81.0" height="72.0" width="188.0" data-name="GameLevelConfig"></rect>
+<path d="M4104.0 113.0 L4292.0 113.0" fill="none" data-name="GameLevelConfig"></path>
+<path d="M4104.0 145.0 L4292.0 145.0" fill="none" data-name="GameLevelConfig"></path>
+</g>
+<g transform="translate(4104, 81)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameLevelConfig" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GameLevelConfig" data-compartment="0">
+<a id="projects\shared\src\levels\game-level.ts.GameLevelConfig" xlink:href="projects\shared\src\levels\game-level.ts"><text x="86.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameLevelConfig" data-compartment="0">GameLevelConfig</text></a>
+
+</g>
+</g>
+<g transform="translate(4104, 113)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameLevelConfig" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameLevelConfig" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameLevelConfig" data-compartment="1">+rooms: GameRoom[]</text>
+
+</g>
+</g>
+<g transform="translate(4104, 145)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameLevelConfig" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="GameLevelConfig" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Tilemap">
+<g fill="#eee8d5" stroke="#33322E" data-name="Tilemap">
+<rect x="0.0" y="101.0" height="32.0" width="78.0" data-name="Tilemap"></rect>
+</g>
+<g transform="translate(0, 101)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Tilemap" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Tilemap" data-compartment="0">
+<text x="31.0" y="14.1" stroke="none" text-anchor="middle" data-name="Tilemap" data-compartment="0">Tilemap</text>
+
+</g>
+</g>
+</g>
+<g data-name="BaseScene">
+<g fill="#eee8d5" stroke="#33322E" data-name="BaseScene">
+<rect x="452.5" y="363.0" height="420.0" width="436.0" data-name="BaseScene"></rect>
+<path d="M452.5 395.0 L888.5 395.0" fill="none" data-name="BaseScene"></path>
+<path d="M452.5 524.0 L888.5 524.0" fill="none" data-name="BaseScene"></path>
+</g>
+<g transform="translate(452.5, 363)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BaseScene" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="BaseScene" data-compartment="0">
+<a id="projects\shared\src\scenes\base-scene.ts.BaseScene" xlink:href="projects\shared\src\scenes\base-scene.ts"><text x="210.0" y="14.1" stroke="none" text-anchor="middle" data-name="BaseScene" data-compartment="0">BaseScene</text></a>
+
+</g>
+</g>
+<g transform="translate(452.5, 395)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BaseScene" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BaseScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="BaseScene" data-compartment="1">-_highPriorityActions: Map&lt;string, UpdateAction&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="BaseScene" data-compartment="1">-_mediumPriorityActions: Map&lt;string, UpdateAction&gt;</text>
+<text x="0.0" y="46.5" stroke="none" data-name="BaseScene" data-compartment="1">-_lowPriorityActions: Map&lt;string, UpdateAction&gt;</text>
+<text x="0.0" y="62.7" stroke="none" data-name="BaseScene" data-compartment="1">-_ultraLowPriorityActions: Map&lt;string, UpdateAction&gt;</text>
+<text x="0.0" y="78.9" stroke="none" data-name="BaseScene" data-compartment="1">-_medPriElapsed: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="BaseScene" data-compartment="1">-_lowPriElapsed: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="BaseScene" data-compartment="1">-_ultraLowPriElapsed: number</text>
+
+</g>
+</g>
+<g transform="translate(452.5, 524)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BaseScene" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BaseScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="BaseScene" data-compartment="2">+abstract getLevel(): T</text>
+<text x="0.0" y="30.3" stroke="none" data-name="BaseScene" data-compartment="2">+abstract getShip(): T</text>
+<text x="0.0" y="46.5" stroke="none" data-name="BaseScene" data-compartment="2">+abstract getShips(): T[]</text>
+<text x="0.0" y="62.7" stroke="none" data-name="BaseScene" data-compartment="2">+abstract getSupply(): T</text>
+<text x="0.0" y="78.9" stroke="none" data-name="BaseScene" data-compartment="2">+abstract getSupplies(): T[]</text>
+<text x="0.0" y="95.1" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueGameLevelUpdate(): BaseScene</text>
+<text x="0.0" y="111.3" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueShipUpdates(): BaseScene</text>
+<text x="0.0" y="127.5" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueShipRemoval(): BaseScene</text>
+<text x="0.0" y="143.7" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueSupplyUpdates(): BaseScene</text>
+<text x="0.0" y="159.9" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueSupplyRemoval(): BaseScene</text>
+<text x="0.0" y="176.1" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueSupplyFlicker(): BaseScene</text>
+<text x="0.0" y="192.3" stroke="none" data-name="BaseScene" data-compartment="2">+abstract queueEndScene(): BaseScene</text>
+<text x="0.0" y="208.5" stroke="none" data-name="BaseScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="BaseScene" data-compartment="2">+addRepeatingAction(): this</text>
+<text x="0.0" y="240.9" stroke="none" data-name="BaseScene" data-compartment="2">+removeRepeatingAction(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="Scene">
+<g fill="#eee8d5" stroke="#33322E" data-name="Scene">
+<rect x="1269.0" y="101.0" height="32.0" width="66.0" data-name="Scene"></rect>
+</g>
+<g transform="translate(1269, 101)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Scene" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Scene" data-compartment="0">
+<text x="25.0" y="14.1" stroke="none" text-anchor="middle" data-name="Scene" data-compartment="0">Scene</text>
+
+</g>
+</g>
+</g>
+<g data-name="Ship">
+<g fill="#eee8d5" stroke="#33322E" data-name="Ship">
+<rect x="4674.8" y="274.0" height="598.0" width="316.0" data-name="Ship"></rect>
+<path d="M4674.8 306.0 L4990.8 306.0" fill="none" data-name="Ship"></path>
+<path d="M4674.8 581.0 L4990.8 581.0" fill="none" data-name="Ship"></path>
+</g>
+<g transform="translate(4674.75, 274)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Ship" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Ship" data-compartment="0">
+<a id="projects\shared\src\ships\ship.ts.Ship" xlink:href="projects\shared\src\ships\ship.ts"><text x="150.0" y="14.1" stroke="none" text-anchor="middle" data-name="Ship" data-compartment="0">Ship</text></a>
+
+</g>
+</g>
+<g transform="translate(4674.75, 306)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Ship" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Ship" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Ship" data-compartment="1">+name: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Ship" data-compartment="1">-_lastDamagedBy: DamageMetadata[]</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Ship" data-compartment="1">-_id: string</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Ship" data-compartment="1">-_temperature: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Ship" data-compartment="1">-_integrity: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Ship" data-compartment="1">-_remainingFuel: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Ship" data-compartment="1">-_weaponsKey: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Ship" data-compartment="1">-_wingsKey: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Ship" data-compartment="1">-_cockpitKey: number</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Ship" data-compartment="1">-_engineKey: number</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Ship" data-compartment="1">-_engine: Engine</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Ship" data-compartment="1">-_weapon: Weapon</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Ship" data-compartment="1">-_rotationContainer: Container</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Ship" data-compartment="1">+destroyAtTime: number</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Ship" data-compartment="1">+scene: BaseScene</text>
+<text x="0.0" y="257.1" stroke="none" data-name="Ship" data-compartment="1">+body: Body</text>
+
+</g>
+</g>
+<g transform="translate(4674.75, 581)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Ship" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Ship" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Ship" data-compartment="2">+setCurrentState(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Ship" data-compartment="2">+setEngine(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Ship" data-compartment="2">+setWeapon(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Ship" data-compartment="2">+update(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Ship" data-compartment="2">+lookAt(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Ship" data-compartment="2">+addHeat(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Ship" data-compartment="2">+subtractHeat(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Ship" data-compartment="2">+subtractFuel(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Ship" data-compartment="2">+addFuel(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Ship" data-compartment="2">+subtractIntegrity(): void</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Ship" data-compartment="2">+addIntegrity(): void</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Ship" data-compartment="2">+selfDestruct(): void</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Ship" data-compartment="2">+cancelSelfDestruct(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Ship" data-compartment="2">+death(): void</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Ship" data-compartment="2">-_checkOverheatCondition(): void</text>
+<text x="0.0" y="257.1" stroke="none" data-name="Ship" data-compartment="2">-_createGameObj(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="Ship" data-compartment="2">-_updateLastDamagedBy(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Container">
+<g fill="#eee8d5" stroke="#33322E" data-name="Container">
+<rect x="4590.5" y="101.0" height="32.0" width="93.0" data-name="Container"></rect>
+</g>
+<g transform="translate(4590.5, 101)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Container" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Container" data-compartment="0">
+<text x="38.5" y="14.1" stroke="none" text-anchor="middle" data-name="Container" data-compartment="0">Container</text>
+
+</g>
+</g>
+</g>
+<g data-name="Exploder">
+<g fill="#eee8d5" stroke="#33322E" data-name="Exploder">
+<rect x="4959.8" y="61.0" height="112.0" width="309.0" data-name="Exploder"></rect>
+<path d="M4959.8 93.0 L5268.8 93.0" fill="none" data-name="Exploder"></path>
+<path d="M4959.8 125.0 L5268.8 125.0" fill="none" data-name="Exploder"></path>
+</g>
+<g transform="translate(4959.75, 61)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Exploder" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Exploder" data-compartment="0">
+<a id="projects\shared\src\utilities\exploder.ts.Exploder" xlink:href="projects\shared\src\utilities\exploder.ts"><text x="146.5" y="14.1" stroke="none" text-anchor="middle" data-name="Exploder" data-compartment="0">Exploder</text></a>
+
+</g>
+</g>
+<g transform="translate(4959.75, 93)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Exploder" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Exploder" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Exploder" data-compartment="1">+scene: Scene</text>
+
+</g>
+</g>
+<g transform="translate(4959.75, 125)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Exploder" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Exploder" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Exploder" data-compartment="2">+explode(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Exploder" data-compartment="2">+emitSupplies(): ShipSupplyOptions[]</text>
+
+</g>
+</g>
+</g>
+<g data-name="ExploderOptions">
+<g fill="lightgray" stroke="#33322E" data-name="ExploderOptions">
+<rect x="5308.8" y="73.0" height="88.0" width="192.0" data-name="ExploderOptions"></rect>
+<path d="M5308.8 105.0 L5500.8 105.0" fill="none" data-name="ExploderOptions"></path>
+<path d="M5308.8 153.0 L5500.8 153.0" fill="none" data-name="ExploderOptions"></path>
+</g>
+<g transform="translate(5308.75, 73)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ExploderOptions" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ExploderOptions" data-compartment="0">
+<a id="projects\shared\src\utilities\exploder.ts.ExploderOptions" xlink:href="projects\shared\src\utilities\exploder.ts"><text x="88.0" y="14.1" stroke="none" text-anchor="middle" data-name="ExploderOptions" data-compartment="0">ExploderOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(5308.75, 105)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ExploderOptions" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ExploderOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ExploderOptions" data-compartment="1">+scale?: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ExploderOptions" data-compartment="1">+location: Vector2Like</text>
+
+</g>
+</g>
+<g transform="translate(5308.75, 153)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ExploderOptions" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="ExploderOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="GameScoreTracker">
+<g fill="#eee8d5" stroke="#33322E" data-name="GameScoreTracker">
+<rect x="4126.8" y="456.0" height="234.0" width="268.0" data-name="GameScoreTracker"></rect>
+<path d="M4126.8 488.0 L4394.8 488.0" fill="none" data-name="GameScoreTracker"></path>
+<path d="M4126.8 496.0 L4394.8 496.0" fill="none" data-name="GameScoreTracker"></path>
+</g>
+<g transform="translate(4126.75, 456)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameScoreTracker" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GameScoreTracker" data-compartment="0">
+<a id="projects\shared\src\utilities\game-score-tracker.ts.GameScoreTracker" xlink:href="projects\shared\src\utilities\game-score-tracker.ts"><text x="126.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameScoreTracker" data-compartment="0">GameScoreTracker</text></a>
+
+</g>
+</g>
+<g transform="translate(4126.75, 488)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameScoreTracker" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="GameScoreTracker" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(4126.75, 496)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameScoreTracker" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GameScoreTracker" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="GameScoreTracker" data-compartment="2">+start(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameScoreTracker" data-compartment="2">+shotFired(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameScoreTracker" data-compartment="2">+shotLanded(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameScoreTracker" data-compartment="2">+opponentDestroyed(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameScoreTracker" data-compartment="2">+getScore(): number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameScoreTracker" data-compartment="2">+getLeaderboard(): UserScore[]</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameScoreTracker" data-compartment="2">+getStats(): GameStats</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameScoreTracker" data-compartment="2">+getAllStats(): GameStats[]</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameScoreTracker" data-compartment="2">+updateStats(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameScoreTracker" data-compartment="2">+updateAllStats(): void</text>
+<text x="0.0" y="176.1" stroke="none" data-name="GameScoreTracker" data-compartment="2">+getAccuracy(): number</text>
+
+</g>
+</g>
+</g>
+<g data-name="DynamicDataStore&lt;T&gt;">
+<g fill="#eee8d5" stroke="#33322E" data-name="DynamicDataStore&lt;T&gt;">
+<rect x="4332.0" y="101.0" height="32.0" width="193.0" data-name="DynamicDataStore&lt;T&gt;"></rect>
+</g>
+<g transform="translate(4332, 101)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="DynamicDataStore&lt;T&gt;" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="DynamicDataStore&lt;T&gt;" data-compartment="0">
+<text x="88.5" y="14.1" stroke="none" text-anchor="middle" data-name="DynamicDataStore&lt;T&gt;" data-compartment="0">DynamicDataStore&lt;T&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="ShipAttachment">
+<g fill="#eee8d5" stroke="#33322E" data-name="ShipAttachment">
+<rect x="2365.3" y="492.0" height="162.0" width="205.0" data-name="ShipAttachment"></rect>
+<path d="M2365.3 524.0 L2570.3 524.0" fill="none" data-name="ShipAttachment"></path>
+<path d="M2365.3 589.0 L2570.3 589.0" fill="none" data-name="ShipAttachment"></path>
+</g>
+<g transform="translate(2365.25, 492)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ShipAttachment" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ShipAttachment" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\ship-attachment.ts.ShipAttachment" xlink:href="projects\shared\src\ships\attachments\ship-attachment.ts"><text x="94.5" y="14.1" stroke="none" text-anchor="middle" data-name="ShipAttachment" data-compartment="0">ShipAttachment</text></a>
+
+</g>
+</g>
+<g transform="translate(2365.25, 524)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ShipAttachment" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ShipAttachment" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ShipAttachment" data-compartment="1">+scene: BaseScene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ShipAttachment" data-compartment="1">-_ship: Ship</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ShipAttachment" data-compartment="1">-_enabled: boolean</text>
+
+</g>
+</g>
+<g transform="translate(2365.25, 589)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ShipAttachment" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ShipAttachment" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ShipAttachment" data-compartment="2">+setShip(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ShipAttachment" data-compartment="2">+abstract update(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ShipAttachment" data-compartment="2">+setEnabled(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="AmmoSupply">
+<g fill="#eee8d5" stroke="#33322E" data-name="AmmoSupply">
+<rect x="3799.8" y="1175.5" height="72.0" width="124.0" data-name="AmmoSupply"></rect>
+<path d="M3799.8 1207.5 L3923.8 1207.5" fill="none" data-name="AmmoSupply"></path>
+<path d="M3799.8 1215.5 L3923.8 1215.5" fill="none" data-name="AmmoSupply"></path>
+</g>
+<g transform="translate(3799.75, 1175.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AmmoSupply" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AmmoSupply" data-compartment="0">
+<a id="projects\shared\src\ships\supplies\ammo-supply.ts.AmmoSupply" xlink:href="projects\shared\src\ships\supplies\ammo-supply.ts"><text x="54.0" y="14.1" stroke="none" text-anchor="middle" data-name="AmmoSupply" data-compartment="0">AmmoSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(3799.75, 1207.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AmmoSupply" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="AmmoSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(3799.75, 1215.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AmmoSupply" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AmmoSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="AmmoSupply" data-compartment="2">+apply(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="ShipSupply">
+<g fill="#eee8d5" stroke="#33322E" data-name="ShipSupply">
+<rect x="4434.8" y="476.5" height="193.0" width="200.0" data-name="ShipSupply"></rect>
+<path d="M4434.8 508.5 L4634.8 508.5" fill="none" data-name="ShipSupply"></path>
+<path d="M4434.8 621.5 L4634.8 621.5" fill="none" data-name="ShipSupply"></path>
+</g>
+<g transform="translate(4434.75, 476.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ShipSupply" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ShipSupply" data-compartment="0">
+<a id="projects\shared\src\ships\supplies\ship-supply.ts.ShipSupply" xlink:href="projects\shared\src\ships\supplies\ship-supply.ts"><text x="92.0" y="14.1" stroke="none" text-anchor="middle" data-name="ShipSupply" data-compartment="0">ShipSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(4434.75, 508.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ShipSupply" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ShipSupply" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ShipSupply" data-compartment="1">-_id: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ShipSupply" data-compartment="1">-_amount: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ShipSupply" data-compartment="1">-_type: SupplyType</text>
+<text x="0.0" y="62.7" stroke="none" data-name="ShipSupply" data-compartment="1">-_createdAt: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="ShipSupply" data-compartment="1">+scene: BaseScene</text>
+<text x="0.0" y="95.1" stroke="none" data-name="ShipSupply" data-compartment="1">+body: Body</text>
+
+</g>
+</g>
+<g transform="translate(4434.75, 621.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ShipSupply" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ShipSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ShipSupply" data-compartment="2">+setCurrentState(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ShipSupply" data-compartment="2">+abstract apply(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="CoolantSupply">
+<g fill="#eee8d5" stroke="#33322E" data-name="CoolantSupply">
+<rect x="3963.8" y="1175.5" height="72.0" width="131.0" data-name="CoolantSupply"></rect>
+<path d="M3963.8 1207.5 L4094.8 1207.5" fill="none" data-name="CoolantSupply"></path>
+<path d="M3963.8 1215.5 L4094.8 1215.5" fill="none" data-name="CoolantSupply"></path>
+</g>
+<g transform="translate(3963.75, 1175.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="CoolantSupply" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CoolantSupply" data-compartment="0">
+<a id="projects\shared\src\ships\supplies\coolant-supply.ts.CoolantSupply" xlink:href="projects\shared\src\ships\supplies\coolant-supply.ts"><text x="57.5" y="14.1" stroke="none" text-anchor="middle" data-name="CoolantSupply" data-compartment="0">CoolantSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(3963.75, 1207.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CoolantSupply" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CoolantSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(3963.75, 1215.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CoolantSupply" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CoolantSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="CoolantSupply" data-compartment="2">+apply(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="FuelSupply">
+<g fill="#eee8d5" stroke="#33322E" data-name="FuelSupply">
+<rect x="4134.8" y="1175.5" height="72.0" width="124.0" data-name="FuelSupply"></rect>
+<path d="M4134.8 1207.5 L4258.8 1207.5" fill="none" data-name="FuelSupply"></path>
+<path d="M4134.8 1215.5 L4258.8 1215.5" fill="none" data-name="FuelSupply"></path>
+</g>
+<g transform="translate(4134.75, 1175.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="FuelSupply" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="FuelSupply" data-compartment="0">
+<a id="projects\shared\src\ships\supplies\fuel-supply.ts.FuelSupply" xlink:href="projects\shared\src\ships\supplies\fuel-supply.ts"><text x="54.0" y="14.1" stroke="none" text-anchor="middle" data-name="FuelSupply" data-compartment="0">FuelSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(4134.75, 1207.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="FuelSupply" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="FuelSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(4134.75, 1215.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="FuelSupply" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="FuelSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="FuelSupply" data-compartment="2">+apply(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="RepairsSupply">
+<g fill="#eee8d5" stroke="#33322E" data-name="RepairsSupply">
+<rect x="4574.3" y="1175.5" height="72.0" width="131.0" data-name="RepairsSupply"></rect>
+<path d="M4574.3 1207.5 L4705.3 1207.5" fill="none" data-name="RepairsSupply"></path>
+<path d="M4574.3 1215.5 L4705.3 1215.5" fill="none" data-name="RepairsSupply"></path>
+</g>
+<g transform="translate(4574.25, 1175.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="RepairsSupply" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="RepairsSupply" data-compartment="0">
+<a id="projects\shared\src\ships\supplies\repairs-supply.ts.RepairsSupply" xlink:href="projects\shared\src\ships\supplies\repairs-supply.ts"><text x="57.5" y="14.1" stroke="none" text-anchor="middle" data-name="RepairsSupply" data-compartment="0">RepairsSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(4574.25, 1207.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RepairsSupply" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="RepairsSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(4574.25, 1215.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="RepairsSupply" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="RepairsSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="RepairsSupply" data-compartment="2">+apply(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Bullet">
+<g fill="#eee8d5" stroke="#33322E" data-name="Bullet">
+<rect x="5648.8" y="403.0" height="340.0" width="259.0" data-name="Bullet"></rect>
+<path d="M5648.8 435.0 L5907.8 435.0" fill="none" data-name="Bullet"></path>
+<path d="M5648.8 662.0 L5907.8 662.0" fill="none" data-name="Bullet"></path>
+</g>
+<g transform="translate(5648.75, 403)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Bullet" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Bullet" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\bullet.ts.Bullet" xlink:href="projects\shared\src\ships\attachments\offence\bullet.ts"><text x="121.5" y="14.1" stroke="none" text-anchor="middle" data-name="Bullet" data-compartment="0">Bullet</text></a>
+
+</g>
+</g>
+<g transform="translate(5648.75, 435)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Bullet" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Bullet" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Bullet" data-compartment="1">+id: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Bullet" data-compartment="1">+scene: BaseScene</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Bullet" data-compartment="1">+force: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Bullet" data-compartment="1">+damage: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Bullet" data-compartment="1">+heat: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Bullet" data-compartment="1">+radius: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Bullet" data-compartment="1">+weapon: Weapon</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Bullet" data-compartment="1">+timeout: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Bullet" data-compartment="1">+mass: number</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Bullet" data-compartment="1">+startingLoc: Vector2Like</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Bullet" data-compartment="1">+startingA: number</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Bullet" data-compartment="1">+startingV: Vector2Like</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Bullet" data-compartment="1">+body: Body</text>
+
+</g>
+</g>
+<g transform="translate(5648.75, 662)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Bullet" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Bullet" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Bullet" data-compartment="2">+onShipCollision(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Bullet" data-compartment="2">-_setInMotion(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Bullet" data-compartment="2">-_createGameObj(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Bullet" data-compartment="2">-_addCollisionDetection(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="BulletOptions">
+<g fill="lightgray" stroke="#33322E" data-name="BulletOptions">
+<rect x="5824.8" y="8.0" height="218.0" width="218.0" data-name="BulletOptions"></rect>
+<path d="M5824.8 40.0 L6042.8 40.0" fill="none" data-name="BulletOptions"></path>
+<path d="M5824.8 218.0 L6042.8 218.0" fill="none" data-name="BulletOptions"></path>
+</g>
+<g transform="translate(5824.75, 8)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BulletOptions" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="BulletOptions" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\bullet.ts.BulletOptions" xlink:href="projects\shared\src\ships\attachments\offence\bullet.ts"><text x="101.0" y="14.1" stroke="none" text-anchor="middle" data-name="BulletOptions" data-compartment="0">BulletOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(5824.75, 40)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BulletOptions" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BulletOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="BulletOptions" data-compartment="1">+startingLoc: Vector2Like</text>
+<text x="0.0" y="30.3" stroke="none" data-name="BulletOptions" data-compartment="1">+weapon: Weapon</text>
+<text x="0.0" y="46.5" stroke="none" data-name="BulletOptions" data-compartment="1">+force: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="BulletOptions" data-compartment="1">+damage: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="BulletOptions" data-compartment="1">+heat: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="BulletOptions" data-compartment="1">+startingA: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="BulletOptions" data-compartment="1">+startingV: Vector2Like</text>
+<text x="0.0" y="127.5" stroke="none" data-name="BulletOptions" data-compartment="1">+radius: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="BulletOptions" data-compartment="1">+timeout: number</text>
+<text x="0.0" y="159.9" stroke="none" data-name="BulletOptions" data-compartment="1">+mass: number</text>
+
+</g>
+</g>
+<g transform="translate(5824.75, 218)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BulletOptions" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="BulletOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Cannon">
+<g fill="#eee8d5" stroke="#33322E" data-name="Cannon">
+<rect x="2360.3" y="1551.0" height="48.0" width="78.0" data-name="Cannon"></rect>
+<path d="M2360.3 1583.0 L2438.3 1583.0" fill="none" data-name="Cannon"></path>
+<path d="M2360.3 1591.0 L2438.3 1591.0" fill="none" data-name="Cannon"></path>
+</g>
+<g transform="translate(2360.25, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Cannon" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Cannon" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\cannon.ts.Cannon" xlink:href="projects\shared\src\ships\attachments\offence\cannon.ts"><text x="31.0" y="14.1" stroke="none" text-anchor="middle" data-name="Cannon" data-compartment="0">Cannon</text></a>
+
+</g>
+</g>
+<g transform="translate(2360.25, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Cannon" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="Cannon" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(2360.25, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Cannon" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="Cannon" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Weapon">
+<g fill="#eee8d5" stroke="#33322E" data-name="Weapon">
+<rect x="2247.3" y="1034.0" height="355.0" width="441.0" data-name="Weapon"></rect>
+<path d="M2247.3 1066.0 L2688.3 1066.0" fill="none" data-name="Weapon"></path>
+<path d="M2247.3 1276.0 L2688.3 1276.0" fill="none" data-name="Weapon"></path>
+</g>
+<g transform="translate(2247.25, 1034)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Weapon" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Weapon" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\weapon.ts.Weapon" xlink:href="projects\shared\src\ships\attachments\offence\weapon.ts"><text x="212.5" y="14.1" stroke="none" text-anchor="middle" data-name="Weapon" data-compartment="0">Weapon</text></a>
+
+</g>
+</g>
+<g transform="translate(2247.25, 1066)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Weapon" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Weapon" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Weapon" data-compartment="1">+model: &quot;machinegun&quot; | &quot;cannon&quot; | &quot;plasma&quot; | &quot;invalid&quot;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Weapon" data-compartment="1">+maxAmmo: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Weapon" data-compartment="1">+firingDelay: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Weapon" data-compartment="1">+heatPerShot: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Weapon" data-compartment="1">+bulletMass: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Weapon" data-compartment="1">+bulletScale: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Weapon" data-compartment="1">+damagePerHit: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Weapon" data-compartment="1">+heatPerHit: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Weapon" data-compartment="1">+bulletTimeout: number</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Weapon" data-compartment="1">+force: number</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Weapon" data-compartment="1">+remainingAmmo: number</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Weapon" data-compartment="1">-_lastFired: number</text>
+
+</g>
+</g>
+<g transform="translate(2247.25, 1276)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Weapon" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Weapon" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Weapon" data-compartment="2">+setEnabled(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Weapon" data-compartment="2">+addAmmo(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Weapon" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Weapon" data-compartment="2">+getBullet(): Bullet</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Weapon" data-compartment="2">-_canFire(): boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Weapon" data-compartment="2">-_fire(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="MachineGun">
+<g fill="#eee8d5" stroke="#33322E" data-name="MachineGun">
+<rect x="2510.0" y="1551.0" height="48.0" width="116.0" data-name="MachineGun"></rect>
+<path d="M2510.0 1583.0 L2626.0 1583.0" fill="none" data-name="MachineGun"></path>
+<path d="M2510.0 1591.0 L2626.0 1591.0" fill="none" data-name="MachineGun"></path>
+</g>
+<g transform="translate(2510, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MachineGun" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="MachineGun" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\machine-gun.ts.MachineGun" xlink:href="projects\shared\src\ships\attachments\offence\machine-gun.ts"><text x="50.0" y="14.1" stroke="none" text-anchor="middle" data-name="MachineGun" data-compartment="0">MachineGun</text></a>
+
+</g>
+</g>
+<g transform="translate(2510, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MachineGun" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="MachineGun" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(2510, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MachineGun" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="MachineGun" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="PlasmaGun">
+<g fill="#eee8d5" stroke="#33322E" data-name="PlasmaGun">
+<rect x="2679.8" y="1551.0" height="48.0" width="107.0" data-name="PlasmaGun"></rect>
+<path d="M2679.8 1583.0 L2786.8 1583.0" fill="none" data-name="PlasmaGun"></path>
+<path d="M2679.8 1591.0 L2786.8 1591.0" fill="none" data-name="PlasmaGun"></path>
+</g>
+<g transform="translate(2679.75, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlasmaGun" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="PlasmaGun" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\plasma-gun.ts.PlasmaGun" xlink:href="projects\shared\src\ships\attachments\offence\plasma-gun.ts"><text x="45.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlasmaGun" data-compartment="0">PlasmaGun</text></a>
+
+</g>
+</g>
+<g transform="translate(2679.75, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlasmaGun" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="PlasmaGun" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(2679.75, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlasmaGun" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="PlasmaGun" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="WeaponOptions">
+<g fill="lightgray" stroke="#33322E" data-name="WeaponOptions">
+<rect x="6082.8" y="0.0" height="234.0" width="441.0" data-name="WeaponOptions"></rect>
+<path d="M6082.8 32.0 L6523.8 32.0" fill="none" data-name="WeaponOptions"></path>
+<path d="M6082.8 226.0 L6523.8 226.0" fill="none" data-name="WeaponOptions"></path>
+</g>
+<g transform="translate(6082.75, 0)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="WeaponOptions" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="WeaponOptions" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\offence\weapon.ts.WeaponOptions" xlink:href="projects\shared\src\ships\attachments\offence\weapon.ts"><text x="212.5" y="14.1" stroke="none" text-anchor="middle" data-name="WeaponOptions" data-compartment="0">WeaponOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(6082.75, 32)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="WeaponOptions" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="WeaponOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="WeaponOptions" data-compartment="1">+model: &quot;machinegun&quot; | &quot;cannon&quot; | &quot;plasma&quot; | &quot;invalid&quot;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="WeaponOptions" data-compartment="1">+maxAmmo: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="WeaponOptions" data-compartment="1">+firingDelay: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="WeaponOptions" data-compartment="1">+remainingAmmo?: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="WeaponOptions" data-compartment="1">+heatPerShot: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="WeaponOptions" data-compartment="1">+bulletMass?: number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="WeaponOptions" data-compartment="1">+bulletRadius: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="WeaponOptions" data-compartment="1">+damagePerHit: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="WeaponOptions" data-compartment="1">+heatPerHit: number</text>
+<text x="0.0" y="159.9" stroke="none" data-name="WeaponOptions" data-compartment="1">+bulletTimeout: number</text>
+<text x="0.0" y="176.1" stroke="none" data-name="WeaponOptions" data-compartment="1">+force: number</text>
+
+</g>
+</g>
+<g transform="translate(6082.75, 226)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="WeaponOptions" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="WeaponOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="EconomyEngine">
+<g fill="#eee8d5" stroke="#33322E" data-name="EconomyEngine">
+<rect x="2826.8" y="1551.0" height="48.0" width="144.0" data-name="EconomyEngine"></rect>
+<path d="M2826.8 1583.0 L2970.8 1583.0" fill="none" data-name="EconomyEngine"></path>
+<path d="M2826.8 1591.0 L2970.8 1591.0" fill="none" data-name="EconomyEngine"></path>
+</g>
+<g transform="translate(2826.75, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="EconomyEngine" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="EconomyEngine" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\utility\economy-engine.ts.EconomyEngine" xlink:href="projects\shared\src\ships\attachments\utility\economy-engine.ts"><text x="64.0" y="14.1" stroke="none" text-anchor="middle" data-name="EconomyEngine" data-compartment="0">EconomyEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(2826.75, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EconomyEngine" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="EconomyEngine" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(2826.75, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EconomyEngine" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="EconomyEngine" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Engine">
+<g fill="#eee8d5" stroke="#33322E" data-name="Engine">
+<rect x="2728.3" y="1098.5" height="226.0" width="514.0" data-name="Engine"></rect>
+<path d="M2728.3 1130.5 L3242.3 1130.5" fill="none" data-name="Engine"></path>
+<path d="M2728.3 1243.5 L3242.3 1243.5" fill="none" data-name="Engine"></path>
+</g>
+<g transform="translate(2728.25, 1098.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Engine" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Engine" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\utility\engine.ts.Engine" xlink:href="projects\shared\src\ships\attachments\utility\engine.ts"><text x="249.0" y="14.1" stroke="none" text-anchor="middle" data-name="Engine" data-compartment="0">Engine</text></a>
+
+</g>
+</g>
+<g transform="translate(2728.25, 1130.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Engine" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Engine" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Engine" data-compartment="1">-_lastUsedAt: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Engine" data-compartment="1">+model: &quot;invalid&quot; | &quot;economy&quot; | &quot;standard&quot; | &quot;sports&quot; | &quot;premium&quot;</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Engine" data-compartment="1">+force: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Engine" data-compartment="1">+fuelPerUse: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Engine" data-compartment="1">+heatPerUse: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Engine" data-compartment="1">+usageDelayMs: number</text>
+
+</g>
+</g>
+<g transform="translate(2728.25, 1243.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Engine" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Engine" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Engine" data-compartment="2">+setEnabled(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Engine" data-compartment="2">+update(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Engine" data-compartment="2">-_applyThrust(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Engine" data-compartment="2">-_canThrust(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="EngineOptions">
+<g fill="lightgray" stroke="#33322E" data-name="EngineOptions">
+<rect x="6563.8" y="48.5" height="137.0" width="514.0" data-name="EngineOptions"></rect>
+<path d="M6563.8 80.5 L7077.8 80.5" fill="none" data-name="EngineOptions"></path>
+<path d="M6563.8 177.5 L7077.8 177.5" fill="none" data-name="EngineOptions"></path>
+</g>
+<g transform="translate(6563.75, 48.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EngineOptions" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="EngineOptions" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\utility\engine.ts.EngineOptions" xlink:href="projects\shared\src\ships\attachments\utility\engine.ts"><text x="249.0" y="14.1" stroke="none" text-anchor="middle" data-name="EngineOptions" data-compartment="0">EngineOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(6563.75, 80.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EngineOptions" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="EngineOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="EngineOptions" data-compartment="1">+model: &quot;invalid&quot; | &quot;economy&quot; | &quot;standard&quot; | &quot;sports&quot; | &quot;premium&quot;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="EngineOptions" data-compartment="1">+force: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="EngineOptions" data-compartment="1">+fuelPerUse: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="EngineOptions" data-compartment="1">+heatPerUse: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="EngineOptions" data-compartment="1">+usageDelay: number</text>
+
+</g>
+</g>
+<g transform="translate(6563.75, 177.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EngineOptions" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="EngineOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SportsEngine">
+<g fill="#eee8d5" stroke="#33322E" data-name="SportsEngine">
+<rect x="3010.8" y="1551.0" height="48.0" width="122.0" data-name="SportsEngine"></rect>
+<path d="M3010.8 1583.0 L3132.8 1583.0" fill="none" data-name="SportsEngine"></path>
+<path d="M3010.8 1591.0 L3132.8 1591.0" fill="none" data-name="SportsEngine"></path>
+</g>
+<g transform="translate(3010.75, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SportsEngine" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SportsEngine" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\utility\sports-engine.ts.SportsEngine" xlink:href="projects\shared\src\ships\attachments\utility\sports-engine.ts"><text x="53.0" y="14.1" stroke="none" text-anchor="middle" data-name="SportsEngine" data-compartment="0">SportsEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(3010.75, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SportsEngine" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="SportsEngine" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(3010.75, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SportsEngine" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="SportsEngine" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="StandardEngine">
+<g fill="#eee8d5" stroke="#33322E" data-name="StandardEngine">
+<rect x="3172.8" y="1551.0" height="48.0" width="143.0" data-name="StandardEngine"></rect>
+<path d="M3172.8 1583.0 L3315.8 1583.0" fill="none" data-name="StandardEngine"></path>
+<path d="M3172.8 1591.0 L3315.8 1591.0" fill="none" data-name="StandardEngine"></path>
+</g>
+<g transform="translate(3172.75, 1551)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StandardEngine" data-compartment="0">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="StandardEngine" data-compartment="0">
+<a id="projects\shared\src\ships\attachments\utility\standard-engine.ts.StandardEngine" xlink:href="projects\shared\src\ships\attachments\utility\standard-engine.ts"><text x="63.5" y="14.1" stroke="none" text-anchor="middle" data-name="StandardEngine" data-compartment="0">StandardEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(3172.75, 1583)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StandardEngine" data-compartment="1">
+<g transform="translate(8, 8)" fill="#33322E" data-name="StandardEngine" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(3172.75, 1591)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StandardEngine" data-compartment="2">
+<g transform="translate(8, 8)" fill="#33322E" data-name="StandardEngine" data-compartment="2">
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

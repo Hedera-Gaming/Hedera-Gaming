@@ -19,4 +19,6 @@
         "enableI18nLegacyMessageIdFormat": false
     },
     "references": [{ "path": "../shared" }]
+    // "include": ["src/**/*.ts"], // Inclut tous les fichiers TS sous src
+    // "exclude": ["node_modules", "dist"] // Exclut node_modules et dist
 }

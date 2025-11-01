@@ -1,0 +1,1916 @@
+<svg version="1.1" baseProfile="full" width="12045.5" height="2457.0" viewBox="0 0 12045.5 2457" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+#spacing: 60
+#padding: 15
+#arrowSize: 1
+#lineWidth: 2
+#fill: #0a0a0a
+#stroke: #818cf8
+#.interface: fill=#1e1b4b stroke=#818cf8 dashed
+#.class: fill=#134e4a stroke=#2dd4bf bold
+#.enumeration: fill=#701a75 stroke=#e879f9
+#.type: fill=#7c2d12 stroke=#fb923c
+[AppRoutingModule||]
+[AppComponent|+title: string|]
+[AppModule||]
+[SpaceSimRoutingModule||]
+[SpaceSimComponent|-zone: NgZone|+onResize(): void;+ngOnInit(): void;+ngOnDestroy(): void]
+[OnInit]&lt;:--[SpaceSimComponent]
+[OnDestroy]&lt;:--[SpaceSimComponent]
+[SpaceSimModule||]
+[&lt;type&gt;SpaceSimClientOptions|+debug?: boolean;+loglevel?: LogLevel;+width?: number;+height?: number;+parentElementId?: string|]
+[SpaceSimClient||-_createSocket(): void]
+[ClientAiController||]
+[AiController]&lt;:-[ClientAiController]
+[KbmController|-_thrustForwardsKey: Key;-_thrustBackwardsKey: Key;-_strafeLeftKey: Key;-_strafeRightKey: Key;-_boostKey: Key;-_rotateAttachmentsClockwiseKey: Key;-_rotateAttachmentsAntiClockwiseKey: Key;-_detachAttachmentKey: Key;-_throwAttachmentKey: Key;-_grabAttachmentKey: Key;-_container: Container;-_engineEnabled: boolean;-_weaponEnabled: boolean;-_pointerLocLast: Vector2Like|+update(): void;+getGameObject(): Container;-_setupInputHandling(): void;+_createGameObject(): void]
+[InputController]&lt;:-[KbmController]
+[MouseTracker|-_scene: Scene;+active: boolean|+update(): void;+getAngle(): number;+getRotation(): number;+setRotation(): void;+getHeading(): Vector2;+getSpeed(): number;+getVelocity(): Vector2;+setLocationInView(): void;+setLocation(): void;-_pointer(): Pointer;-_setShipAngle(): void]
+[HasLocation]&lt;:--[MouseTracker]
+[Updatable]&lt;:--[MouseTracker]
+[TouchController|-_mainContainer: GridLayout;-_fireButtonActive: boolean;-_thrusterButtonActive: boolean;-_throwButtonActive: boolean;-_boostButtonActive: boolean;-_engineEnabled: boolean;-_weaponEnabled: boolean|+update(): void;-_handleAimTouch(): void;-_handleFireTouch(): void;-_handleThrusterTouch(): void;-_handleThrowTouch(): void;-_handleBoostTouch(): void;+getGameObject(): Container;+getPhysicsBody(): Body;-_createGameObj(): void;-_createLeftStick(): LayoutContent;-_createThrowButton(): LayoutContent;-_createBoostButton(): LayoutContent;-_createThrusterButton(): LayoutContent;-_createFireButton(): LayoutContent]
+[InputController]&lt;:-[TouchController]
+[&lt;interface&gt;MouseWheelScroll||]
+[&lt;interface&gt;Resizable||+resize(): void]
+[&lt;type&gt;TimeDelta|+time: number;+delta: number|]
+[ClientGameLevel|-_pathGraphics: Graphics|+static preload(): void;+findPathTo(): Vector2Like\[\]]
+[GameLevel]&lt;:-[ClientGameLevel]
+[GameOverScene|-_width: number;-_height: number;-_sun: Sprite;-_stars: TileSprite;-_music: BaseSound;-_layout: LinearLayout;-_scoreText: Text|+preload(): void;+create(): void;+update(): void;-_updateScore(): void;-_createBackground(): void;-_createStellarBodies(): void;-_createLayout(): void;-_createTitle(): void;-_createScore(): void;-_createMenuItems(): void;-_createMusic(): void]
+[Scene]&lt;:-[GameOverScene]
+[GameplayHudScene|-_width: number;-_height: number;-_hudText: Text;-_quitContainer: LayoutContainer;-_destructButton: TextButton;-_cancelDestructButton: TextButton;-_hudLayout: GridLayout;-_controller: InputController;-_parentScene: BaseScene;+debug: boolean|+create(): void;+resize(): void;+update(): void;-_createHUD(): void;-_createController(): void;-_displayHUDInfo(): void]
+[Scene]&lt;:-[GameplayHudScene]
+[Resizable]&lt;:--[GameplayHudScene]
+[GameplayScene|-_width: number;-_height: number;-_stellarBodies: StellarBody\[\];-_backgroundStars: TileSprite;-_music: BaseSound;-_exploder: UiExploder;-_gameLevel: GameLevel;-_supplies: Map&lt;string, ShipSupply&gt;;-_ships: Map&lt;string, Ship&gt;;-_camera: Camera;-_radar: Radar;+debug: boolean|+queueGameLevelUpdate(): BaseScene;+queueShipUpdates(): BaseScene;+queueShipRemoval(): BaseScene;+queueSupplyUpdates(): BaseScene;+queueSupplyRemoval(): BaseScene;+queueSupplyFlicker(): BaseScene;+queueEndScene(): BaseScene;+getLevel(): T;+getShip(): T;+getShips(): T\[\];+getSupply(): T;+getSupplies(): T\[\];+preload(): void;+create(): void;+resize(): void;-_createOpponents(): void;-_createMapAndPlayer(): void;-_createStellarBodiesLayer(): void;-_createBackground(): void;-_setupCamera(): void;-_createMiniMap(): void;-_playMusic(): void;-_showRoom(): void;-_expelSupplies(): void;-_addSupplyCollisionPhysics(): ShipSupply]
+[BaseScene]&lt;:-[GameplayScene]
+[Resizable]&lt;:--[GameplayScene]
+[GameplayScene]  - 0..* [StellarBody]
+[GameplayScene]  -  [UiExploder]
+[GameplayScene]  -  [Camera]
+[GameplayScene]  -  [Radar]
+[MultiplayerHudScene|-_width: number;-_height: number;-_hudText: Text;-_quitContainer: LayoutContainer;-_destructButton: TextButton;-_cancelDestructButton: TextButton;-_hudLayout: GridLayout;-_controller: InputController;-_connectedToServer: boolean;-_parentScene: BaseScene;+debug: boolean|+create(): void;+resize(): void;+update(): void;-_createHUD(): void;-_createController(): void;-_displayHUDInfo(): void]
+[Scene]&lt;:-[MultiplayerHudScene]
+[Resizable]&lt;:--[MultiplayerHudScene]
+[MultiplayerScene|-_width: number;-_height: number;-_stellarBodies: StellarBody\[\];-_backgroundStars: TileSprite;-_music: BaseSound;-_exploder: UiExploder;-_disconnectTimer: number;-_gameLevel: GameLevel;-_supplies: Map&lt;string, ShipSupply&gt;;-_ships: Map&lt;string, Ship&gt;;-_camera: Camera;-_radar: Radar;+debug: boolean;-_shouldCreateStellarBodies: boolean;-_shouldGetPlayer: boolean;-_needsResize: boolean;-_shouldResize: boolean;-_shouldShowHud: boolean;-_shouldEndScene: boolean;-_updateGameLevelQueue: GameLevelConfig\[\];-_updateShipsQueue: ShipState\[\];-_removeShipsQueue: string\[\];-_updateSuppliesQueue: ShipSupplyOptions\[\];-_flickerSuppliesQueue: string\[\];-_removeSuppliesQueue: string\[\]|+getLevel(): T;+queueGameLevelUpdate(): BaseScene;+getShip(): T;+getShips(): T\[\];+getSupply(): T;+getSupplies(): T\[\];+queueSupplyUpdates(): BaseScene;+queueSupplyRemoval(): BaseScene;+queueSupplyFlicker(): BaseScene;+queueShipUpdates(): BaseScene;+queueShipRemoval(): BaseScene;+preload(): void;+create(): void;+resize(): void;-_getPlayerFromServer(): Promise&lt;void&gt;;-_createStellarBodiesLayer(): void;-_createBackground(): void;-_setupCamera(): void;-_createMiniMap(): void;-_playMusic(): void;-_addPlayerCollisionPhysicsWithPlayers(): void;+queueEndScene(): BaseScene;-_processEndScene(): void;-_processGameLevelQueue(): void;-_processUpdateShipsQueue(): void;-_processRemoveShipsQueue(): void;-_processUpdateSuppliesQueue(): void;-_processRemoveSuppliesQueue(): void;-_processFlickerSuppliesQueue(): void]
+[BaseScene]&lt;:-[MultiplayerScene]
+[Resizable]&lt;:--[MultiplayerScene]
+[MultiplayerScene]  - 0..* [StellarBody]
+[MultiplayerScene]  -  [UiExploder]
+[MultiplayerScene]  -  [Camera]
+[MultiplayerScene]  -  [Radar]
+[SetNameScene|-_width: number;-_height: number;-_layout: GridLayout;-_text: LayoutContainer;-_button: TextButton;-_music: BaseSound;-_continueButtonStylesDisabled: any|+preload(): void;+create(): void;+update(): void;-_createMusic(): void;-_createLayout(): void;-_getKeyboardInput(): void;-_getMobileTextInput(): void;-_validateAndStartGame(): void;-_updateContinueButton(): void]
+[Scene]&lt;:-[SetNameScene]
+[StartupScene|-_width: number;-_height: number;-_sun: Sprite;-_stars: TileSprite;-_music: BaseSound;-_controlsMenu: Card;-_startSingleplayerButton: TextButton;-_startMultiplayerButton: TextButton;-_showMenuButton: TextButton;-_serverConnectionText: LayoutContainer;-_medPriUpdateAt: number;-_lowPriUpdateAt: number;-_ultraLowPriUpdateAt: number;+buttonTextStyle: { readonly font: &quot;20px Courier&quot;; readonly color: &quot;\#ddffdd&quot;; readonly align: &quot;center&quot;; readonly alpha: 1; };+buttonDisabledTextStyle: { readonly color: string; readonly alpha: 0.2; readonly font: &quot;20px Courier&quot;; readonly align: &quot;center&quot;; };+buttonBackgroundStyle: { readonly fillStyle: { readonly color: 8421504; readonly alpha: 0.2; }; };+buttonHoverBackgroundStyle: { readonly fillStyle: { readonly color: 8454016; readonly alpha: 0.5; }; };+buttonDisabledBackgroundStyle: { readonly fillStyle: { readonly alpha: 0.1; readonly color: 8421504; }; }|+preload(): void;+create(): void;+update(): void;-_createBackground(): void;-_createStellarBodies(): void;-_createMenuItems(): void;-_createControlsMenu(): void;-_createMusic(): void;-_enableMultiplayer(): void;-_disableMultiplayer(): void]
+[Scene]&lt;:-[StartupScene]
+[MiniMapShader||]
+[PostFXPipeline]&lt;:-[MiniMapShader]
+[PlayerShip|-_shipIntegrityIndicator: LayoutContainer;-_shipHeatIndicator: Sprite;-_shipOverheatIndicator: Text;-_shipDamageFlicker: Tween;-_radarSprite: Sprite;-_selfDestructText: Text|+static preload(): void;+update(): void;+subtractIntegrity(): void;+addIntegrity(): void;-_addVisualsToGameObject(): void;-_createNameIndicator(): void;-_createIntegrityIndicator(): void;-_createHeatIndicator(): void;-_createOverheatIndicator(): void;-_createRadarSprite(): void;-_createSelfDestructText(): void;-_updateOverheatingSpriteAndText(): void;-_updateIntegrityIndicator(): void;-_updateSelfDestructText(): void]
+[Ship]&lt;:-[PlayerShip]
+[StellarBody|+id: string;+active: boolean;-_scene: Scene;-_gameObj: Sprite;+spriteName: string;+location: Vector2;+scale: number;+scrollFactor: number;+rotationSpeed: number|+static preload(): void;+update(): void;+getRotation(): number;+setRotation(): void;+getLocationInView(): Vector2;+getLocation(): Vector2;+getGameObject(): Sprite;+getPhysicsBody(): Body;-_createGameObj(): void]
+[&lt;type&gt;StellarBodyOptions|+spriteName: &quot;sun&quot; \| &quot;mercury&quot; \| &quot;venus&quot; \| &quot;asteroids&quot;;+rotationSpeed?: NumberOrRange;+scale?: NumberOrRange;+location?: Vector2;+scrollFactor?: NumberOrRange|]
+[Updatable]&lt;:--[StellarBody]
+[HasGameObject]&lt;:--[StellarBody]
+[Camera|+scene: Scene;-_cam: Camera;-_ignored: Group|+setLocationInView(): void;+setLocation(): void;+ignore(): this;+unignore(): this;+clearAllIgnored(): this;+follow(): this;+stopFollowing(): this;\#_getCamera(): Camera;+destroy(): void;-_defaultOptions(): CameraOptions]
+[HasLocation]&lt;:--[Camera]
+[Radar|-_mask: Graphics;-_border: Graphics;-static DEFAULT_OPTIONS: CameraOptions|\#_getCamera(): Camera;+destroy(): void]
+[Camera]&lt;:-[Radar]
+[UiExploder|-_destroyedSound: BaseSound;-_flareParticleEmitter: ParticleEmitter;-_explosionParticleEmitter: ParticleEmitter|+static preload(): void;+explode(): this]
+[Exploder]&lt;:-[UiExploder]
+[ClientSocketManager|+socket: Socket&lt;DefaultEventsMap, DefaultEventsMap&gt;;+url: string;-_connects: number;-_disconnects: number;-_lastEventTimestamp: number|+isReconnect(): boolean;-_emit(): this;+sendSetPlayerDataRequest(): this;+sendRequestMapRequest(): this;+sendJoinRoomRequest(): this;+sendPlayerDeathNotice(): this;+sendRequestShipRequest(): this;+sendSetShipAngleRequest(): this;+sendEngineOnRequest(): this;+sendWeaponFiringRequest(): this;-_handleAllEvents(): void;-_shouldProcess(): boolean;-_handleConnectEvent(): void;-_handleDisconnectEvent(): void;-_handleInvalidUserDataEvent(): void;-_handleInvalidRequestEvent(): void;-_handleUserAcceptedEvent(): void;-_handleJoinRoomEvent(): void;-_handleUpdateSuppliesEvent(): void;-_handleRemoveSuppliesEvent(): void;-_handleFlickerSuppliesEvent(): void;-_handleUpdatePlayersEvent(): void;-_handlePlayerDeathEvent(): void;-_handleUpdateStatsEvent(): void;-_handleUpdateMapEvent(): void;-_handleSetPlayerIdEvent(): void;-_handleEngineOnEvent(): void;-_handleEnableWeaponEvent(): void]
+[&lt;type&gt;ClientSocketManagerOptions|+serverUrl: string|]
+[PlayerAmmoSupply||+static preload(): void]
+[AmmoSupply]&lt;:-[PlayerAmmoSupply]
+[PlayerCoolantSupply||+static preload(): void]
+[CoolantSupply]&lt;:-[PlayerCoolantSupply]
+[PlayerFuelSupply||+static preload(): void]
+[FuelSupply]&lt;:-[PlayerFuelSupply]
+[PlayerRepairsSupply||+static preload(): void]
+[RepairsSupply]&lt;:-[PlayerRepairsSupply]
+[PlayerBullet|-_fireSound: BaseSound;-_hitSound: BaseSound;-_exploder: UiExploder|+static preload(): void;+onShipCollision(): void;-_addUiElements(): void]
+[Bullet]&lt;:-[PlayerBullet]
+[PlayerBullet]  -  [UiExploder]
+[PlayerCannon||+getBullet(): Bullet]
+[Cannon]&lt;:-[PlayerCannon]
+[PlayerMachineGun||+getBullet(): Bullet]
+[MachineGun]&lt;:-[PlayerMachineGun]
+[PlayerPlasmaBullet|-_fireSound: BaseSound;-_hitSound: BaseSound;-_exploder: UiExploder|+static preload(): void;+onShipCollision(): void;-_addUiElements(): void]
+[Bullet]&lt;:-[PlayerPlasmaBullet]
+[PlayerPlasmaBullet]  -  [UiExploder]
+[PlayerPlasmaGun||+getBullet(): Bullet]
+[PlasmaGun]&lt;:-[PlayerPlasmaGun]
+[PlayerEconomyEngine|-_thrusterSound: BaseSound;-_flareParticles: ParticleEmitter|+static preload(): void;+setShip(): this;+update(): void;-_displayThrusterFire(): void;-_addUiComponents(): void]
+[EconomyEngine]&lt;:-[PlayerEconomyEngine]
+[PlayerSportsEngine|-_thrusterSound: BaseSound;-_flareParticles: ParticleEmitter|+static preload(): void;+setShip(): this;+update(): void;-_displayThrusterFire(): void;-_addUiComponents(): void]
+[SportsEngine]&lt;:-[PlayerSportsEngine]
+[PlayerStandardEngine|-_thrusterSound: BaseSound;-_flareParticles: ParticleEmitter|+static preload(): void;+setShip(): this;+update(): void;-_displayThrusterFire(): void;-_addUiComponents(): void]
+[StandardEngine]&lt;:-[PlayerStandardEngine]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+<g font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round" stroke="#818cf8">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="2457.0" width="12045.5" stroke="none"></rect>
+</g>
+<g transform="translate(15, 15)" fill="#818cf8">
+<g transform="translate(20, 20)" fill="#0a0a0a" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<g stroke-dasharray="4 4">
+<path d="M957.5 363.5 L957.5 671 L957.5 1106 L957.5 1106.0 " fill="none"></path>
+</g>
+<path d="M965.5 363.5 L957.5 363.5 L949.5 363.5 L957.5 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M1113.0 363.5 L1113 671 L983.043227665706 1106 L983.0 1106.0 " fill="none"></path>
+</g>
+<path d="M1121.0 363.5 L1113.0 363.5 L1105.0 363.5 L1113.0 343.5 Z"></path>
+<path d="M2077.0 363.5 L2077 671 L2077 1153.5 L2077.0 1153.5 " fill="none"></path>
+<path d="M2085.0 363.5 L2077.0 363.5 L2069.0 363.5 L2077.0 343.5 Z"></path>
+<path d="M2629.7 359.7 L2405 671 L2405 992.5 L2405.0 992.5 " fill="none"></path>
+<path d="M2636.2 364.4 L2629.7 359.7 L2623.2 355.0 L2641.4 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M2711.5 1234.5 L2684 1712 L2693.3013100436683 1783 L2693.3 1783.0 " fill="none"></path>
+</g>
+<path d="M2719.5 1234.9 L2711.5 1234.5 L2703.5 1234.0 L2712.7 1214.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M2889.1 1234.4 L2834 1712 L2796.7947598253277 1783 L2796.8 1783.0 " fill="none"></path>
+</g>
+<path d="M2897.0 1235.3 L2889.1 1234.4 L2881.1 1233.5 L2891.3 1214.5 Z"></path>
+<path d="M2709.2 354.6 L3185 671 L3185 968.5 L3185.0 968.5 " fill="none"></path>
+<path d="M2713.7 347.9 L2709.2 354.6 L2704.8 361.2 L2692.6 343.5 Z"></path>
+<path d="M3580.8 363.5 L3580.75 671 L3580.75 1114.5 L3580.8 1114.5 " fill="none"></path>
+<path d="M3588.8 363.5 L3580.8 363.5 L3572.8 363.5 L3580.8 343.5 Z"></path>
+<path d="M4492.5 352.6 L3921.75 671 L3921.75 993 L3921.8 993.0 " fill="none"></path>
+<path d="M4496.4 359.5 L4492.5 352.6 L4488.6 345.6 L4510.0 342.8 Z"></path>
+<path d="M4518.6 359.0 L4264.25 671 L4264.25 1009 L4264.3 1009.0 " fill="none"></path>
+<path d="M4524.8 364.1 L4518.6 359.0 L4512.4 353.9 L4531.2 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M5628.5 389.9 L5414.75 671 L4419.25 1121.3761408083442 L4419.3 1121.4 " fill="none"></path>
+</g>
+<path d="M5634.8 394.8 L5628.5 389.9 L5622.1 385.1 L5640.6 374.0 Z"></path>
+<path d="M6518.9 355.7 L6110.75 671 L6110.75 839 L6110.8 839.0 " fill="none"></path>
+<path d="M6523.8 362.1 L6518.9 355.7 L6514.0 349.4 L6534.7 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M5639.6 391.2 L5474.75 671 L5926.25 1040.5058962264152 L5926.3 1040.5 " fill="none"></path>
+</g>
+<path d="M5646.5 395.3 L5639.6 391.2 L5632.7 387.2 L5649.7 374.0 Z"></path>
+<text x="6046.5" y="1903.9" stroke="none">0..*</text>
+<path d="M5926.3 1263.6 L4778.75 1712 L6031.5 1918.872002884442 L6031.5 1918.9 " fill="none"></path>
+<path d="M5926.3 1267.0 L4838.75 1712 L8552.75 1930.4144838212635 L8552.8 1930.4 " fill="none"></path>
+<path d="M6058.6 1544.0 L6033.75 1712 L4628 1918.5223736968726 L4628.0 1918.5 " fill="none"></path>
+<path d="M6295.3 1447.4 L6486 1712 L6486 1941 L6486 1941 L6486 2170 L6486 2170 L6458.064777327935 2200 L6458.1 2200.0 " fill="none"></path>
+<path d="M4538.2 362.8 L4452 671 L5556.25 1127.4321024419296 L5556.3 1127.4 " fill="none"></path>
+<path d="M4545.9 364.9 L4538.2 362.8 L4530.5 360.6 L4543.6 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M5687.5 393.9 L5711.25 671 L5711.25 1001 L5711.3 1001.0 " fill="none"></path>
+</g>
+<path d="M5695.5 393.2 L5687.5 393.9 L5679.6 394.6 L5685.8 374.0 Z"></path>
+<path d="M6580.0 362.2 L6694.75 671 L6691.363832853026 701 L6691.4 701.0 " fill="none"></path>
+<path d="M6587.5 359.5 L6580.0 362.2 L6572.5 365.0 L6573.0 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M5727.3 390.7 L5911 671 L6433.5 1046.1189655172413 L6433.5 1046.1 " fill="none"></path>
+</g>
+<path d="M5734.0 386.3 L5727.3 390.7 L5720.6 395.1 L5716.3 374.0 Z"></path>
+<text x="6257.5" y="1845.4" stroke="none">0..*</text>
+<path d="M6551.2 1682.0 L6546 1712 L6299.5 1860.353482260184 L6299.5 1860.4 " fill="none"></path>
+<path d="M6607.7 1682.0 L6606 1712 L8552.75 1921.6183143293758 L8552.8 1921.6 " fill="none"></path>
+<path d="M6838.5 1318.7 L7464.5 1712 L4628 1929.279979929754 L4628.0 1929.3 " fill="none"></path>
+<path d="M6838.5 1310.1 L7524.5 1712 L7524.5 1941 L7524.5 1941 L7524.5 2170 L7524.5 2170 L6559.5 2273.318162115301 L6559.5 2273.3 " fill="none"></path>
+<path d="M4560.9 362.9 L4639.75 671 L4639.75 1009 L4639.8 1009.0 " fill="none"></path>
+<path d="M4568.6 360.9 L4560.9 362.9 L4553.1 364.9 L4555.9 343.5 Z"></path>
+<path d="M4607.5 352.6 L5178.25 671 L5178.25 774 L5178.3 774.0 " fill="none"></path>
+<path d="M4611.4 345.6 L4607.5 352.6 L4603.6 359.5 L4590.0 342.8 Z"></path>
+<path d="M6975.0 363.5 L6975 671 L6975 1153.5 L6975.0 1153.5 " fill="none"></path>
+<path d="M6983.0 363.5 L6975.0 363.5 L6967.0 363.5 L6975.0 343.5 Z"></path>
+<path d="M7293.5 363.5 L7293.5 671 L7293.5 976.5 L7293.5 976.5 " fill="none"></path>
+<path d="M7301.5 363.5 L7293.5 363.5 L7285.5 363.5 L7293.5 343.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M2968.5 1216.1 L4469 1712 L6031.5 1922.9121721190686 L6031.5 1922.9 " fill="none"></path>
+</g>
+<path d="M2971.0 1208.5 L2968.5 1216.1 L2966.0 1223.7 L2949.5 1209.8 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M8014.0 1234.5 L8014 1712 L6299.5 1924.3995131187448 L6299.5 1924.4 " fill="none"></path>
+</g>
+<path d="M8022.0 1234.5 L8014.0 1234.5 L8006.0 1234.5 L8014.0 1214.5 Z"></path>
+<g stroke-dasharray="4 4">
+<path d="M2718.9 1234.4 L2774 1712 L4322 1920.4021164021165 L4322.0 1920.4 " fill="none"></path>
+</g>
+<path d="M2726.9 1233.5 L2718.9 1234.4 L2711.0 1235.3 L2716.7 1214.5 Z"></path>
+<path d="M4475.0 2119.5 L4475 2170 L6182.5 2281.221650843882 L6182.5 2281.2 " fill="none"></path>
+<path d="M4483.0 2119.5 L4475.0 2119.5 L4467.0 2119.5 L4475.0 2099.5 Z"></path>
+<path d="M8203.5 1234.5 L8203.5 1712 L8552.75 1863.1162021728862 L8552.8 1863.1 " fill="none"></path>
+<path d="M8211.5 1234.5 L8203.5 1234.5 L8195.5 1234.5 L8203.5 1214.5 Z"></path>
+<path d="M8813.5 363.5 L8813.5 671 L8813.5 1138 L8813.5 1138.0 " fill="none"></path>
+<path d="M8821.5 363.5 L8813.5 363.5 L8805.5 363.5 L8813.5 343.5 Z"></path>
+<path d="M9075.5 363.5 L9075.5 671 L9075.5 1138 L9075.5 1138.0 " fill="none"></path>
+<path d="M9083.5 363.5 L9075.5 363.5 L9067.5 363.5 L9075.5 343.5 Z"></path>
+<path d="M9337.5 363.5 L9337.5 671 L9337.5 1138 L9337.5 1138.0 " fill="none"></path>
+<path d="M9345.5 363.5 L9337.5 363.5 L9329.5 363.5 L9337.5 343.5 Z"></path>
+<path d="M9599.5 363.5 L9599.5 671 L9599.5 1138 L9599.5 1138.0 " fill="none"></path>
+<path d="M9607.5 363.5 L9599.5 363.5 L9591.5 363.5 L9599.5 343.5 Z"></path>
+<path d="M10284.2 360.9 L10107 671 L10107 1089.5 L10107.0 1089.5 " fill="none"></path>
+<path d="M10291.1 364.8 L10284.2 360.9 L10277.2 356.9 L10294.1 343.5 Z"></path>
+<path d="M10107.0 1293.5 L10107 1712 L8912.75 1911.0054575222848 L8912.8 1911.0 " fill="none"></path>
+<path d="M9848.0 363.5 L9848 671 L9848 1138 L9848.0 1138.0 " fill="none"></path>
+<path d="M9856.0 363.5 L9848.0 363.5 L9840.0 363.5 L9848.0 343.5 Z"></path>
+<path d="M10651.5 363.5 L10651.5 671 L10651.5 1138 L10651.5 1138.0 " fill="none"></path>
+<path d="M10659.5 363.5 L10651.5 363.5 L10643.5 363.5 L10651.5 343.5 Z"></path>
+<path d="M10317.3 363.0 L10390 671 L10390 1089.5 L10390.0 1089.5 " fill="none"></path>
+<path d="M10325.1 361.1 L10317.3 363.0 L10309.5 364.8 L10312.7 343.5 Z"></path>
+<path d="M10390.0 1293.5 L10390 1712 L8912.75 1916.1274702066676 L8912.8 1916.1 " fill="none"></path>
+<path d="M10889.0 363.5 L10889 671 L10889 1138 L10889.0 1138.0 " fill="none"></path>
+<path d="M10897.0 363.5 L10889.0 363.5 L10881.0 363.5 L10889.0 343.5 Z"></path>
+<path d="M11173.0 363.5 L11173 671 L11173 1082 L11173.0 1082.0 " fill="none"></path>
+<path d="M11181.0 363.5 L11173.0 363.5 L11165.0 363.5 L11173.0 343.5 Z"></path>
+<path d="M11506.0 363.5 L11506 671 L11506 1082 L11506.0 1082.0 " fill="none"></path>
+<path d="M11514.0 363.5 L11506.0 363.5 L11498.0 363.5 L11506.0 343.5 Z"></path>
+<path d="M11839.0 363.5 L11839 671 L11839 1082 L11839.0 1082.0 " fill="none"></path>
+<path d="M11847.0 363.5 L11839.0 363.5 L11831.0 363.5 L11839.0 343.5 Z"></path>
+<g data-name="AppRoutingModule">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="AppRoutingModule">
+<rect x="0.0" y="282.5" height="76.0" width="180.0" data-name="AppRoutingModule"></rect>
+<path d="M0.0 328.5 L180.0 328.5" fill="none" data-name="AppRoutingModule"></path>
+<path d="M0.0 343.5 L180.0 343.5" fill="none" data-name="AppRoutingModule"></path>
+</g>
+<g transform="translate(0, 282.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AppRoutingModule" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="AppRoutingModule" data-compartment="0">
+<a id="..\projects\client\src\app\app-routing.module.ts.AppRoutingModule" xlink:href="..\projects\client\src\app\app-routing.module.ts"><text x="75.0" y="14.1" stroke="none" text-anchor="middle" data-name="AppRoutingModule" data-compartment="0">AppRoutingModule</text></a>
+
+</g>
+</g>
+<g transform="translate(0, 328.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppRoutingModule" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="AppRoutingModule" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(0, 343.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppRoutingModule" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="AppRoutingModule" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="AppComponent">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="AppComponent">
+<rect x="240.0" y="267.0" height="107.0" width="152.0" data-name="AppComponent"></rect>
+<path d="M240.0 313.0 L392.0 313.0" fill="none" data-name="AppComponent"></path>
+<path d="M240.0 359.0 L392.0 359.0" fill="none" data-name="AppComponent"></path>
+</g>
+<g transform="translate(240, 267)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AppComponent" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="AppComponent" data-compartment="0">
+<a id="..\projects\client\src\app\app.component.ts.AppComponent" xlink:href="..\projects\client\src\app\app.component.ts"><text x="61.0" y="14.1" stroke="none" text-anchor="middle" data-name="AppComponent" data-compartment="0">AppComponent</text></a>
+
+</g>
+</g>
+<g transform="translate(240, 313)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppComponent" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="AppComponent" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="AppComponent" data-compartment="1">+title: string</text>
+
+</g>
+</g>
+<g transform="translate(240, 359)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppComponent" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="AppComponent" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="AppModule">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="AppModule">
+<rect x="452.0" y="282.5" height="76.0" width="119.0" data-name="AppModule"></rect>
+<path d="M452.0 328.5 L571.0 328.5" fill="none" data-name="AppModule"></path>
+<path d="M452.0 343.5 L571.0 343.5" fill="none" data-name="AppModule"></path>
+</g>
+<g transform="translate(452, 282.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AppModule" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="AppModule" data-compartment="0">
+<a id="..\projects\client\src\app\app.module.ts.AppModule" xlink:href="..\projects\client\src\app\app.module.ts"><text x="44.5" y="14.1" stroke="none" text-anchor="middle" data-name="AppModule" data-compartment="0">AppModule</text></a>
+
+</g>
+</g>
+<g transform="translate(452, 328.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppModule" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="AppModule" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(452, 343.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppModule" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="AppModule" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SpaceSimRoutingModule">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SpaceSimRoutingModule">
+<rect x="631.0" y="282.5" height="76.0" width="228.0" data-name="SpaceSimRoutingModule"></rect>
+<path d="M631.0 328.5 L859.0 328.5" fill="none" data-name="SpaceSimRoutingModule"></path>
+<path d="M631.0 343.5 L859.0 343.5" fill="none" data-name="SpaceSimRoutingModule"></path>
+</g>
+<g transform="translate(631, 282.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SpaceSimRoutingModule" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SpaceSimRoutingModule" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\space-sim-routing.module.ts.SpaceSimRoutingModule" xlink:href="..\projects\client\src\app\space-sim\space-sim-routing.module.ts"><text x="99.0" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimRoutingModule" data-compartment="0">SpaceSimRoutingModule</text></a>
+
+</g>
+</g>
+<g transform="translate(631, 328.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimRoutingModule" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimRoutingModule" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(631, 343.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimRoutingModule" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimRoutingModule" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SpaceSimComponent">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SpaceSimComponent">
+<rect x="857.5" y="1106.0" height="171.0" width="200.0" data-name="SpaceSimComponent"></rect>
+<path d="M857.5 1152.0 L1057.5 1152.0" fill="none" data-name="SpaceSimComponent"></path>
+<path d="M857.5 1198.0 L1057.5 1198.0" fill="none" data-name="SpaceSimComponent"></path>
+</g>
+<g transform="translate(857.5, 1106)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SpaceSimComponent" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SpaceSimComponent" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\space-sim.component.ts.SpaceSimComponent" xlink:href="..\projects\client\src\app\space-sim\space-sim.component.ts"><text x="85.0" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimComponent" data-compartment="0">SpaceSimComponent</text></a>
+
+</g>
+</g>
+<g transform="translate(857.5, 1152)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimComponent" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="SpaceSimComponent" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="SpaceSimComponent" data-compartment="1">-zone: NgZone</text>
+
+</g>
+</g>
+<g transform="translate(857.5, 1198)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimComponent" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="SpaceSimComponent" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="SpaceSimComponent" data-compartment="2">+onResize(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SpaceSimComponent" data-compartment="2">+ngOnInit(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SpaceSimComponent" data-compartment="2">+ngOnDestroy(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="OnInit">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="OnInit">
+<rect x="919.0" y="297.5" height="46.0" width="77.0" data-name="OnInit"></rect>
+</g>
+<g transform="translate(919, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="OnInit" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="OnInit" data-compartment="0">
+<text x="23.5" y="14.1" stroke="none" text-anchor="middle" data-name="OnInit" data-compartment="0">OnInit</text>
+
+</g>
+</g>
+</g>
+<g data-name="OnDestroy">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="OnDestroy">
+<rect x="1056.0" y="297.5" height="46.0" width="114.0" data-name="OnDestroy"></rect>
+</g>
+<g transform="translate(1056, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="OnDestroy" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="OnDestroy" data-compartment="0">
+<text x="42.0" y="14.1" stroke="none" text-anchor="middle" data-name="OnDestroy" data-compartment="0">OnDestroy</text>
+
+</g>
+</g>
+</g>
+<g data-name="SpaceSimModule">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SpaceSimModule">
+<rect x="1230.0" y="282.5" height="76.0" width="167.0" data-name="SpaceSimModule"></rect>
+<path d="M1230.0 328.5 L1397.0 328.5" fill="none" data-name="SpaceSimModule"></path>
+<path d="M1230.0 343.5 L1397.0 343.5" fill="none" data-name="SpaceSimModule"></path>
+</g>
+<g transform="translate(1230, 282.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SpaceSimModule" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SpaceSimModule" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\space-sim.module.ts.SpaceSimModule" xlink:href="..\projects\client\src\app\space-sim\space-sim.module.ts"><text x="68.5" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimModule" data-compartment="0">SpaceSimModule</text></a>
+
+</g>
+</g>
+<g transform="translate(1230, 328.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimModule" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimModule" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1230, 343.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimModule" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimModule" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SpaceSimClientOptions">
+<g fill="#7c2d12" stroke="#fb923c" data-name="SpaceSimClientOptions">
+<rect x="1457.0" y="234.5" height="172.0" width="234.0" data-name="SpaceSimClientOptions"></rect>
+<path d="M1457.0 280.5 L1691.0 280.5" fill="none" data-name="SpaceSimClientOptions"></path>
+<path d="M1457.0 391.5 L1691.0 391.5" fill="none" data-name="SpaceSimClientOptions"></path>
+</g>
+<g transform="translate(1457, 234.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimClientOptions" data-compartment="0">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="center" data-name="SpaceSimClientOptions" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\space-sim-client-options.ts.SpaceSimClientOptions" xlink:href="..\projects\client\src\app\space-sim\game\space-sim-client-options.ts"><text x="102.0" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimClientOptions" data-compartment="0">SpaceSimClientOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(1457, 280.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimClientOptions" data-compartment="1">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="left" data-name="SpaceSimClientOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="SpaceSimClientOptions" data-compartment="1">+debug?: boolean</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SpaceSimClientOptions" data-compartment="1">+loglevel?: LogLevel</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SpaceSimClientOptions" data-compartment="1">+width?: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SpaceSimClientOptions" data-compartment="1">+height?: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SpaceSimClientOptions" data-compartment="1">+parentElementId?: string</text>
+
+</g>
+</g>
+<g transform="translate(1457, 391.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimClientOptions" data-compartment="2">
+<g transform="translate(15, 15)" fill="#fb923c" data-name="SpaceSimClientOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="SpaceSimClient">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SpaceSimClient">
+<rect x="1751.0" y="267.0" height="107.0" width="205.0" data-name="SpaceSimClient"></rect>
+<path d="M1751.0 313.0 L1956.0 313.0" fill="none" data-name="SpaceSimClient"></path>
+<path d="M1751.0 328.0 L1956.0 328.0" fill="none" data-name="SpaceSimClient"></path>
+</g>
+<g transform="translate(1751, 267)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SpaceSimClient" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SpaceSimClient" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\space-sim-client.ts.SpaceSimClient" xlink:href="..\projects\client\src\app\space-sim\game\space-sim-client.ts"><text x="87.5" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimClient" data-compartment="0">SpaceSimClient</text></a>
+
+</g>
+</g>
+<g transform="translate(1751, 313)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimClient" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimClient" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1751, 328)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimClient" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="SpaceSimClient" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="SpaceSimClient" data-compartment="2">-_createSocket(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="ClientAiController">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="ClientAiController">
+<rect x="1993.5" y="1153.5" height="76.0" width="167.0" data-name="ClientAiController"></rect>
+<path d="M1993.5 1199.5 L2160.5 1199.5" fill="none" data-name="ClientAiController"></path>
+<path d="M1993.5 1214.5 L2160.5 1214.5" fill="none" data-name="ClientAiController"></path>
+</g>
+<g transform="translate(1993.5, 1153.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ClientAiController" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="ClientAiController" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\controllers\client-ai-controller.ts.ClientAiController" xlink:href="..\projects\client\src\app\space-sim\game\controllers\client-ai-controller.ts"><text x="68.5" y="14.1" stroke="none" text-anchor="middle" data-name="ClientAiController" data-compartment="0">ClientAiController</text></a>
+
+</g>
+</g>
+<g transform="translate(1993.5, 1199.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientAiController" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="ClientAiController" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(1993.5, 1214.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientAiController" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="ClientAiController" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="AiController">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="AiController">
+<rect x="2016.0" y="297.5" height="46.0" width="122.0" data-name="AiController"></rect>
+</g>
+<g transform="translate(2016, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AiController" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="AiController" data-compartment="0">
+<text x="46.0" y="14.1" stroke="none" text-anchor="middle" data-name="AiController" data-compartment="0">AiController</text>
+
+</g>
+</g>
+</g>
+<g data-name="KbmController">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="KbmController">
+<rect x="2220.5" y="992.5" height="398.0" width="369.0" data-name="KbmController"></rect>
+<path d="M2220.5 1038.5 L2589.5 1038.5" fill="none" data-name="KbmController"></path>
+<path d="M2220.5 1295.5 L2589.5 1295.5" fill="none" data-name="KbmController"></path>
+</g>
+<g transform="translate(2220.5, 992.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="KbmController" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="KbmController" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\controllers\kbm-controller.ts.KbmController" xlink:href="..\projects\client\src\app\space-sim\game\controllers\kbm-controller.ts"><text x="169.5" y="14.1" stroke="none" text-anchor="middle" data-name="KbmController" data-compartment="0">KbmController</text></a>
+
+</g>
+</g>
+<g transform="translate(2220.5, 1038.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="KbmController" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="KbmController" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="KbmController" data-compartment="1">-_thrustForwardsKey: Key</text>
+<text x="0.0" y="30.3" stroke="none" data-name="KbmController" data-compartment="1">-_thrustBackwardsKey: Key</text>
+<text x="0.0" y="46.5" stroke="none" data-name="KbmController" data-compartment="1">-_strafeLeftKey: Key</text>
+<text x="0.0" y="62.7" stroke="none" data-name="KbmController" data-compartment="1">-_strafeRightKey: Key</text>
+<text x="0.0" y="78.9" stroke="none" data-name="KbmController" data-compartment="1">-_boostKey: Key</text>
+<text x="0.0" y="95.1" stroke="none" data-name="KbmController" data-compartment="1">-_rotateAttachmentsClockwiseKey: Key</text>
+<text x="0.0" y="111.3" stroke="none" data-name="KbmController" data-compartment="1">-_rotateAttachmentsAntiClockwiseKey: Key</text>
+<text x="0.0" y="127.5" stroke="none" data-name="KbmController" data-compartment="1">-_detachAttachmentKey: Key</text>
+<text x="0.0" y="143.7" stroke="none" data-name="KbmController" data-compartment="1">-_throwAttachmentKey: Key</text>
+<text x="0.0" y="159.9" stroke="none" data-name="KbmController" data-compartment="1">-_grabAttachmentKey: Key</text>
+<text x="0.0" y="176.1" stroke="none" data-name="KbmController" data-compartment="1">-_container: Container</text>
+<text x="0.0" y="192.3" stroke="none" data-name="KbmController" data-compartment="1">-_engineEnabled: boolean</text>
+<text x="0.0" y="208.5" stroke="none" data-name="KbmController" data-compartment="1">-_weaponEnabled: boolean</text>
+<text x="0.0" y="224.7" stroke="none" data-name="KbmController" data-compartment="1">-_pointerLocLast: Vector2Like</text>
+
+</g>
+</g>
+<g transform="translate(2220.5, 1295.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="KbmController" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="KbmController" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="KbmController" data-compartment="2">+update(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="KbmController" data-compartment="2">+getGameObject(): Container</text>
+<text x="0.0" y="46.5" stroke="none" data-name="KbmController" data-compartment="2">-_setupInputHandling(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="KbmController" data-compartment="2">+_createGameObject(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="InputController">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="InputController">
+<rect x="2584.5" y="297.5" height="46.0" width="147.0" data-name="InputController"></rect>
+</g>
+<g transform="translate(2584.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="InputController" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="InputController" data-compartment="0">
+<text x="58.5" y="14.1" stroke="none" text-anchor="middle" data-name="InputController" data-compartment="0">InputController</text>
+
+</g>
+</g>
+</g>
+<g data-name="MouseTracker">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="MouseTracker">
+<rect x="2594.5" y="1783.0" height="316.0" width="239.0" data-name="MouseTracker"></rect>
+<path d="M2594.5 1829.0 L2833.5 1829.0" fill="none" data-name="MouseTracker"></path>
+<path d="M2594.5 1891.0 L2833.5 1891.0" fill="none" data-name="MouseTracker"></path>
+</g>
+<g transform="translate(2594.5, 1783)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MouseTracker" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="MouseTracker" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\controllers\mouse-tracker.ts.MouseTracker" xlink:href="..\projects\client\src\app\space-sim\game\controllers\mouse-tracker.ts"><text x="104.5" y="14.1" stroke="none" text-anchor="middle" data-name="MouseTracker" data-compartment="0">MouseTracker</text></a>
+
+</g>
+</g>
+<g transform="translate(2594.5, 1829)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MouseTracker" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MouseTracker" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="MouseTracker" data-compartment="1">-_scene: Scene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MouseTracker" data-compartment="1">+active: boolean</text>
+
+</g>
+</g>
+<g transform="translate(2594.5, 1891)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MouseTracker" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MouseTracker" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="MouseTracker" data-compartment="2">+update(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MouseTracker" data-compartment="2">+getAngle(): number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="MouseTracker" data-compartment="2">+getRotation(): number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="MouseTracker" data-compartment="2">+setRotation(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="MouseTracker" data-compartment="2">+getHeading(): Vector2</text>
+<text x="0.0" y="95.1" stroke="none" data-name="MouseTracker" data-compartment="2">+getSpeed(): number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="MouseTracker" data-compartment="2">+getVelocity(): Vector2</text>
+<text x="0.0" y="127.5" stroke="none" data-name="MouseTracker" data-compartment="2">+setLocationInView(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="MouseTracker" data-compartment="2">+setLocation(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="MouseTracker" data-compartment="2">-_pointer(): Pointer</text>
+<text x="0.0" y="176.1" stroke="none" data-name="MouseTracker" data-compartment="2">-_setShipAngle(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="HasLocation">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="HasLocation">
+<rect x="2649.5" y="1168.5" height="46.0" width="129.0" data-name="HasLocation"></rect>
+</g>
+<g transform="translate(2649.5, 1168.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="HasLocation" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="HasLocation" data-compartment="0">
+<text x="49.5" y="14.1" stroke="none" text-anchor="middle" data-name="HasLocation" data-compartment="0">HasLocation</text>
+
+</g>
+</g>
+</g>
+<g data-name="Updatable">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Updatable">
+<rect x="2838.5" y="1168.5" height="46.0" width="111.0" data-name="Updatable"></rect>
+</g>
+<g transform="translate(2838.5, 1168.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Updatable" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Updatable" data-compartment="0">
+<text x="40.5" y="14.1" stroke="none" text-anchor="middle" data-name="Updatable" data-compartment="0">Updatable</text>
+
+</g>
+</g>
+</g>
+<g data-name="TouchController">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="TouchController">
+<rect x="3009.5" y="968.5" height="446.0" width="351.0" data-name="TouchController"></rect>
+<path d="M3009.5 1014.5 L3360.5 1014.5" fill="none" data-name="TouchController"></path>
+<path d="M3009.5 1157.5 L3360.5 1157.5" fill="none" data-name="TouchController"></path>
+</g>
+<g transform="translate(3009.5, 968.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="TouchController" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="TouchController" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\controllers\touch-controller.ts.TouchController" xlink:href="..\projects\client\src\app\space-sim\game\controllers\touch-controller.ts"><text x="160.5" y="14.1" stroke="none" text-anchor="middle" data-name="TouchController" data-compartment="0">TouchController</text></a>
+
+</g>
+</g>
+<g transform="translate(3009.5, 1014.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TouchController" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="TouchController" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="TouchController" data-compartment="1">-_mainContainer: GridLayout</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TouchController" data-compartment="1">-_fireButtonActive: boolean</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TouchController" data-compartment="1">-_thrusterButtonActive: boolean</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TouchController" data-compartment="1">-_throwButtonActive: boolean</text>
+<text x="0.0" y="78.9" stroke="none" data-name="TouchController" data-compartment="1">-_boostButtonActive: boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="TouchController" data-compartment="1">-_engineEnabled: boolean</text>
+<text x="0.0" y="111.3" stroke="none" data-name="TouchController" data-compartment="1">-_weaponEnabled: boolean</text>
+
+</g>
+</g>
+<g transform="translate(3009.5, 1157.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TouchController" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="TouchController" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="TouchController" data-compartment="2">+update(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TouchController" data-compartment="2">-_handleAimTouch(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TouchController" data-compartment="2">-_handleFireTouch(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TouchController" data-compartment="2">-_handleThrusterTouch(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="TouchController" data-compartment="2">-_handleThrowTouch(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="TouchController" data-compartment="2">-_handleBoostTouch(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="TouchController" data-compartment="2">+getGameObject(): Container</text>
+<text x="0.0" y="127.5" stroke="none" data-name="TouchController" data-compartment="2">+getPhysicsBody(): Body</text>
+<text x="0.0" y="143.7" stroke="none" data-name="TouchController" data-compartment="2">-_createGameObj(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="TouchController" data-compartment="2">-_createLeftStick(): LayoutContent</text>
+<text x="0.0" y="176.1" stroke="none" data-name="TouchController" data-compartment="2">-_createThrowButton(): LayoutContent</text>
+<text x="0.0" y="192.3" stroke="none" data-name="TouchController" data-compartment="2">-_createBoostButton(): LayoutContent</text>
+<text x="0.0" y="208.5" stroke="none" data-name="TouchController" data-compartment="2">-_createThrusterButton(): LayoutContent</text>
+<text x="0.0" y="224.7" stroke="none" data-name="TouchController" data-compartment="2">-_createFireButton(): LayoutContent</text>
+
+</g>
+</g>
+</g>
+<g data-name="MouseWheelScroll">
+<g fill="#1e1b4b" stroke="#818cf8" stroke-dasharray="4 4" data-name="MouseWheelScroll">
+<rect x="3283.8" y="282.5" height="76.0" width="177.0" data-name="MouseWheelScroll"></rect>
+<path d="M3283.8 328.5 L3460.8 328.5" fill="none" data-name="MouseWheelScroll"></path>
+<path d="M3283.8 343.5 L3460.8 343.5" fill="none" data-name="MouseWheelScroll"></path>
+</g>
+<g transform="translate(3283.75, 282.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MouseWheelScroll" data-compartment="0">
+<g transform="translate(15, 15)" fill="#818cf8" text-align="center" data-name="MouseWheelScroll" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\interfaces\mouse-wheel-scroll.ts.MouseWheelScroll" xlink:href="..\projects\client\src\app\space-sim\game\interfaces\mouse-wheel-scroll.ts"><text x="73.5" y="14.1" stroke="none" text-anchor="middle" data-name="MouseWheelScroll" data-compartment="0">MouseWheelScroll</text></a>
+
+</g>
+</g>
+<g transform="translate(3283.75, 328.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MouseWheelScroll" data-compartment="1">
+<g transform="translate(15, 15)" fill="#818cf8" data-name="MouseWheelScroll" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(3283.75, 343.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MouseWheelScroll" data-compartment="2">
+<g transform="translate(15, 15)" fill="#818cf8" data-name="MouseWheelScroll" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="Resizable">
+<g fill="#1e1b4b" stroke="#818cf8" stroke-dasharray="4 4" data-name="Resizable">
+<rect x="5609.8" y="267.0" height="107.0" width="143.0" data-name="Resizable"></rect>
+<path d="M5609.8 313.0 L5752.8 313.0" fill="none" data-name="Resizable"></path>
+<path d="M5609.8 328.0 L5752.8 328.0" fill="none" data-name="Resizable"></path>
+</g>
+<g transform="translate(5609.75, 267)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Resizable" data-compartment="0">
+<g transform="translate(15, 15)" fill="#818cf8" text-align="center" data-name="Resizable" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\interfaces\resizable.ts.Resizable" xlink:href="..\projects\client\src\app\space-sim\game\interfaces\resizable.ts"><text x="56.5" y="14.1" stroke="none" text-anchor="middle" data-name="Resizable" data-compartment="0">Resizable</text></a>
+
+</g>
+</g>
+<g transform="translate(5609.75, 313)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Resizable" data-compartment="1">
+<g transform="translate(15, 15)" fill="#818cf8" data-name="Resizable" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(5609.75, 328)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Resizable" data-compartment="2">
+<g transform="translate(15, 15)" fill="#818cf8" text-align="left" data-name="Resizable" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Resizable" data-compartment="2">+resize(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="TimeDelta">
+<g fill="#7c2d12" stroke="#fb923c" data-name="TimeDelta">
+<rect x="3700.8" y="259.0" height="123.0" width="149.0" data-name="TimeDelta"></rect>
+<path d="M3700.8 305.0 L3849.8 305.0" fill="none" data-name="TimeDelta"></path>
+<path d="M3700.8 367.0 L3849.8 367.0" fill="none" data-name="TimeDelta"></path>
+</g>
+<g transform="translate(3700.75, 259)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TimeDelta" data-compartment="0">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="center" data-name="TimeDelta" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\interfaces\time-delta.ts.TimeDelta" xlink:href="..\projects\client\src\app\space-sim\game\interfaces\time-delta.ts"><text x="59.5" y="14.1" stroke="none" text-anchor="middle" data-name="TimeDelta" data-compartment="0">TimeDelta</text></a>
+
+</g>
+</g>
+<g transform="translate(3700.75, 305)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TimeDelta" data-compartment="1">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="left" data-name="TimeDelta" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="TimeDelta" data-compartment="1">+time: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TimeDelta" data-compartment="1">+delta: number</text>
+
+</g>
+</g>
+<g transform="translate(3700.75, 367)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TimeDelta" data-compartment="2">
+<g transform="translate(15, 15)" fill="#fb923c" data-name="TimeDelta" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="ClientGameLevel">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="ClientGameLevel">
+<rect x="3455.3" y="1114.5" height="154.0" width="251.0" data-name="ClientGameLevel"></rect>
+<path d="M3455.3 1160.5 L3706.3 1160.5" fill="none" data-name="ClientGameLevel"></path>
+<path d="M3455.3 1206.5 L3706.3 1206.5" fill="none" data-name="ClientGameLevel"></path>
+</g>
+<g transform="translate(3455.25, 1114.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ClientGameLevel" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="ClientGameLevel" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\levels\client-game-level.ts.ClientGameLevel" xlink:href="..\projects\client\src\app\space-sim\game\levels\client-game-level.ts"><text x="110.5" y="14.1" stroke="none" text-anchor="middle" data-name="ClientGameLevel" data-compartment="0">ClientGameLevel</text></a>
+
+</g>
+</g>
+<g transform="translate(3455.25, 1160.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientGameLevel" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ClientGameLevel" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ClientGameLevel" data-compartment="1">-_pathGraphics: Graphics</text>
+
+</g>
+</g>
+<g transform="translate(3455.25, 1206.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientGameLevel" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ClientGameLevel" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ClientGameLevel" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ClientGameLevel" data-compartment="2">+findPathTo(): Vector2Like[]</text>
+
+</g>
+</g>
+</g>
+<g data-name="GameLevel">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="GameLevel">
+<rect x="3520.8" y="297.5" height="46.0" width="120.0" data-name="GameLevel"></rect>
+</g>
+<g transform="translate(3520.75, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameLevel" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="GameLevel" data-compartment="0">
+<text x="45.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameLevel" data-compartment="0">GameLevel</text>
+
+</g>
+</g>
+</g>
+<g data-name="GameOverScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="GameOverScene">
+<rect x="3794.3" y="993.0" height="397.0" width="255.0" data-name="GameOverScene"></rect>
+<path d="M3794.3 1039.0 L4049.3 1039.0" fill="none" data-name="GameOverScene"></path>
+<path d="M3794.3 1182.0 L4049.3 1182.0" fill="none" data-name="GameOverScene"></path>
+</g>
+<g transform="translate(3794.25, 993)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameOverScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="GameOverScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\game-over-scene.ts.GameOverScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\game-over-scene.ts"><text x="112.5" y="14.1" stroke="none" text-anchor="middle" data-name="GameOverScene" data-compartment="0">GameOverScene</text></a>
+
+</g>
+</g>
+<g transform="translate(3794.25, 1039)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameOverScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameOverScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameOverScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameOverScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameOverScene" data-compartment="1">-_sun: Sprite</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameOverScene" data-compartment="1">-_stars: TileSprite</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameOverScene" data-compartment="1">-_music: BaseSound</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameOverScene" data-compartment="1">-_layout: LinearLayout</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameOverScene" data-compartment="1">-_scoreText: Text</text>
+
+</g>
+</g>
+<g transform="translate(3794.25, 1182)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameOverScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameOverScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="GameOverScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameOverScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameOverScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameOverScene" data-compartment="2">-_updateScore(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameOverScene" data-compartment="2">-_createBackground(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameOverScene" data-compartment="2">-_createStellarBodies(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameOverScene" data-compartment="2">-_createLayout(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameOverScene" data-compartment="2">-_createTitle(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameOverScene" data-compartment="2">-_createScore(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameOverScene" data-compartment="2">-_createMenuItems(): void</text>
+<text x="0.0" y="176.1" stroke="none" data-name="GameOverScene" data-compartment="2">-_createMusic(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Scene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Scene">
+<rect x="4510.0" y="297.5" height="46.0" width="80.0" data-name="Scene"></rect>
+</g>
+<g transform="translate(4510, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Scene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Scene" data-compartment="0">
+<text x="25.0" y="14.1" stroke="none" text-anchor="middle" data-name="Scene" data-compartment="0">Scene</text>
+
+</g>
+</g>
+</g>
+<g data-name="GameplayHudScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="GameplayHudScene">
+<rect x="4109.3" y="1009.0" height="365.0" width="310.0" data-name="GameplayHudScene"></rect>
+<path d="M4109.3 1055.0 L4419.3 1055.0" fill="none" data-name="GameplayHudScene"></path>
+<path d="M4109.3 1247.0 L4419.3 1247.0" fill="none" data-name="GameplayHudScene"></path>
+</g>
+<g transform="translate(4109.25, 1009)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameplayHudScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="GameplayHudScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\gameplay-hud-scene.ts.GameplayHudScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\gameplay-hud-scene.ts"><text x="140.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameplayHudScene" data-compartment="0">GameplayHudScene</text></a>
+
+</g>
+</g>
+<g transform="translate(4109.25, 1055)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameplayHudScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameplayHudScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_hudText: Text</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_quitContainer: LayoutContainer</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_destructButton: TextButton</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_cancelDestructButton: TextButton</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_hudLayout: GridLayout</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_controller: InputController</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameplayHudScene" data-compartment="1">-_parentScene: BaseScene</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameplayHudScene" data-compartment="1">+debug: boolean</text>
+
+</g>
+</g>
+<g transform="translate(4109.25, 1247)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameplayHudScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameplayHudScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="GameplayHudScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameplayHudScene" data-compartment="2">+resize(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameplayHudScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameplayHudScene" data-compartment="2">-_createHUD(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameplayHudScene" data-compartment="2">-_createController(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameplayHudScene" data-compartment="2">-_displayHUDInfo(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="GameplayScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="GameplayScene">
+<rect x="5926.3" y="839.0" height="705.0" width="369.0" data-name="GameplayScene"></rect>
+<path d="M5926.3 885.0 L6295.3 885.0" fill="none" data-name="GameplayScene"></path>
+<path d="M5926.3 1109.0 L6295.3 1109.0" fill="none" data-name="GameplayScene"></path>
+</g>
+<g transform="translate(5926.25, 839)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameplayScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="GameplayScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\gameplay-scene.ts.GameplayScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\gameplay-scene.ts"><text x="169.5" y="14.1" stroke="none" text-anchor="middle" data-name="GameplayScene" data-compartment="0">GameplayScene</text></a>
+
+</g>
+</g>
+<g transform="translate(5926.25, 885)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameplayScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameplayScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="GameplayScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameplayScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameplayScene" data-compartment="1">-_stellarBodies: StellarBody[]</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameplayScene" data-compartment="1">-_backgroundStars: TileSprite</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameplayScene" data-compartment="1">-_music: BaseSound</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameplayScene" data-compartment="1">-_exploder: UiExploder</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameplayScene" data-compartment="1">-_gameLevel: GameLevel</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameplayScene" data-compartment="1">-_supplies: Map&lt;string, ShipSupply&gt;</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameplayScene" data-compartment="1">-_ships: Map&lt;string, Ship&gt;</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameplayScene" data-compartment="1">-_camera: Camera</text>
+<text x="0.0" y="176.1" stroke="none" data-name="GameplayScene" data-compartment="1">-_radar: Radar</text>
+<text x="0.0" y="192.3" stroke="none" data-name="GameplayScene" data-compartment="1">+debug: boolean</text>
+
+</g>
+</g>
+<g transform="translate(5926.25, 1109)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GameplayScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="GameplayScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="GameplayScene" data-compartment="2">+queueGameLevelUpdate(): BaseScene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="GameplayScene" data-compartment="2">+queueShipUpdates(): BaseScene</text>
+<text x="0.0" y="46.5" stroke="none" data-name="GameplayScene" data-compartment="2">+queueShipRemoval(): BaseScene</text>
+<text x="0.0" y="62.7" stroke="none" data-name="GameplayScene" data-compartment="2">+queueSupplyUpdates(): BaseScene</text>
+<text x="0.0" y="78.9" stroke="none" data-name="GameplayScene" data-compartment="2">+queueSupplyRemoval(): BaseScene</text>
+<text x="0.0" y="95.1" stroke="none" data-name="GameplayScene" data-compartment="2">+queueSupplyFlicker(): BaseScene</text>
+<text x="0.0" y="111.3" stroke="none" data-name="GameplayScene" data-compartment="2">+queueEndScene(): BaseScene</text>
+<text x="0.0" y="127.5" stroke="none" data-name="GameplayScene" data-compartment="2">+getLevel(): T</text>
+<text x="0.0" y="143.7" stroke="none" data-name="GameplayScene" data-compartment="2">+getShip(): T</text>
+<text x="0.0" y="159.9" stroke="none" data-name="GameplayScene" data-compartment="2">+getShips(): T[]</text>
+<text x="0.0" y="176.1" stroke="none" data-name="GameplayScene" data-compartment="2">+getSupply(): T</text>
+<text x="0.0" y="192.3" stroke="none" data-name="GameplayScene" data-compartment="2">+getSupplies(): T[]</text>
+<text x="0.0" y="208.5" stroke="none" data-name="GameplayScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="GameplayScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="240.9" stroke="none" data-name="GameplayScene" data-compartment="2">+resize(): void</text>
+<text x="0.0" y="257.1" stroke="none" data-name="GameplayScene" data-compartment="2">-_createOpponents(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="GameplayScene" data-compartment="2">-_createMapAndPlayer(): void</text>
+<text x="0.0" y="289.5" stroke="none" data-name="GameplayScene" data-compartment="2">-_createStellarBodiesLayer(): void</text>
+<text x="0.0" y="305.7" stroke="none" data-name="GameplayScene" data-compartment="2">-_createBackground(): void</text>
+<text x="0.0" y="321.9" stroke="none" data-name="GameplayScene" data-compartment="2">-_setupCamera(): void</text>
+<text x="0.0" y="338.1" stroke="none" data-name="GameplayScene" data-compartment="2">-_createMiniMap(): void</text>
+<text x="0.0" y="354.3" stroke="none" data-name="GameplayScene" data-compartment="2">-_playMusic(): void</text>
+<text x="0.0" y="370.5" stroke="none" data-name="GameplayScene" data-compartment="2">-_showRoom(): void</text>
+<text x="0.0" y="386.7" stroke="none" data-name="GameplayScene" data-compartment="2">-_expelSupplies(): void</text>
+<text x="0.0" y="402.9" stroke="none" data-name="GameplayScene" data-compartment="2">-_addSupplyCollisionPhysics(): ShipSupply</text>
+
+</g>
+</g>
+</g>
+<g data-name="BaseScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="BaseScene">
+<rect x="6504.5" y="297.5" height="46.0" width="120.0" data-name="BaseScene"></rect>
+</g>
+<g transform="translate(6504.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BaseScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="BaseScene" data-compartment="0">
+<text x="45.0" y="14.1" stroke="none" text-anchor="middle" data-name="BaseScene" data-compartment="0">BaseScene</text>
+
+</g>
+</g>
+</g>
+<g data-name="StellarBody">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="StellarBody">
+<rect x="6031.5" y="1742.0" height="398.0" width="268.0" data-name="StellarBody"></rect>
+<path d="M6031.5 1788.0 L6299.5 1788.0" fill="none" data-name="StellarBody"></path>
+<path d="M6031.5 1964.0 L6299.5 1964.0" fill="none" data-name="StellarBody"></path>
+</g>
+<g transform="translate(6031.5, 1742)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StellarBody" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="StellarBody" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\star-systems\stellar-body.ts.StellarBody" xlink:href="..\projects\client\src\app\space-sim\game\star-systems\stellar-body.ts"><text x="119.0" y="14.1" stroke="none" text-anchor="middle" data-name="StellarBody" data-compartment="0">StellarBody</text></a>
+
+</g>
+</g>
+<g transform="translate(6031.5, 1788)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StellarBody" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="StellarBody" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="StellarBody" data-compartment="1">+id: string</text>
+<text x="0.0" y="30.3" stroke="none" data-name="StellarBody" data-compartment="1">+active: boolean</text>
+<text x="0.0" y="46.5" stroke="none" data-name="StellarBody" data-compartment="1">-_scene: Scene</text>
+<text x="0.0" y="62.7" stroke="none" data-name="StellarBody" data-compartment="1">-_gameObj: Sprite</text>
+<text x="0.0" y="78.9" stroke="none" data-name="StellarBody" data-compartment="1">+spriteName: string</text>
+<text x="0.0" y="95.1" stroke="none" data-name="StellarBody" data-compartment="1">+location: Vector2</text>
+<text x="0.0" y="111.3" stroke="none" data-name="StellarBody" data-compartment="1">+scale: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="StellarBody" data-compartment="1">+scrollFactor: number</text>
+<text x="0.0" y="143.7" stroke="none" data-name="StellarBody" data-compartment="1">+rotationSpeed: number</text>
+
+</g>
+</g>
+<g transform="translate(6031.5, 1964)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StellarBody" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="StellarBody" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="StellarBody" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="StellarBody" data-compartment="2">+update(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="StellarBody" data-compartment="2">+getRotation(): number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="StellarBody" data-compartment="2">+setRotation(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="StellarBody" data-compartment="2">+getLocationInView(): Vector2</text>
+<text x="0.0" y="95.1" stroke="none" data-name="StellarBody" data-compartment="2">+getLocation(): Vector2</text>
+<text x="0.0" y="111.3" stroke="none" data-name="StellarBody" data-compartment="2">+getGameObject(): Sprite</text>
+<text x="0.0" y="127.5" stroke="none" data-name="StellarBody" data-compartment="2">+getPhysicsBody(): Body</text>
+<text x="0.0" y="143.7" stroke="none" data-name="StellarBody" data-compartment="2">-_createGameObj(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="UiExploder">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="UiExploder">
+<rect x="8552.8" y="1847.5" height="187.0" width="360.0" data-name="UiExploder"></rect>
+<path d="M8552.8 1893.5 L8912.8 1893.5" fill="none" data-name="UiExploder"></path>
+<path d="M8552.8 1972.5 L8912.8 1972.5" fill="none" data-name="UiExploder"></path>
+</g>
+<g transform="translate(8552.75, 1847.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="UiExploder" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="UiExploder" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ui-components\ui-exploder.ts.UiExploder" xlink:href="..\projects\client\src\app\space-sim\game\ui-components\ui-exploder.ts"><text x="165.0" y="14.1" stroke="none" text-anchor="middle" data-name="UiExploder" data-compartment="0">UiExploder</text></a>
+
+</g>
+</g>
+<g transform="translate(8552.75, 1893.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="UiExploder" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="UiExploder" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="UiExploder" data-compartment="1">-_destroyedSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="UiExploder" data-compartment="1">-_flareParticleEmitter: ParticleEmitter</text>
+<text x="0.0" y="46.5" stroke="none" data-name="UiExploder" data-compartment="1">-_explosionParticleEmitter: ParticleEmitter</text>
+
+</g>
+</g>
+<g transform="translate(8552.75, 1972.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="UiExploder" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="UiExploder" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="UiExploder" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="UiExploder" data-compartment="2">+explode(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="Camera">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Camera">
+<rect x="4322.0" y="1782.5" height="317.0" width="306.0" data-name="Camera"></rect>
+<path d="M4322.0 1828.5 L4628.0 1828.5" fill="none" data-name="Camera"></path>
+<path d="M4322.0 1907.5 L4628.0 1907.5" fill="none" data-name="Camera"></path>
+</g>
+<g transform="translate(4322, 1782.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Camera" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Camera" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ui-components\camera.ts.Camera" xlink:href="..\projects\client\src\app\space-sim\game\ui-components\camera.ts"><text x="138.0" y="14.1" stroke="none" text-anchor="middle" data-name="Camera" data-compartment="0">Camera</text></a>
+
+</g>
+</g>
+<g transform="translate(4322, 1828.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Camera" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="Camera" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Camera" data-compartment="1">+scene: Scene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Camera" data-compartment="1">-_cam: Camera</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Camera" data-compartment="1">-_ignored: Group</text>
+
+</g>
+</g>
+<g transform="translate(4322, 1907.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Camera" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="Camera" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Camera" data-compartment="2">+setLocationInView(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Camera" data-compartment="2">+setLocation(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Camera" data-compartment="2">+ignore(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Camera" data-compartment="2">+unignore(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Camera" data-compartment="2">+clearAllIgnored(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Camera" data-compartment="2">+follow(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Camera" data-compartment="2">+stopFollowing(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Camera" data-compartment="2">#_getCamera(): Camera</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Camera" data-compartment="2">+destroy(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Camera" data-compartment="2">-_defaultOptions(): CameraOptions</text>
+
+</g>
+</g>
+</g>
+<g data-name="Radar">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Radar">
+<rect x="6182.5" y="2200.0" height="187.0" width="377.0" data-name="Radar"></rect>
+<path d="M6182.5 2246.0 L6559.5 2246.0" fill="none" data-name="Radar"></path>
+<path d="M6182.5 2325.0 L6559.5 2325.0" fill="none" data-name="Radar"></path>
+</g>
+<g transform="translate(6182.5, 2200)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Radar" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Radar" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ui-components\radar.ts.Radar" xlink:href="..\projects\client\src\app\space-sim\game\ui-components\radar.ts"><text x="173.5" y="14.1" stroke="none" text-anchor="middle" data-name="Radar" data-compartment="0">Radar</text></a>
+
+</g>
+</g>
+<g transform="translate(6182.5, 2246)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Radar" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="Radar" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="Radar" data-compartment="1">-_mask: Graphics</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Radar" data-compartment="1">-_border: Graphics</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Radar" data-compartment="1">-static DEFAULT_OPTIONS: CameraOptions</text>
+
+</g>
+</g>
+<g transform="translate(6182.5, 2325)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Radar" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="Radar" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="Radar" data-compartment="2">#_getCamera(): Camera</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Radar" data-compartment="2">+destroy(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="MultiplayerHudScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="MultiplayerHudScene">
+<rect x="5556.3" y="1001.0" height="381.0" width="310.0" data-name="MultiplayerHudScene"></rect>
+<path d="M5556.3 1047.0 L5866.3 1047.0" fill="none" data-name="MultiplayerHudScene"></path>
+<path d="M5556.3 1255.0 L5866.3 1255.0" fill="none" data-name="MultiplayerHudScene"></path>
+</g>
+<g transform="translate(5556.25, 1001)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MultiplayerHudScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="MultiplayerHudScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\multiplayer-hud-scene.ts.MultiplayerHudScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\multiplayer-hud-scene.ts"><text x="140.0" y="14.1" stroke="none" text-anchor="middle" data-name="MultiplayerHudScene" data-compartment="0">MultiplayerHudScene</text></a>
+
+</g>
+</g>
+<g transform="translate(5556.25, 1047)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MultiplayerHudScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MultiplayerHudScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_hudText: Text</text>
+<text x="0.0" y="62.7" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_quitContainer: LayoutContainer</text>
+<text x="0.0" y="78.9" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_destructButton: TextButton</text>
+<text x="0.0" y="95.1" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_cancelDestructButton: TextButton</text>
+<text x="0.0" y="111.3" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_hudLayout: GridLayout</text>
+<text x="0.0" y="127.5" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_controller: InputController</text>
+<text x="0.0" y="143.7" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_connectedToServer: boolean</text>
+<text x="0.0" y="159.9" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">-_parentScene: BaseScene</text>
+<text x="0.0" y="176.1" stroke="none" data-name="MultiplayerHudScene" data-compartment="1">+debug: boolean</text>
+
+</g>
+</g>
+<g transform="translate(5556.25, 1255)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MultiplayerHudScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MultiplayerHudScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">+resize(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">-_createHUD(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">-_createController(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="MultiplayerHudScene" data-compartment="2">-_displayHUDInfo(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="MultiplayerScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="MultiplayerScene">
+<rect x="6433.5" y="701.0" height="981.0" width="405.0" data-name="MultiplayerScene"></rect>
+<path d="M6433.5 747.0 L6838.5 747.0" fill="none" data-name="MultiplayerScene"></path>
+<path d="M6433.5 1182.0 L6838.5 1182.0" fill="none" data-name="MultiplayerScene"></path>
+</g>
+<g transform="translate(6433.5, 701)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MultiplayerScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="MultiplayerScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\multiplayer-scene.ts.MultiplayerScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\multiplayer-scene.ts"><text x="187.5" y="14.1" stroke="none" text-anchor="middle" data-name="MultiplayerScene" data-compartment="0">MultiplayerScene</text></a>
+
+</g>
+</g>
+<g transform="translate(6433.5, 747)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MultiplayerScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MultiplayerScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_stellarBodies: StellarBody[]</text>
+<text x="0.0" y="62.7" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_backgroundStars: TileSprite</text>
+<text x="0.0" y="78.9" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_music: BaseSound</text>
+<text x="0.0" y="95.1" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_exploder: UiExploder</text>
+<text x="0.0" y="111.3" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_disconnectTimer: number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_gameLevel: GameLevel</text>
+<text x="0.0" y="143.7" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_supplies: Map&lt;string, ShipSupply&gt;</text>
+<text x="0.0" y="159.9" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_ships: Map&lt;string, Ship&gt;</text>
+<text x="0.0" y="176.1" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_camera: Camera</text>
+<text x="0.0" y="192.3" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_radar: Radar</text>
+<text x="0.0" y="208.5" stroke="none" data-name="MultiplayerScene" data-compartment="1">+debug: boolean</text>
+<text x="0.0" y="224.7" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_shouldCreateStellarBodies: boolean</text>
+<text x="0.0" y="240.9" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_shouldGetPlayer: boolean</text>
+<text x="0.0" y="257.1" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_needsResize: boolean</text>
+<text x="0.0" y="273.3" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_shouldResize: boolean</text>
+<text x="0.0" y="289.5" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_shouldShowHud: boolean</text>
+<text x="0.0" y="305.7" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_shouldEndScene: boolean</text>
+<text x="0.0" y="321.9" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_updateGameLevelQueue: GameLevelConfig[]</text>
+<text x="0.0" y="338.1" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_updateShipsQueue: ShipState[]</text>
+<text x="0.0" y="354.3" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_removeShipsQueue: string[]</text>
+<text x="0.0" y="370.5" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_updateSuppliesQueue: ShipSupplyOptions[]</text>
+<text x="0.0" y="386.7" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_flickerSuppliesQueue: string[]</text>
+<text x="0.0" y="402.9" stroke="none" data-name="MultiplayerScene" data-compartment="1">-_removeSuppliesQueue: string[]</text>
+
+</g>
+</g>
+<g transform="translate(6433.5, 1182)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MultiplayerScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="MultiplayerScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">+getLevel(): T</text>
+<text x="0.0" y="30.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueGameLevelUpdate(): BaseScene</text>
+<text x="0.0" y="46.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">+getShip(): T</text>
+<text x="0.0" y="62.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">+getShips(): T[]</text>
+<text x="0.0" y="78.9" stroke="none" data-name="MultiplayerScene" data-compartment="2">+getSupply(): T</text>
+<text x="0.0" y="95.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">+getSupplies(): T[]</text>
+<text x="0.0" y="111.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueSupplyUpdates(): BaseScene</text>
+<text x="0.0" y="127.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueSupplyRemoval(): BaseScene</text>
+<text x="0.0" y="143.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueSupplyFlicker(): BaseScene</text>
+<text x="0.0" y="159.9" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueShipUpdates(): BaseScene</text>
+<text x="0.0" y="176.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueShipRemoval(): BaseScene</text>
+<text x="0.0" y="192.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="208.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">+resize(): void</text>
+<text x="0.0" y="240.9" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_getPlayerFromServer(): Promise&lt;void&gt;</text>
+<text x="0.0" y="257.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_createStellarBodiesLayer(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_createBackground(): void</text>
+<text x="0.0" y="289.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_setupCamera(): void</text>
+<text x="0.0" y="305.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_createMiniMap(): void</text>
+<text x="0.0" y="321.9" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_playMusic(): void</text>
+<text x="0.0" y="338.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_addPlayerCollisionPhysicsWithPlayers(): void</text>
+<text x="0.0" y="354.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">+queueEndScene(): BaseScene</text>
+<text x="0.0" y="370.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processEndScene(): void</text>
+<text x="0.0" y="386.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processGameLevelQueue(): void</text>
+<text x="0.0" y="402.9" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processUpdateShipsQueue(): void</text>
+<text x="0.0" y="419.1" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processRemoveShipsQueue(): void</text>
+<text x="0.0" y="435.3" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processUpdateSuppliesQueue(): void</text>
+<text x="0.0" y="451.5" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processRemoveSuppliesQueue(): void</text>
+<text x="0.0" y="467.7" stroke="none" data-name="MultiplayerScene" data-compartment="2">-_processFlickerSuppliesQueue(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="SetNameScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SetNameScene">
+<rect x="4479.3" y="1009.0" height="365.0" width="321.0" data-name="SetNameScene"></rect>
+<path d="M4479.3 1055.0 L4800.3 1055.0" fill="none" data-name="SetNameScene"></path>
+<path d="M4479.3 1198.0 L4800.3 1198.0" fill="none" data-name="SetNameScene"></path>
+</g>
+<g transform="translate(4479.25, 1009)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SetNameScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SetNameScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\set-name-scene.ts.SetNameScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\set-name-scene.ts"><text x="145.5" y="14.1" stroke="none" text-anchor="middle" data-name="SetNameScene" data-compartment="0">SetNameScene</text></a>
+
+</g>
+</g>
+<g transform="translate(4479.25, 1055)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SetNameScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="SetNameScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="SetNameScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SetNameScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SetNameScene" data-compartment="1">-_layout: GridLayout</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SetNameScene" data-compartment="1">-_text: LayoutContainer</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SetNameScene" data-compartment="1">-_button: TextButton</text>
+<text x="0.0" y="95.1" stroke="none" data-name="SetNameScene" data-compartment="1">-_music: BaseSound</text>
+<text x="0.0" y="111.3" stroke="none" data-name="SetNameScene" data-compartment="1">-_continueButtonStylesDisabled: any</text>
+
+</g>
+</g>
+<g transform="translate(4479.25, 1198)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SetNameScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="SetNameScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="SetNameScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SetNameScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SetNameScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SetNameScene" data-compartment="2">-_createMusic(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SetNameScene" data-compartment="2">-_createLayout(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="SetNameScene" data-compartment="2">-_getKeyboardInput(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="SetNameScene" data-compartment="2">-_getMobileTextInput(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="SetNameScene" data-compartment="2">-_validateAndStartGame(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="SetNameScene" data-compartment="2">-_updateContinueButton(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="StartupScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="StartupScene">
+<rect x="4860.3" y="774.0" height="835.0" width="636.0" data-name="StartupScene"></rect>
+<path d="M4860.3 820.0 L5496.3 820.0" fill="none" data-name="StartupScene"></path>
+<path d="M4860.3 1417.0 L5496.3 1417.0" fill="none" data-name="StartupScene"></path>
+</g>
+<g transform="translate(4860.25, 774)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StartupScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="StartupScene" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\scenes\startup-scene.ts.StartupScene" xlink:href="..\projects\client\src\app\space-sim\game\scenes\startup-scene.ts"><text x="303.0" y="14.1" stroke="none" text-anchor="middle" data-name="StartupScene" data-compartment="0">StartupScene</text></a>
+
+</g>
+</g>
+<g transform="translate(4860.25, 820)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StartupScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="StartupScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="StartupScene" data-compartment="1">-_width: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="StartupScene" data-compartment="1">-_height: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="StartupScene" data-compartment="1">-_sun: Sprite</text>
+<text x="0.0" y="62.7" stroke="none" data-name="StartupScene" data-compartment="1">-_stars: TileSprite</text>
+<text x="0.0" y="78.9" stroke="none" data-name="StartupScene" data-compartment="1">-_music: BaseSound</text>
+<text x="0.0" y="95.1" stroke="none" data-name="StartupScene" data-compartment="1">-_controlsMenu: Card</text>
+<text x="0.0" y="111.3" stroke="none" data-name="StartupScene" data-compartment="1">-_startSingleplayerButton: TextButton</text>
+<text x="0.0" y="127.5" stroke="none" data-name="StartupScene" data-compartment="1">-_startMultiplayerButton: TextButton</text>
+<text x="0.0" y="143.7" stroke="none" data-name="StartupScene" data-compartment="1">-_showMenuButton: TextButton</text>
+<text x="0.0" y="159.9" stroke="none" data-name="StartupScene" data-compartment="1">-_serverConnectionText: LayoutContainer</text>
+<text x="0.0" y="176.1" stroke="none" data-name="StartupScene" data-compartment="1">-_medPriUpdateAt: number</text>
+<text x="0.0" y="192.3" stroke="none" data-name="StartupScene" data-compartment="1">-_lowPriUpdateAt: number</text>
+<text x="0.0" y="208.5" stroke="none" data-name="StartupScene" data-compartment="1">-_ultraLowPriUpdateAt: number</text>
+<text x="0.0" y="224.7" stroke="none" data-name="StartupScene" data-compartment="1">+buttonTextStyle: { readonly font: &quot;20px Courier&quot;</text>
+<text x="0.0" y="240.9" stroke="none" data-name="StartupScene" data-compartment="1">readonly color: &quot;#ddffdd&quot;</text>
+<text x="0.0" y="257.1" stroke="none" data-name="StartupScene" data-compartment="1">readonly align: &quot;center&quot;</text>
+<text x="0.0" y="273.3" stroke="none" data-name="StartupScene" data-compartment="1">readonly alpha: 1</text>
+<text x="0.0" y="289.5" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="305.7" stroke="none" data-name="StartupScene" data-compartment="1">+buttonDisabledTextStyle: { readonly color: string</text>
+<text x="0.0" y="321.9" stroke="none" data-name="StartupScene" data-compartment="1">readonly alpha: 0.2</text>
+<text x="0.0" y="338.1" stroke="none" data-name="StartupScene" data-compartment="1">readonly font: &quot;20px Courier&quot;</text>
+<text x="0.0" y="354.3" stroke="none" data-name="StartupScene" data-compartment="1">readonly align: &quot;center&quot;</text>
+<text x="0.0" y="370.5" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="386.7" stroke="none" data-name="StartupScene" data-compartment="1">+buttonBackgroundStyle: { readonly fillStyle: { readonly color: 8421504</text>
+<text x="0.0" y="402.9" stroke="none" data-name="StartupScene" data-compartment="1">readonly alpha: 0.2</text>
+<text x="0.0" y="419.1" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="435.3" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="451.5" stroke="none" data-name="StartupScene" data-compartment="1">+buttonHoverBackgroundStyle: { readonly fillStyle: { readonly color: 8454016</text>
+<text x="0.0" y="467.7" stroke="none" data-name="StartupScene" data-compartment="1">readonly alpha: 0.5</text>
+<text x="0.0" y="483.9" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="500.1" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="516.3" stroke="none" data-name="StartupScene" data-compartment="1">+buttonDisabledBackgroundStyle: { readonly fillStyle: { readonly alpha: 0.1</text>
+<text x="0.0" y="532.5" stroke="none" data-name="StartupScene" data-compartment="1">readonly color: 8421504</text>
+<text x="0.0" y="548.7" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+<text x="0.0" y="564.9" stroke="none" data-name="StartupScene" data-compartment="1">}</text>
+
+</g>
+</g>
+<g transform="translate(4860.25, 1417)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StartupScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="StartupScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="StartupScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="StartupScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="StartupScene" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="StartupScene" data-compartment="2">-_createBackground(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="StartupScene" data-compartment="2">-_createStellarBodies(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="StartupScene" data-compartment="2">-_createMenuItems(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="StartupScene" data-compartment="2">-_createControlsMenu(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="StartupScene" data-compartment="2">-_createMusic(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="StartupScene" data-compartment="2">-_enableMultiplayer(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="StartupScene" data-compartment="2">-_disableMultiplayer(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="MiniMapShader">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="MiniMapShader">
+<rect x="6898.5" y="1153.5" height="76.0" width="153.0" data-name="MiniMapShader"></rect>
+<path d="M6898.5 1199.5 L7051.5 1199.5" fill="none" data-name="MiniMapShader"></path>
+<path d="M6898.5 1214.5 L7051.5 1214.5" fill="none" data-name="MiniMapShader"></path>
+</g>
+<g transform="translate(6898.5, 1153.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MiniMapShader" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="MiniMapShader" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\shaders\minimap-shader.ts.MiniMapShader" xlink:href="..\projects\client\src\app\space-sim\game\shaders\minimap-shader.ts"><text x="61.5" y="14.1" stroke="none" text-anchor="middle" data-name="MiniMapShader" data-compartment="0">MiniMapShader</text></a>
+
+</g>
+</g>
+<g transform="translate(6898.5, 1199.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MiniMapShader" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="MiniMapShader" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(6898.5, 1214.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="MiniMapShader" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="MiniMapShader" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="PostFXPipeline">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PostFXPipeline">
+<rect x="6900.5" y="297.5" height="46.0" width="149.0" data-name="PostFXPipeline"></rect>
+</g>
+<g transform="translate(6900.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PostFXPipeline" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PostFXPipeline" data-compartment="0">
+<text x="59.5" y="14.1" stroke="none" text-anchor="middle" data-name="PostFXPipeline" data-compartment="0">PostFXPipeline</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerShip">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerShip">
+<rect x="7111.5" y="976.5" height="430.0" width="364.0" data-name="PlayerShip"></rect>
+<path d="M7111.5 1022.5 L7475.5 1022.5" fill="none" data-name="PlayerShip"></path>
+<path d="M7111.5 1149.5 L7475.5 1149.5" fill="none" data-name="PlayerShip"></path>
+</g>
+<g transform="translate(7111.5, 976.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerShip" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerShip" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\player-ship.ts.PlayerShip" xlink:href="..\projects\client\src\app\space-sim\game\ships\player-ship.ts"><text x="167.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerShip" data-compartment="0">PlayerShip</text></a>
+
+</g>
+</g>
+<g transform="translate(7111.5, 1022.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerShip" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerShip" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerShip" data-compartment="1">-_shipIntegrityIndicator: LayoutContainer</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerShip" data-compartment="1">-_shipHeatIndicator: Sprite</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerShip" data-compartment="1">-_shipOverheatIndicator: Text</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PlayerShip" data-compartment="1">-_shipDamageFlicker: Tween</text>
+<text x="0.0" y="78.9" stroke="none" data-name="PlayerShip" data-compartment="1">-_radarSprite: Sprite</text>
+<text x="0.0" y="95.1" stroke="none" data-name="PlayerShip" data-compartment="1">-_selfDestructText: Text</text>
+
+</g>
+</g>
+<g transform="translate(7111.5, 1149.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerShip" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerShip" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerShip" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerShip" data-compartment="2">+update(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerShip" data-compartment="2">+subtractIntegrity(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PlayerShip" data-compartment="2">+addIntegrity(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="PlayerShip" data-compartment="2">-_addVisualsToGameObject(): void</text>
+<text x="0.0" y="95.1" stroke="none" data-name="PlayerShip" data-compartment="2">-_createNameIndicator(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="PlayerShip" data-compartment="2">-_createIntegrityIndicator(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="PlayerShip" data-compartment="2">-_createHeatIndicator(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="PlayerShip" data-compartment="2">-_createOverheatIndicator(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="PlayerShip" data-compartment="2">-_createRadarSprite(): void</text>
+<text x="0.0" y="176.1" stroke="none" data-name="PlayerShip" data-compartment="2">-_createSelfDestructText(): void</text>
+<text x="0.0" y="192.3" stroke="none" data-name="PlayerShip" data-compartment="2">-_updateOverheatingSpriteAndText(): void</text>
+<text x="0.0" y="208.5" stroke="none" data-name="PlayerShip" data-compartment="2">-_updateIntegrityIndicator(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="PlayerShip" data-compartment="2">-_updateSelfDestructText(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Ship">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Ship">
+<rect x="7261.0" y="297.5" height="46.0" width="65.0" data-name="Ship"></rect>
+</g>
+<g transform="translate(7261, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Ship" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Ship" data-compartment="0">
+<text x="17.5" y="14.1" stroke="none" text-anchor="middle" data-name="Ship" data-compartment="0">Ship</text>
+
+</g>
+</g>
+</g>
+<g data-name="StellarBodyOptions">
+<g fill="#7c2d12" stroke="#fb923c" data-name="StellarBodyOptions">
+<rect x="7386.0" y="234.5" height="172.0" width="447.0" data-name="StellarBodyOptions"></rect>
+<path d="M7386.0 280.5 L7833.0 280.5" fill="none" data-name="StellarBodyOptions"></path>
+<path d="M7386.0 391.5 L7833.0 391.5" fill="none" data-name="StellarBodyOptions"></path>
+</g>
+<g transform="translate(7386, 234.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StellarBodyOptions" data-compartment="0">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="center" data-name="StellarBodyOptions" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\star-systems\stellar-body.ts.StellarBodyOptions" xlink:href="..\projects\client\src\app\space-sim\game\star-systems\stellar-body.ts"><text x="208.5" y="14.1" stroke="none" text-anchor="middle" data-name="StellarBodyOptions" data-compartment="0">StellarBodyOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(7386, 280.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StellarBodyOptions" data-compartment="1">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="left" data-name="StellarBodyOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="StellarBodyOptions" data-compartment="1">+spriteName: &quot;sun&quot; | &quot;mercury&quot; | &quot;venus&quot; | &quot;asteroids&quot;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="StellarBodyOptions" data-compartment="1">+rotationSpeed?: NumberOrRange</text>
+<text x="0.0" y="46.5" stroke="none" data-name="StellarBodyOptions" data-compartment="1">+scale?: NumberOrRange</text>
+<text x="0.0" y="62.7" stroke="none" data-name="StellarBodyOptions" data-compartment="1">+location?: Vector2</text>
+<text x="0.0" y="78.9" stroke="none" data-name="StellarBodyOptions" data-compartment="1">+scrollFactor?: NumberOrRange</text>
+
+</g>
+</g>
+<g transform="translate(7386, 391.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StellarBodyOptions" data-compartment="2">
+<g transform="translate(15, 15)" fill="#fb923c" data-name="StellarBodyOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="HasGameObject">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="HasGameObject">
+<rect x="7934.5" y="1168.5" height="46.0" width="159.0" data-name="HasGameObject"></rect>
+</g>
+<g transform="translate(7934.5, 1168.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="HasGameObject" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="HasGameObject" data-compartment="0">
+<text x="64.5" y="14.1" stroke="none" text-anchor="middle" data-name="HasGameObject" data-compartment="0">HasGameObject</text>
+
+</g>
+</g>
+</g>
+<g data-name="Exploder">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Exploder">
+<rect x="8153.5" y="1168.5" height="46.0" width="100.0" data-name="Exploder"></rect>
+</g>
+<g transform="translate(8153.5, 1168.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Exploder" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Exploder" data-compartment="0">
+<text x="35.0" y="14.1" stroke="none" text-anchor="middle" data-name="Exploder" data-compartment="0">Exploder</text>
+
+</g>
+</g>
+</g>
+<g data-name="ClientSocketManager">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="ClientSocketManager">
+<rect x="7893.0" y="0.0" height="641.0" width="474.0" data-name="ClientSocketManager"></rect>
+<path d="M7893.0 46.0 L8367.0 46.0" fill="none" data-name="ClientSocketManager"></path>
+<path d="M7893.0 157.0 L8367.0 157.0" fill="none" data-name="ClientSocketManager"></path>
+</g>
+<g transform="translate(7893, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ClientSocketManager" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="ClientSocketManager" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\utilities\client-socket-manager.ts.ClientSocketManager" xlink:href="..\projects\client\src\app\space-sim\game\utilities\client-socket-manager.ts"><text x="222.0" y="14.1" stroke="none" text-anchor="middle" data-name="ClientSocketManager" data-compartment="0">ClientSocketManager</text></a>
+
+</g>
+</g>
+<g transform="translate(7893, 46)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientSocketManager" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ClientSocketManager" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ClientSocketManager" data-compartment="1">+socket: Socket&lt;DefaultEventsMap, DefaultEventsMap&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ClientSocketManager" data-compartment="1">+url: string</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ClientSocketManager" data-compartment="1">-_connects: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="ClientSocketManager" data-compartment="1">-_disconnects: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="ClientSocketManager" data-compartment="1">-_lastEventTimestamp: number</text>
+
+</g>
+</g>
+<g transform="translate(7893, 157)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientSocketManager" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ClientSocketManager" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">+isReconnect(): boolean</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_emit(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendSetPlayerDataRequest(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendRequestMapRequest(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendJoinRoomRequest(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendPlayerDeathNotice(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendRequestShipRequest(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendSetShipAngleRequest(): this</text>
+<text x="0.0" y="143.7" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendEngineOnRequest(): this</text>
+<text x="0.0" y="159.9" stroke="none" data-name="ClientSocketManager" data-compartment="2">+sendWeaponFiringRequest(): this</text>
+<text x="0.0" y="176.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleAllEvents(): void</text>
+<text x="0.0" y="192.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_shouldProcess(): boolean</text>
+<text x="0.0" y="208.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleConnectEvent(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleDisconnectEvent(): void</text>
+<text x="0.0" y="240.9" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleInvalidUserDataEvent(): void</text>
+<text x="0.0" y="257.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleInvalidRequestEvent(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleUserAcceptedEvent(): void</text>
+<text x="0.0" y="289.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleJoinRoomEvent(): void</text>
+<text x="0.0" y="305.7" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleUpdateSuppliesEvent(): void</text>
+<text x="0.0" y="321.9" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleRemoveSuppliesEvent(): void</text>
+<text x="0.0" y="338.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleFlickerSuppliesEvent(): void</text>
+<text x="0.0" y="354.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleUpdatePlayersEvent(): void</text>
+<text x="0.0" y="370.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handlePlayerDeathEvent(): void</text>
+<text x="0.0" y="386.7" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleUpdateStatsEvent(): void</text>
+<text x="0.0" y="402.9" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleUpdateMapEvent(): void</text>
+<text x="0.0" y="419.1" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleSetPlayerIdEvent(): void</text>
+<text x="0.0" y="435.3" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleEngineOnEvent(): void</text>
+<text x="0.0" y="451.5" stroke="none" data-name="ClientSocketManager" data-compartment="2">-_handleEnableWeaponEvent(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="ClientSocketManagerOptions">
+<g fill="#7c2d12" stroke="#fb923c" data-name="ClientSocketManagerOptions">
+<rect x="8427.0" y="267.0" height="107.0" width="260.0" data-name="ClientSocketManagerOptions"></rect>
+<path d="M8427.0 313.0 L8687.0 313.0" fill="none" data-name="ClientSocketManagerOptions"></path>
+<path d="M8427.0 359.0 L8687.0 359.0" fill="none" data-name="ClientSocketManagerOptions"></path>
+</g>
+<g transform="translate(8427, 267)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientSocketManagerOptions" data-compartment="0">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="center" data-name="ClientSocketManagerOptions" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\utilities\client-socket-manager.ts.ClientSocketManagerOptions" xlink:href="..\projects\client\src\app\space-sim\game\utilities\client-socket-manager.ts"><text x="115.0" y="14.1" stroke="none" text-anchor="middle" data-name="ClientSocketManagerOptions" data-compartment="0">ClientSocketManagerOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(8427, 313)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientSocketManagerOptions" data-compartment="1">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="left" data-name="ClientSocketManagerOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ClientSocketManagerOptions" data-compartment="1">+serverUrl: string</text>
+
+</g>
+</g>
+<g transform="translate(8427, 359)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ClientSocketManagerOptions" data-compartment="2">
+<g transform="translate(15, 15)" fill="#fb923c" data-name="ClientSocketManagerOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="PlayerAmmoSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerAmmoSupply">
+<rect x="8712.5" y="1138.0" height="107.0" width="202.0" data-name="PlayerAmmoSupply"></rect>
+<path d="M8712.5 1184.0 L8914.5 1184.0" fill="none" data-name="PlayerAmmoSupply"></path>
+<path d="M8712.5 1199.0 L8914.5 1199.0" fill="none" data-name="PlayerAmmoSupply"></path>
+</g>
+<g transform="translate(8712.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerAmmoSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerAmmoSupply" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\supplies\player-ammo-supply.ts.PlayerAmmoSupply" xlink:href="..\projects\client\src\app\space-sim\game\ships\supplies\player-ammo-supply.ts"><text x="86.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerAmmoSupply" data-compartment="0">PlayerAmmoSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(8712.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerAmmoSupply" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerAmmoSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(8712.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerAmmoSupply" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerAmmoSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerAmmoSupply" data-compartment="2">+static preload(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="AmmoSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="AmmoSupply">
+<rect x="8747.0" y="297.5" height="46.0" width="133.0" data-name="AmmoSupply"></rect>
+</g>
+<g transform="translate(8747, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AmmoSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="AmmoSupply" data-compartment="0">
+<text x="51.5" y="14.1" stroke="none" text-anchor="middle" data-name="AmmoSupply" data-compartment="0">AmmoSupply</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerCoolantSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerCoolantSupply">
+<rect x="8974.5" y="1138.0" height="107.0" width="202.0" data-name="PlayerCoolantSupply"></rect>
+<path d="M8974.5 1184.0 L9176.5 1184.0" fill="none" data-name="PlayerCoolantSupply"></path>
+<path d="M8974.5 1199.0 L9176.5 1199.0" fill="none" data-name="PlayerCoolantSupply"></path>
+</g>
+<g transform="translate(8974.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerCoolantSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerCoolantSupply" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\supplies\player-coolant-supply.ts.PlayerCoolantSupply" xlink:href="..\projects\client\src\app\space-sim\game\ships\supplies\player-coolant-supply.ts"><text x="86.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerCoolantSupply" data-compartment="0">PlayerCoolantSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(8974.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerCoolantSupply" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerCoolantSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(8974.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerCoolantSupply" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerCoolantSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerCoolantSupply" data-compartment="2">+static preload(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="CoolantSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="CoolantSupply">
+<rect x="9003.0" y="297.5" height="46.0" width="145.0" data-name="CoolantSupply"></rect>
+</g>
+<g transform="translate(9003, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="CoolantSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="CoolantSupply" data-compartment="0">
+<text x="57.5" y="14.1" stroke="none" text-anchor="middle" data-name="CoolantSupply" data-compartment="0">CoolantSupply</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerFuelSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerFuelSupply">
+<rect x="9236.5" y="1138.0" height="107.0" width="202.0" data-name="PlayerFuelSupply"></rect>
+<path d="M9236.5 1184.0 L9438.5 1184.0" fill="none" data-name="PlayerFuelSupply"></path>
+<path d="M9236.5 1199.0 L9438.5 1199.0" fill="none" data-name="PlayerFuelSupply"></path>
+</g>
+<g transform="translate(9236.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerFuelSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerFuelSupply" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\supplies\player-fuel-supply.ts.PlayerFuelSupply" xlink:href="..\projects\client\src\app\space-sim\game\ships\supplies\player-fuel-supply.ts"><text x="86.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerFuelSupply" data-compartment="0">PlayerFuelSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(9236.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerFuelSupply" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerFuelSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(9236.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerFuelSupply" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerFuelSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerFuelSupply" data-compartment="2">+static preload(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="FuelSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="FuelSupply">
+<rect x="9278.5" y="297.5" height="46.0" width="118.0" data-name="FuelSupply"></rect>
+</g>
+<g transform="translate(9278.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="FuelSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="FuelSupply" data-compartment="0">
+<text x="44.0" y="14.1" stroke="none" text-anchor="middle" data-name="FuelSupply" data-compartment="0">FuelSupply</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerRepairsSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerRepairsSupply">
+<rect x="9498.5" y="1138.0" height="107.0" width="202.0" data-name="PlayerRepairsSupply"></rect>
+<path d="M9498.5 1184.0 L9700.5 1184.0" fill="none" data-name="PlayerRepairsSupply"></path>
+<path d="M9498.5 1199.0 L9700.5 1199.0" fill="none" data-name="PlayerRepairsSupply"></path>
+</g>
+<g transform="translate(9498.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerRepairsSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerRepairsSupply" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\supplies\player-repairs-supply.ts.PlayerRepairsSupply" xlink:href="..\projects\client\src\app\space-sim\game\ships\supplies\player-repairs-supply.ts"><text x="86.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerRepairsSupply" data-compartment="0">PlayerRepairsSupply</text></a>
+
+</g>
+</g>
+<g transform="translate(9498.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerRepairsSupply" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerRepairsSupply" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(9498.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerRepairsSupply" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerRepairsSupply" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerRepairsSupply" data-compartment="2">+static preload(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="RepairsSupply">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="RepairsSupply">
+<rect x="9527.0" y="297.5" height="46.0" width="145.0" data-name="RepairsSupply"></rect>
+</g>
+<g transform="translate(9527, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="RepairsSupply" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="RepairsSupply" data-compartment="0">
+<text x="57.5" y="14.1" stroke="none" text-anchor="middle" data-name="RepairsSupply" data-compartment="0">RepairsSupply</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerBullet">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerBullet">
+<rect x="9995.5" y="1089.5" height="204.0" width="223.0" data-name="PlayerBullet"></rect>
+<path d="M9995.5 1135.5 L10218.5 1135.5" fill="none" data-name="PlayerBullet"></path>
+<path d="M9995.5 1214.5 L10218.5 1214.5" fill="none" data-name="PlayerBullet"></path>
+</g>
+<g transform="translate(9995.5, 1089.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerBullet" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerBullet" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-bullet.ts.PlayerBullet" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-bullet.ts"><text x="96.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerBullet" data-compartment="0">PlayerBullet</text></a>
+
+</g>
+</g>
+<g transform="translate(9995.5, 1135.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerBullet" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerBullet" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerBullet" data-compartment="1">-_fireSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerBullet" data-compartment="1">-_hitSound: BaseSound</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerBullet" data-compartment="1">-_exploder: UiExploder</text>
+
+</g>
+</g>
+<g transform="translate(9995.5, 1214.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerBullet" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerBullet" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerBullet" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerBullet" data-compartment="2">+onShipCollision(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerBullet" data-compartment="2">-_addUiElements(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Bullet">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Bullet">
+<rect x="10270.3" y="297.5" height="46.0" width="74.0" data-name="Bullet"></rect>
+</g>
+<g transform="translate(10270.25, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Bullet" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Bullet" data-compartment="0">
+<text x="22.0" y="14.1" stroke="none" text-anchor="middle" data-name="Bullet" data-compartment="0">Bullet</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerCannon">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerCannon">
+<rect x="9760.5" y="1138.0" height="107.0" width="175.0" data-name="PlayerCannon"></rect>
+<path d="M9760.5 1184.0 L9935.5 1184.0" fill="none" data-name="PlayerCannon"></path>
+<path d="M9760.5 1199.0 L9935.5 1199.0" fill="none" data-name="PlayerCannon"></path>
+</g>
+<g transform="translate(9760.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerCannon" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerCannon" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-cannon.ts.PlayerCannon" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-cannon.ts"><text x="72.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerCannon" data-compartment="0">PlayerCannon</text></a>
+
+</g>
+</g>
+<g transform="translate(9760.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerCannon" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerCannon" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(9760.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerCannon" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerCannon" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerCannon" data-compartment="2">+getBullet(): Bullet</text>
+
+</g>
+</g>
+</g>
+<g data-name="Cannon">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Cannon">
+<rect x="9802.0" y="297.5" height="46.0" width="92.0" data-name="Cannon"></rect>
+</g>
+<g transform="translate(9802, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Cannon" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Cannon" data-compartment="0">
+<text x="31.0" y="14.1" stroke="none" text-anchor="middle" data-name="Cannon" data-compartment="0">Cannon</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerMachineGun">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerMachineGun">
+<rect x="10561.5" y="1138.0" height="107.0" width="180.0" data-name="PlayerMachineGun"></rect>
+<path d="M10561.5 1184.0 L10741.5 1184.0" fill="none" data-name="PlayerMachineGun"></path>
+<path d="M10561.5 1199.0 L10741.5 1199.0" fill="none" data-name="PlayerMachineGun"></path>
+</g>
+<g transform="translate(10561.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerMachineGun" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerMachineGun" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-machine-gun.ts.PlayerMachineGun" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-machine-gun.ts"><text x="75.0" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerMachineGun" data-compartment="0">PlayerMachineGun</text></a>
+
+</g>
+</g>
+<g transform="translate(10561.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerMachineGun" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerMachineGun" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(10561.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerMachineGun" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerMachineGun" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerMachineGun" data-compartment="2">+getBullet(): Bullet</text>
+
+</g>
+</g>
+</g>
+<g data-name="MachineGun">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="MachineGun">
+<rect x="10586.5" y="297.5" height="46.0" width="130.0" data-name="MachineGun"></rect>
+</g>
+<g transform="translate(10586.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="MachineGun" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="MachineGun" data-compartment="0">
+<text x="50.0" y="14.1" stroke="none" text-anchor="middle" data-name="MachineGun" data-compartment="0">MachineGun</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerPlasmaBullet">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerPlasmaBullet">
+<rect x="10278.5" y="1089.5" height="204.0" width="223.0" data-name="PlayerPlasmaBullet"></rect>
+<path d="M10278.5 1135.5 L10501.5 1135.5" fill="none" data-name="PlayerPlasmaBullet"></path>
+<path d="M10278.5 1214.5 L10501.5 1214.5" fill="none" data-name="PlayerPlasmaBullet"></path>
+</g>
+<g transform="translate(10278.5, 1089.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerPlasmaBullet" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerPlasmaBullet" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-plasma-bullet.ts.PlayerPlasmaBullet" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-plasma-bullet.ts"><text x="96.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerPlasmaBullet" data-compartment="0">PlayerPlasmaBullet</text></a>
+
+</g>
+</g>
+<g transform="translate(10278.5, 1135.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerPlasmaBullet" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerPlasmaBullet" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="1">-_fireSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="1">-_hitSound: BaseSound</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="1">-_exploder: UiExploder</text>
+
+</g>
+</g>
+<g transform="translate(10278.5, 1214.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerPlasmaBullet" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerPlasmaBullet" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="2">+onShipCollision(): void</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerPlasmaBullet" data-compartment="2">-_addUiElements(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerPlasmaGun">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerPlasmaGun">
+<rect x="10801.5" y="1138.0" height="107.0" width="175.0" data-name="PlayerPlasmaGun"></rect>
+<path d="M10801.5 1184.0 L10976.5 1184.0" fill="none" data-name="PlayerPlasmaGun"></path>
+<path d="M10801.5 1199.0 L10976.5 1199.0" fill="none" data-name="PlayerPlasmaGun"></path>
+</g>
+<g transform="translate(10801.5, 1138)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerPlasmaGun" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerPlasmaGun" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-plasma-gun.ts.PlayerPlasmaGun" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\offence\player-plasma-gun.ts"><text x="72.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerPlasmaGun" data-compartment="0">PlayerPlasmaGun</text></a>
+
+</g>
+</g>
+<g transform="translate(10801.5, 1184)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerPlasmaGun" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="PlayerPlasmaGun" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(10801.5, 1199)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerPlasmaGun" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerPlasmaGun" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerPlasmaGun" data-compartment="2">+getBullet(): Bullet</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlasmaGun">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlasmaGun">
+<rect x="10828.5" y="297.5" height="46.0" width="121.0" data-name="PlasmaGun"></rect>
+</g>
+<g transform="translate(10828.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlasmaGun" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlasmaGun" data-compartment="0">
+<text x="45.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlasmaGun" data-compartment="0">PlasmaGun</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerEconomyEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerEconomyEngine">
+<rect x="11036.5" y="1082.0" height="219.0" width="273.0" data-name="PlayerEconomyEngine"></rect>
+<path d="M11036.5 1128.0 L11309.5 1128.0" fill="none" data-name="PlayerEconomyEngine"></path>
+<path d="M11036.5 1190.0 L11309.5 1190.0" fill="none" data-name="PlayerEconomyEngine"></path>
+</g>
+<g transform="translate(11036.5, 1082)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerEconomyEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerEconomyEngine" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-economy-engine.ts.PlayerEconomyEngine" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-economy-engine.ts"><text x="121.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerEconomyEngine" data-compartment="0">PlayerEconomyEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(11036.5, 1128)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerEconomyEngine" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerEconomyEngine" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerEconomyEngine" data-compartment="1">-_thrusterSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerEconomyEngine" data-compartment="1">-_flareParticles: ParticleEmitter</text>
+
+</g>
+</g>
+<g transform="translate(11036.5, 1190)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerEconomyEngine" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerEconomyEngine" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerEconomyEngine" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerEconomyEngine" data-compartment="2">+setShip(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerEconomyEngine" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PlayerEconomyEngine" data-compartment="2">-_displayThrusterFire(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="PlayerEconomyEngine" data-compartment="2">-_addUiComponents(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="EconomyEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="EconomyEngine">
+<rect x="11094.0" y="297.5" height="46.0" width="158.0" data-name="EconomyEngine"></rect>
+</g>
+<g transform="translate(11094, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="EconomyEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="EconomyEngine" data-compartment="0">
+<text x="64.0" y="14.1" stroke="none" text-anchor="middle" data-name="EconomyEngine" data-compartment="0">EconomyEngine</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerSportsEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerSportsEngine">
+<rect x="11369.5" y="1082.0" height="219.0" width="273.0" data-name="PlayerSportsEngine"></rect>
+<path d="M11369.5 1128.0 L11642.5 1128.0" fill="none" data-name="PlayerSportsEngine"></path>
+<path d="M11369.5 1190.0 L11642.5 1190.0" fill="none" data-name="PlayerSportsEngine"></path>
+</g>
+<g transform="translate(11369.5, 1082)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerSportsEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerSportsEngine" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-sports-engine.ts.PlayerSportsEngine" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-sports-engine.ts"><text x="121.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerSportsEngine" data-compartment="0">PlayerSportsEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(11369.5, 1128)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerSportsEngine" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerSportsEngine" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerSportsEngine" data-compartment="1">-_thrusterSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerSportsEngine" data-compartment="1">-_flareParticles: ParticleEmitter</text>
+
+</g>
+</g>
+<g transform="translate(11369.5, 1190)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerSportsEngine" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerSportsEngine" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerSportsEngine" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerSportsEngine" data-compartment="2">+setShip(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerSportsEngine" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PlayerSportsEngine" data-compartment="2">-_displayThrusterFire(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="PlayerSportsEngine" data-compartment="2">-_addUiComponents(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="SportsEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SportsEngine">
+<rect x="11438.0" y="297.5" height="46.0" width="136.0" data-name="SportsEngine"></rect>
+</g>
+<g transform="translate(11438, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SportsEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SportsEngine" data-compartment="0">
+<text x="53.0" y="14.1" stroke="none" text-anchor="middle" data-name="SportsEngine" data-compartment="0">SportsEngine</text>
+
+</g>
+</g>
+</g>
+<g data-name="PlayerStandardEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="PlayerStandardEngine">
+<rect x="11702.5" y="1082.0" height="219.0" width="273.0" data-name="PlayerStandardEngine"></rect>
+<path d="M11702.5 1128.0 L11975.5 1128.0" fill="none" data-name="PlayerStandardEngine"></path>
+<path d="M11702.5 1190.0 L11975.5 1190.0" fill="none" data-name="PlayerStandardEngine"></path>
+</g>
+<g transform="translate(11702.5, 1082)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PlayerStandardEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="PlayerStandardEngine" data-compartment="0">
+<a id="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-standard-engine.ts.PlayerStandardEngine" xlink:href="..\projects\client\src\app\space-sim\game\ships\attachments\utility\player-standard-engine.ts"><text x="121.5" y="14.1" stroke="none" text-anchor="middle" data-name="PlayerStandardEngine" data-compartment="0">PlayerStandardEngine</text></a>
+
+</g>
+</g>
+<g transform="translate(11702.5, 1128)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerStandardEngine" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerStandardEngine" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerStandardEngine" data-compartment="1">-_thrusterSound: BaseSound</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerStandardEngine" data-compartment="1">-_flareParticles: ParticleEmitter</text>
+
+</g>
+</g>
+<g transform="translate(11702.5, 1190)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PlayerStandardEngine" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="PlayerStandardEngine" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="PlayerStandardEngine" data-compartment="2">+static preload(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="PlayerStandardEngine" data-compartment="2">+setShip(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="PlayerStandardEngine" data-compartment="2">+update(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="PlayerStandardEngine" data-compartment="2">-_displayThrusterFire(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="PlayerStandardEngine" data-compartment="2">-_addUiComponents(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="StandardEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="StandardEngine">
+<rect x="11760.5" y="297.5" height="46.0" width="157.0" data-name="StandardEngine"></rect>
+</g>
+<g transform="translate(11760.5, 297.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StandardEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="StandardEngine" data-compartment="0">
+<text x="63.5" y="14.1" stroke="none" text-anchor="middle" data-name="StandardEngine" data-compartment="0">StandardEngine</text>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

@@ -1,5 +1,5 @@
-import { GameScoreTracker } from "./utilities/game-score-tracker";
-import { Sanitiser } from "./utilities/sanitiser";
+import { GameScoreTracker } from './utilities/game-score-tracker';
+import { Sanitiser } from './utilities/sanitiser';
 
 export module SpaceSim {
     export var game: Phaser.Game;
@@ -29,7 +29,7 @@ export module SpaceSim {
         export function sanitise(data: UserData): UserData {
             return {
                 fingerprint: Sanitiser.sanitise(data.fingerprint),
-                name: Sanitiser.sanitise(data.name)
+                name: Sanitiser.sanitise(data.name),
             } as const;
         }
         /**
@@ -43,7 +43,8 @@ export module SpaceSim {
                 const sanitised = UserData.sanitise(data);
                 if (!sanitised) return false;
                 if (!sanitised.name || sanitised.name.length < 3) return false;
-                if (!sanitised.fingerprint || sanitised.fingerprint.length < 5) return false;
+                if (!sanitised.fingerprint || sanitised.fingerprint.length < 5)
+                    return false;
                 return true;
             }
             return false;
@@ -87,7 +88,9 @@ export module SpaceSim {
         export module GameLevels {
             export module Tiles {
                 // frame 0 is empty so don't use it for walls
-                export const WALL = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+                export const WALL = [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                ];
             }
         }
         export module Events {
@@ -97,7 +100,7 @@ export module SpaceSim {
             export const SHIP_ANGLE = 'ship-angle';
         }
         export module Socket {
-            export const MAX_USERS_PER_ROOM = 100;
+            export const MAX_USERS_PER_ROOM = 1000;
             export const TOO_MANY_CONNECTIONS = 'too-many-connections';
             export const SET_PLAYER_DATA = 'set-player-data';
             export const JOIN_ROOM = 'join-room';

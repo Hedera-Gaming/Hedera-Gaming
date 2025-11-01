@@ -20,6 +20,7 @@
                     "builder": "ngx-build-plus:browser",
                     "options": {
                         "outputPath": "dist/space-sim",
+                        "baseHref": "/SpaceSim/",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -88,18 +89,18 @@
                 "serve": {
                     "builder": "ngx-build-plus:dev-server",
                     "options": {
-                        "browserTarget": "space-sim:build",
+                        "buildTarget": "space-sim:build",
                         "port": 4500,
                         "publicHost": "http://localhost:4500",
                         "extraWebpackConfig": "webpack.config.cjs"
                     },
                     "configurations": {
                         "development": {
-                            "browserTarget": "space-sim:build:development",
+                            "buildTarget": "space-sim:build:development",
                             "extraWebpackConfig": "webpack.config.cjs"
                         },
                         "production": {
-                            "browserTarget": "space-sim:build:production",
+                            "buildTarget": "space-sim:build:production",
                             "extraWebpackConfig": "webpack.prod.config.cjs"
                         }
                     },
@@ -108,7 +109,7 @@
                 "extract-i18n": {
                     "builder": "ngx-build-plus:extract-i18n",
                     "options": {
-                        "browserTarget": "space-sim:build",
+                        "buildTarget": "space-sim:build",
                         "extraWebpackConfig": "webpack.config.cjs"
                     }
                 },

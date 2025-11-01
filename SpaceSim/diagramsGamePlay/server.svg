@@ -1,0 +1,265 @@
+<svg version="1.1" baseProfile="full" width="2410.0" height="1557.0" viewBox="0 0 2410 1557" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+#spacing: 60
+#padding: 15
+#arrowSize: 1
+#lineWidth: 2
+#fill: #0a0a0a
+#stroke: #818cf8
+#.interface: fill=#1e1b4b stroke=#818cf8 dashed
+#.class: fill=#134e4a stroke=#2dd4bf bold
+#.enumeration: fill=#701a75 stroke=#e879f9
+#.type: fill=#7c2d12 stroke=#fb923c
+[SpaceSimServer||]
+[GameServerEngine]&lt;:-[SpaceSimServer]
+[BattleRoyaleScene|-_supplies: DynamicDataStore&lt;ShipSupply&gt;;-_flickering: string\[\];-_ships: DynamicDataStore&lt;Ship&gt;;-_bots: Map&lt;string, AiController&gt;;-_gameLevel: GameLevel;-_exploder: Exploder;+ROOM_NAME: string|+queueGameLevelUpdate(): BaseScene;+queueShipUpdates(): BaseScene;+queueShipRemoval(): BaseScene;+queueSupplyUpdates(): BaseScene;+queueSupplyRemoval(): BaseScene;+queueSupplyFlicker(): BaseScene;+queueEndScene(): BaseScene;+getShip(): T;+getShips(): T\[\];+getSupply(): T;+getSupplies(): T\[\];+getLevel(): T;+preload(): void;+create(): void;+createShip(): Ship;+createBot(): void;+addPlayerToScene(): void;+removePlayerFromScene(): void;-_setupSceneEventHandling(): void;-_createGameLevel(): void;-_removeShip(): void;-_isMapLocationOccupied(): boolean;-_expelSupplies(): void;-_addSupplyCollisionPhysics(): ShipSupply\[\];-_addPlayerCollisionPhysicsWithSupplies(): void;-_addPlayerCollisionPhysicsWithPlayers(): void;-_processRemoveShipQueue(): void;-_processRemoveSupplyQueue(): void;-_processFlickerSupplyQueue(): void;-_updateBotEnemyIds(): void]
+[BaseScene]&lt;:-[BattleRoyaleScene]
+[ServerShip||+death(): void]
+[Ship]&lt;:-[ServerShip]
+[ServerSocketManager|+io: Server&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;;-_connections: number;-_disconnects: number|+getSocket(): Socket&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;;+getSocketsInRoom(): Socket&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;\[\];+joinRoom(): this;+leaveRoom(): this;+sendUserAcceptedResponse(): this;+sendInvalidUserDataResponse(): this;+sendInvalidRequestEvent(): this;+sendUpdateStatsToRoom(): this;+sendJoinRoomResponse(): this;+sendSetShipIdResponse(): this;+sendEngineOnEventToRoom(): this;+sendWeaponFiringEventToRoom(): this;+sendShipDestroyedEventToRoom(): this;+sendUpdateGameLevelToRoom(): this;+sendShipDestroyedEventToSocket(): this;+sendUpdatePlayersEvent(): this;+sendUpdateSuppliesEvent(): this;+sendFlickerSuppliesEvent(): this;+sendRemoveSuppliesEvent(): this;-socketEmit(): this;-roomEmit(): this;-_setupIo(): void;-_handleSocketEvents(): void;-_handleDisconnectEvent(): void;-_handleSetPlayerDataEvent(): void;-_tryReconnectUser(): boolean;-_tryAddNewUser(): boolean;-_handleJoinRoomEvent(): void;-_handleRequestMapResponse(): void;-_handleRequestShipResponse(): void;-_handleEngineOnResponse(): void;-_handleWeaponFiringResponse(): void;-_handleShipDestroyedEvent(): void;-_handleSetPlayerAngleEvent(): void;-_getShipFromUserData(): Ship]
+[&lt;type&gt;ServerSocketManagerOptions|+io: Server&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;|]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="normal" font-style="normal">
+<g font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round" stroke="#818cf8">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="1557.0" width="2410.0" stroke="none"></rect>
+</g>
+<g transform="translate(15, 15)" fill="#818cf8">
+<g transform="translate(20, 20)" fill="#0a0a0a" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<path d="M92.0 404.0 L92 752 L92 1096.5 L92.0 1096.5 " fill="none"></path>
+<path d="M100.0 404.0 L92.0 404.0 L84.0 404.0 L92.0 384.0 Z"></path>
+<path d="M438.5 404.0 L438.5 752 L438.5 782 L438.5 782.0 " fill="none"></path>
+<path d="M446.5 404.0 L438.5 404.0 L430.5 404.0 L438.5 384.0 Z"></path>
+<path d="M774.5 404.0 L774.5 752 L774.5 1081 L774.5 1081.0 " fill="none"></path>
+<path d="M782.5 404.0 L774.5 404.0 L766.5 404.0 L774.5 384.0 Z"></path>
+<g data-name="SpaceSimServer">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="SpaceSimServer">
+<rect x="11.5" y="1096.5" height="76.0" width="161.0" data-name="SpaceSimServer"></rect>
+<path d="M11.5 1142.5 L172.5 1142.5" fill="none" data-name="SpaceSimServer"></path>
+<path d="M11.5 1157.5 L172.5 1157.5" fill="none" data-name="SpaceSimServer"></path>
+</g>
+<g transform="translate(11.5, 1096.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SpaceSimServer" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="SpaceSimServer" data-compartment="0">
+<a id="..\projects\server\src\app\space-sim-server.ts.SpaceSimServer" xlink:href="..\projects\server\src\app\space-sim-server.ts"><text x="65.5" y="14.1" stroke="none" text-anchor="middle" data-name="SpaceSimServer" data-compartment="0">SpaceSimServer</text></a>
+
+</g>
+</g>
+<g transform="translate(11.5, 1142.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimServer" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimServer" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(11.5, 1157.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SpaceSimServer" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="SpaceSimServer" data-compartment="2">
+
+</g>
+</g>
+</g>
+<g data-name="GameServerEngine">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="GameServerEngine">
+<rect x="0.0" y="338.0" height="46.0" width="184.0" data-name="GameServerEngine"></rect>
+</g>
+<g transform="translate(0, 338)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GameServerEngine" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="GameServerEngine" data-compartment="0">
+<text x="77.0" y="14.1" stroke="none" text-anchor="middle" data-name="GameServerEngine" data-compartment="0">GameServerEngine</text>
+
+</g>
+</g>
+</g>
+<g data-name="BattleRoyaleScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="BattleRoyaleScene">
+<rect x="232.5" y="782.0" height="705.0" width="412.0" data-name="BattleRoyaleScene"></rect>
+<path d="M232.5 828.0 L644.5 828.0" fill="none" data-name="BattleRoyaleScene"></path>
+<path d="M232.5 971.0 L644.5 971.0" fill="none" data-name="BattleRoyaleScene"></path>
+</g>
+<g transform="translate(232.5, 782)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BattleRoyaleScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="BattleRoyaleScene" data-compartment="0">
+<a id="..\projects\server\src\app\scenes\battle-royale-scene.ts.BattleRoyaleScene" xlink:href="..\projects\server\src\app\scenes\battle-royale-scene.ts"><text x="191.0" y="14.1" stroke="none" text-anchor="middle" data-name="BattleRoyaleScene" data-compartment="0">BattleRoyaleScene</text></a>
+
+</g>
+</g>
+<g transform="translate(232.5, 828)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BattleRoyaleScene" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="BattleRoyaleScene" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_supplies: DynamicDataStore&lt;ShipSupply&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_flickering: string[]</text>
+<text x="0.0" y="46.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_ships: DynamicDataStore&lt;Ship&gt;</text>
+<text x="0.0" y="62.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_bots: Map&lt;string, AiController&gt;</text>
+<text x="0.0" y="78.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_gameLevel: GameLevel</text>
+<text x="0.0" y="95.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">-_exploder: Exploder</text>
+<text x="0.0" y="111.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="1">+ROOM_NAME: string</text>
+
+</g>
+</g>
+<g transform="translate(232.5, 971)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BattleRoyaleScene" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="BattleRoyaleScene" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueGameLevelUpdate(): BaseScene</text>
+<text x="0.0" y="30.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueShipUpdates(): BaseScene</text>
+<text x="0.0" y="46.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueShipRemoval(): BaseScene</text>
+<text x="0.0" y="62.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueSupplyUpdates(): BaseScene</text>
+<text x="0.0" y="78.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueSupplyRemoval(): BaseScene</text>
+<text x="0.0" y="95.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueSupplyFlicker(): BaseScene</text>
+<text x="0.0" y="111.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+queueEndScene(): BaseScene</text>
+<text x="0.0" y="127.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+getShip(): T</text>
+<text x="0.0" y="143.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+getShips(): T[]</text>
+<text x="0.0" y="159.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+getSupply(): T</text>
+<text x="0.0" y="176.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+getSupplies(): T[]</text>
+<text x="0.0" y="192.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+getLevel(): T</text>
+<text x="0.0" y="208.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+preload(): void</text>
+<text x="0.0" y="224.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+create(): void</text>
+<text x="0.0" y="240.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+createShip(): Ship</text>
+<text x="0.0" y="257.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+createBot(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+addPlayerToScene(): void</text>
+<text x="0.0" y="289.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">+removePlayerFromScene(): void</text>
+<text x="0.0" y="305.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_setupSceneEventHandling(): void</text>
+<text x="0.0" y="321.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_createGameLevel(): void</text>
+<text x="0.0" y="338.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_removeShip(): void</text>
+<text x="0.0" y="354.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_isMapLocationOccupied(): boolean</text>
+<text x="0.0" y="370.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_expelSupplies(): void</text>
+<text x="0.0" y="386.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_addSupplyCollisionPhysics(): ShipSupply[]</text>
+<text x="0.0" y="402.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_addPlayerCollisionPhysicsWithSupplies(): void</text>
+<text x="0.0" y="419.1" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_addPlayerCollisionPhysicsWithPlayers(): void</text>
+<text x="0.0" y="435.3" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_processRemoveShipQueue(): void</text>
+<text x="0.0" y="451.5" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_processRemoveSupplyQueue(): void</text>
+<text x="0.0" y="467.7" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_processFlickerSupplyQueue(): void</text>
+<text x="0.0" y="483.9" stroke="none" data-name="BattleRoyaleScene" data-compartment="2">-_updateBotEnemyIds(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="BaseScene">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="BaseScene">
+<rect x="378.5" y="338.0" height="46.0" width="120.0" data-name="BaseScene"></rect>
+</g>
+<g transform="translate(378.5, 338)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BaseScene" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="BaseScene" data-compartment="0">
+<text x="45.0" y="14.1" stroke="none" text-anchor="middle" data-name="BaseScene" data-compartment="0">BaseScene</text>
+
+</g>
+</g>
+</g>
+<g data-name="ServerShip">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="ServerShip">
+<rect x="704.5" y="1081.0" height="107.0" width="140.0" data-name="ServerShip"></rect>
+<path d="M704.5 1127.0 L844.5 1127.0" fill="none" data-name="ServerShip"></path>
+<path d="M704.5 1142.0 L844.5 1142.0" fill="none" data-name="ServerShip"></path>
+</g>
+<g transform="translate(704.5, 1081)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ServerShip" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="ServerShip" data-compartment="0">
+<a id="..\projects\server\src\app\ships\server-ship.ts.ServerShip" xlink:href="..\projects\server\src\app\ships\server-ship.ts"><text x="55.0" y="14.1" stroke="none" text-anchor="middle" data-name="ServerShip" data-compartment="0">ServerShip</text></a>
+
+</g>
+</g>
+<g transform="translate(704.5, 1127)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerShip" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" data-name="ServerShip" data-compartment="1">
+
+</g>
+</g>
+<g transform="translate(704.5, 1142)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerShip" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ServerShip" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ServerShip" data-compartment="2">+death(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Ship">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="Ship">
+<rect x="742.0" y="338.0" height="46.0" width="65.0" data-name="Ship"></rect>
+</g>
+<g transform="translate(742, 338)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Ship" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="Ship" data-compartment="0">
+<text x="17.5" y="14.1" stroke="none" text-anchor="middle" data-name="Ship" data-compartment="0">Ship</text>
+
+</g>
+</g>
+</g>
+<g data-name="ServerSocketManager">
+<g fill="#134e4a" stroke="#2dd4bf" data-name="ServerSocketManager">
+<rect x="867.0" y="0.0" height="722.0" width="786.0" data-name="ServerSocketManager"></rect>
+<path d="M867.0 46.0 L1653.0 46.0" fill="none" data-name="ServerSocketManager"></path>
+<path d="M867.0 125.0 L1653.0 125.0" fill="none" data-name="ServerSocketManager"></path>
+</g>
+<g transform="translate(867, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ServerSocketManager" data-compartment="0">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="center" data-name="ServerSocketManager" data-compartment="0">
+<a id="..\projects\server\src\app\utilities\server-socket-manager.ts.ServerSocketManager" xlink:href="..\projects\server\src\app\utilities\server-socket-manager.ts"><text x="378.0" y="14.1" stroke="none" text-anchor="middle" data-name="ServerSocketManager" data-compartment="0">ServerSocketManager</text></a>
+
+</g>
+</g>
+<g transform="translate(867, 46)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerSocketManager" data-compartment="1">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ServerSocketManager" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ServerSocketManager" data-compartment="1">+io: Server&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ServerSocketManager" data-compartment="1">-_connections: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ServerSocketManager" data-compartment="1">-_disconnects: number</text>
+
+</g>
+</g>
+<g transform="translate(867, 125)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerSocketManager" data-compartment="2">
+<g transform="translate(15, 15)" fill="#2dd4bf" text-align="left" data-name="ServerSocketManager" data-compartment="2">
+<text x="0.0" y="14.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">+getSocket(): Socket&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">+getSocketsInRoom(): Socket&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;[]</text>
+<text x="0.0" y="46.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">+joinRoom(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">+leaveRoom(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendUserAcceptedResponse(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendInvalidUserDataResponse(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendInvalidRequestEvent(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendUpdateStatsToRoom(): this</text>
+<text x="0.0" y="143.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendJoinRoomResponse(): this</text>
+<text x="0.0" y="159.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendSetShipIdResponse(): this</text>
+<text x="0.0" y="176.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendEngineOnEventToRoom(): this</text>
+<text x="0.0" y="192.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendWeaponFiringEventToRoom(): this</text>
+<text x="0.0" y="208.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendShipDestroyedEventToRoom(): this</text>
+<text x="0.0" y="224.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendUpdateGameLevelToRoom(): this</text>
+<text x="0.0" y="240.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendShipDestroyedEventToSocket(): this</text>
+<text x="0.0" y="257.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendUpdatePlayersEvent(): this</text>
+<text x="0.0" y="273.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendUpdateSuppliesEvent(): this</text>
+<text x="0.0" y="289.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendFlickerSuppliesEvent(): this</text>
+<text x="0.0" y="305.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">+sendRemoveSuppliesEvent(): this</text>
+<text x="0.0" y="321.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">-socketEmit(): this</text>
+<text x="0.0" y="338.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">-roomEmit(): this</text>
+<text x="0.0" y="354.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_setupIo(): void</text>
+<text x="0.0" y="370.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleSocketEvents(): void</text>
+<text x="0.0" y="386.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleDisconnectEvent(): void</text>
+<text x="0.0" y="402.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleSetPlayerDataEvent(): void</text>
+<text x="0.0" y="419.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_tryReconnectUser(): boolean</text>
+<text x="0.0" y="435.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_tryAddNewUser(): boolean</text>
+<text x="0.0" y="451.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleJoinRoomEvent(): void</text>
+<text x="0.0" y="467.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleRequestMapResponse(): void</text>
+<text x="0.0" y="483.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleRequestShipResponse(): void</text>
+<text x="0.0" y="500.1" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleEngineOnResponse(): void</text>
+<text x="0.0" y="516.3" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleWeaponFiringResponse(): void</text>
+<text x="0.0" y="532.5" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleShipDestroyedEvent(): void</text>
+<text x="0.0" y="548.7" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_handleSetPlayerAngleEvent(): void</text>
+<text x="0.0" y="564.9" stroke="none" data-name="ServerSocketManager" data-compartment="2">-_getShipFromUserData(): Ship</text>
+
+</g>
+</g>
+</g>
+<g data-name="ServerSocketManagerOptions">
+<g fill="#7c2d12" stroke="#fb923c" data-name="ServerSocketManagerOptions">
+<rect x="1713.0" y="307.5" height="107.0" width="627.0" data-name="ServerSocketManagerOptions"></rect>
+<path d="M1713.0 353.5 L2340.0 353.5" fill="none" data-name="ServerSocketManagerOptions"></path>
+<path d="M1713.0 399.5 L2340.0 399.5" fill="none" data-name="ServerSocketManagerOptions"></path>
+</g>
+<g transform="translate(1713, 307.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerSocketManagerOptions" data-compartment="0">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="center" data-name="ServerSocketManagerOptions" data-compartment="0">
+<a id="..\projects\server\src\app\utilities\server-socket-manager.ts.ServerSocketManagerOptions" xlink:href="..\projects\server\src\app\utilities\server-socket-manager.ts"><text x="298.5" y="14.1" stroke="none" text-anchor="middle" data-name="ServerSocketManagerOptions" data-compartment="0">ServerSocketManagerOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(1713, 353.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerSocketManagerOptions" data-compartment="1">
+<g transform="translate(15, 15)" fill="#fb923c" text-align="left" data-name="ServerSocketManagerOptions" data-compartment="1">
+<text x="0.0" y="14.1" stroke="none" data-name="ServerSocketManagerOptions" data-compartment="1">+io: Server&lt;DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any&gt;</text>
+
+</g>
+</g>
+<g transform="translate(1713, 399.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ServerSocketManagerOptions" data-compartment="2">
+<g transform="translate(15, 15)" fill="#fb923c" data-name="ServerSocketManagerOptions" data-compartment="2">
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

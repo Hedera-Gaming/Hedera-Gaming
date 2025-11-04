@@ -1,6 +1,6 @@
-import { Logging } from "./logging";
+import { Logging } from './logging';
 
-export module Runner {
+export namespace Runner {
     export async function asAsync<T>(func: () => T): Promise<T> {
         try {
             return Promise.resolve()

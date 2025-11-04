@@ -1,6 +1,12 @@
-export module Logging {
-    export type LogLevel = 'none' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
-    
+export namespace Logging {
+    export type LogLevel =
+        | 'none'
+        | 'error'
+        | 'warn'
+        | 'info'
+        | 'debug'
+        | 'trace';
+
     /**
      * the minimum level of logs that should be output @default 'warn'
      */
@@ -82,7 +88,9 @@ export module Logging {
                 }
                 break;
             case 'trace':
-                if (['error', 'warn', 'info', 'debug', 'trace'].includes(level)) {
+                if (
+                    ['error', 'warn', 'info', 'debug', 'trace'].includes(level)
+                ) {
                     return true;
                 }
                 break;

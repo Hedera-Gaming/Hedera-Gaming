@@ -4,9 +4,9 @@ export type DamageMetadata = {
     message?: string;
 };
 
-export module DamageMetadata {
-    export type HasDamageSources = {damageSources: Array<DamageMetadata>};
-    
+export namespace DamageMetadata {
+    export type HasDamageSources = { damageSources: Array<DamageMetadata> };
+
     /**
      * queries the damage sources array for the passed in ship to get the id of
      * the last ship to attack the passed in one.
@@ -15,10 +15,13 @@ export module DamageMetadata {
      * if none
      */
     export function getLastAttackerId(ship: HasDamageSources): string {
-        const attackerId = Array.from(new Set<string>(ship.damageSources
-            .filter(d => d.attackerId != null)
-            .map(d => d.attackerId)).values())
-            .pop();
+        const attackerId = Array.from(
+            new Set<string>(
+                ship.damageSources
+                    .filter((d) => d.attackerId != null)
+                    .map((d) => d.attackerId)
+            ).values()
+        ).pop();
         return attackerId;
     }
 }

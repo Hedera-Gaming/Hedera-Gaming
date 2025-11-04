@@ -1,7 +1,7 @@
-import { GameScoreTracker } from "./utilities/game-score-tracker";
-import { Sanitiser } from "./utilities/sanitiser";
+import { GameScoreTracker } from './utilities/game-score-tracker';
+import { Sanitiser } from './utilities/sanitiser';
 
-export module SpaceSim {
+export namespace SpaceSim {
     export var game: Phaser.Game;
     /**
      * if true, physics debug display will be enabled @default false
@@ -18,7 +18,7 @@ export module SpaceSim {
         name?: string;
         fingerprint: string;
     };
-    export module UserData {
+    export namespace UserData {
         /**
          * removes any disallowed characters from the passed in `UserData`
          * fields
@@ -29,7 +29,7 @@ export module SpaceSim {
         export function sanitise(data: UserData): UserData {
             return {
                 fingerprint: Sanitiser.sanitise(data.fingerprint),
-                name: Sanitiser.sanitise(data.name)
+                name: Sanitiser.sanitise(data.name),
             } as const;
         }
         /**
@@ -43,7 +43,8 @@ export module SpaceSim {
                 const sanitised = UserData.sanitise(data);
                 if (!sanitised) return false;
                 if (!sanitised.name || sanitised.name.length < 3) return false;
-                if (!sanitised.fingerprint || sanitised.fingerprint.length < 5) return false;
+                if (!sanitised.fingerprint || sanitised.fingerprint.length < 5)
+                    return false;
                 return true;
             }
             return false;
@@ -52,9 +53,9 @@ export module SpaceSim {
     /**
      * Constant values used in the SpaceSim game
      */
-    export module Constants {
+    export namespace Constants {
         export const GAME_NAME = 'space-sim';
-        export module Ships {
+        export namespace Ships {
             export const RADIUS = 16;
             export const MAX_INTEGRITY = 100;
             export const MAX_FUEL = 100;
@@ -67,36 +68,38 @@ export module SpaceSim {
             export const WALL_BOUNCE_FACTOR = 0.2;
             export const MASS = 10;
             export const MIN_ROTATION_ANGLE = 1; // degrees
-            export module Engines {
+            export namespace Engines {
                 export const FORCE = 50;
                 export const FUEL_PER_USE = 0.1; // units
                 export const HEAT_PER_USE = 0.2; // degree
                 export const USAGE_DELAY_MS = 100;
             }
-            export module Weapons {
+            export namespace Weapons {
                 export const MAX_AMMO = 100;
                 export const MAX_AMMO_PER_CONTAINER = 100;
             }
-            export module Supplies {
+            export namespace Supplies {
                 export const RADIUS = 16;
                 export const BOUNCE = 1;
                 export const WALL_BOUNCE_FACTOR = 0.5;
                 export const MASS = 0;
             }
         }
-        export module GameLevels {
-            export module Tiles {
+        export namespace GameLevels {
+            export namespace Tiles {
                 // frame 0 is empty so don't use it for walls
-                export const WALL = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+                export const WALL = [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                ];
             }
         }
-        export module Events {
+        export namespace Events {
             export const SHIP_DEATH = 'ship-death';
             export const WEAPON_FIRING = 'weapon-firing';
             export const ENGINE_ON = 'engine-on';
             export const SHIP_ANGLE = 'ship-angle';
         }
-        export module Socket {
+        export namespace Socket {
             export const MAX_USERS_PER_ROOM = 100;
             export const TOO_MANY_CONNECTIONS = 'too-many-connections';
             export const SET_PLAYER_DATA = 'set-player-data';
@@ -119,7 +122,7 @@ export module SpaceSim {
             export const USER_ACCEPTED = 'user-accepted';
             export const INVALID_REQUEST = 'invalid-request';
         }
-        export module Timing {
+        export namespace Timing {
             export const HIGH_PRI_UPDATE_FREQ = 1000 / 60; // 60 fps
             export const MED_PRI_UPDATE_FREQ = 1000 / 30; // 30 fps
             export const LOW_PRI_UPDATE_FREQ = 1000 / 15; // 15 fps

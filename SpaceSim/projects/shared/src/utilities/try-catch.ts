@@ -1,21 +1,23 @@
-import { Logging } from "./logging";
+import { Logging } from './logging';
 
-export module TryCatch {
+export namespace TryCatch {
     export type ErrorFormat = 'none' | 'message' | 'stack' | 'all';
-    
-    export function run(func: () => void, 
+
+    export function run(
+        func: () => void,
         level: Logging.LogLevel = 'warn',
-        message: string = '', 
-        errorFormat: ErrorFormat = 'message'): void {
+        message: string = '',
+        errorFormat: ErrorFormat = 'message'
+    ): void {
         try {
             func();
         } catch (e) {
             if (level !== 'none') {
                 if (errorFormat !== 'none') {
-                    switch(errorFormat) {
+                    switch (errorFormat) {
                         case 'stack':
                             const s = (e as Error)?.stack ?? e;
-                            message = (message?.length) ? `${message}\n${s}` : s;
+                            message = message?.length ? `${message}\n${s}` : s;
                             Logging.log(level, message);
                             break;
                         case 'all':
@@ -24,7 +26,7 @@ export module TryCatch {
                         case 'message':
                         default:
                             const m = (e as Error)?.message ?? e;
-                            message = (message?.length) ? `${message}\n${m}` : m;
+                            message = message?.length ? `${message}\n${m}` : m;
                             Logging.log(level, message);
                             break;
                     }

@@ -1,0 +1,25 @@
+{
+    "name": "SpaceSim Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
+    "workspaceFolder": "/workspace/SpaceSim",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/SpaceSim,type=bind",
+    "forwardPorts": [4500, 8081],
+    "postCreateCommand": "npm install --workspaces && cd node_modules/phaser-game-server && npm install canvas --legacy-peer-deps",
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.vscode-typescript-tslint-plugin",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-node-azure-pack",
+                "eamodio.gitlens"
+            ]
+        }
+    }
+}

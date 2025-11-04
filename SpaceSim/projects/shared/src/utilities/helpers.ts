@@ -1,6 +1,6 @@
-import * as Phaser from "phaser";
+import * as Phaser from 'phaser';
 
-export module Helpers {
+export namespace Helpers {
     /**
      * returns a `Phaser.Math.Vector2` that represents a normalised vector of direction
      * based on the passed in angle of rotation
@@ -12,7 +12,10 @@ export module Helpers {
         return new Phaser.Math.Vector2(x, y).normalize().negate();
     }
 
-    export function vector2(x: number | Phaser.Types.Math.Vector2Like = 0, y?: number): Phaser.Math.Vector2 {
+    export function vector2(
+        x: number | Phaser.Types.Math.Vector2Like = 0,
+        y?: number
+    ): Phaser.Math.Vector2 {
         let innerX: number;
         let innerY: number;
         if (typeof x === 'object') {
@@ -41,10 +44,19 @@ export module Helpers {
      * the player
      * @returns a `Phaser.Math.Vector2` location within current viewable area
      */
-    export function convertLocToLocInView(location: Phaser.Types.Math.Vector2Like, scene: Phaser.Scene): Phaser.Math.Vector2 {
+    export function convertLocToLocInView(
+        location: Phaser.Types.Math.Vector2Like,
+        scene: Phaser.Scene
+    ): Phaser.Math.Vector2 {
         // NOTE: point 0,0 for the camera is the centre of the canvas where the ship appears
-        const cameraPos: Phaser.Math.Vector2 = scene.cameras.main.getWorldPoint(0, 0);
-        return new Phaser.Math.Vector2(location.x - cameraPos.x, location.y - cameraPos.y).negate();
+        const cameraPos: Phaser.Math.Vector2 = scene.cameras.main.getWorldPoint(
+            0,
+            0
+        );
+        return new Phaser.Math.Vector2(
+            location.x - cameraPos.x,
+            location.y - cameraPos.y
+        ).negate();
     }
 
     /**
@@ -53,7 +65,10 @@ export module Helpers {
      * @param scene the current scene
      * @returns a `Phaser.Math.Vector2` location within world space
      */
-    export function convertLocInViewToLoc(location: Phaser.Types.Math.Vector2Like, scene: Phaser.Scene): Phaser.Math.Vector2 {
+    export function convertLocInViewToLoc(
+        location: Phaser.Types.Math.Vector2Like,
+        scene: Phaser.Scene
+    ): Phaser.Math.Vector2 {
         return scene.cameras.main.getWorldPoint(location.x, location.y);
     }
 
@@ -68,18 +83,33 @@ export module Helpers {
      * @param steps the number of steps used to generate (less is faster, but less accurate) @default 6
      * @returns a Phaser Geometry Polygon representing the view
      */
-    export function getView(location: Phaser.Types.Math.Vector2Like, angle: number, distance: number, fieldOfView: number = 160, steps: number = 6): Phaser.Geom.Polygon {
-        let rotationAngle = angle - (fieldOfView / 2);
+    export function getView(
+        location: Phaser.Types.Math.Vector2Like,
+        angle: number,
+        distance: number,
+        fieldOfView: number = 160,
+        steps: number = 6
+    ): Phaser.Geom.Polygon {
+        let rotationAngle = angle - fieldOfView / 2;
         const offsetAngle = fieldOfView / steps;
         const lines = new Array<Phaser.Geom.Line>();
-        for (let i=0; i<steps; i++) {
-            lines[i] = new Phaser.Geom.Line(location.x, location.y, location.x - distance, location.y);
-            Phaser.Geom.Line.RotateAroundPoint(lines[i], lines[i].getPointA(), Helpers.deg2rad(rotationAngle));
+        for (let i = 0; i < steps; i++) {
+            lines[i] = new Phaser.Geom.Line(
+                location.x,
+                location.y,
+                location.x - distance,
+                location.y
+            );
+            Phaser.Geom.Line.RotateAroundPoint(
+                lines[i],
+                lines[i].getPointA(),
+                Helpers.deg2rad(rotationAngle)
+            );
             rotationAngle += offsetAngle;
         }
         const view = new Phaser.Geom.Polygon([
             lines[0].getPointA(),
-            ...lines.map(l => l.getPointB())
+            ...lines.map((l) => l.getPointB()),
         ]);
         return view;
     }

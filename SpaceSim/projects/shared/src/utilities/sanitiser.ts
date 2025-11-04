@@ -1,4 +1,4 @@
-export module Sanitiser {
+export namespace Sanitiser {
     /**
      * sanitises the input text ensuring only alphanumeric
      * values are present and length is 10 characters or less
@@ -9,8 +9,14 @@ export module Sanitiser {
     export function sanitise(text: string): string {
         if (text?.length) {
             // TODO: filter out bad words
-            return text?.replace(/[^a-zA-Z0-9ÀÁÂÃÄÅĀƁƂÇĈĊĎĐÈÉÊËƑĜĞĠĤĦÌÍÎÏĴĶĹĿŁÑŃÒÓÔÕÖƤɊŔŖŚŜŢŤŦÙÚÛÜŴŶŽ]/g, '')
-                .substring(0, 10) ?? '';
+            return (
+                text
+                    ?.replace(
+                        /[^a-zA-Z0-9ÀÁÂÃÄÅĀƁƂÇĈĊĎĐÈÉÊËƑĜĞĠĤĦÌÍÎÏĴĶĹĿŁÑŃÒÓÔÕÖƤɊŔŖŚŜŢŤŦÙÚÛÜŴŶŽ]/g,
+                        ''
+                    )
+                    .substring(0, 10) ?? ''
+            );
         }
         return text;
     }

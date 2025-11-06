@@ -1,0 +1,9 @@
+{
+  "NFTCollection": "0x1D5bF5f2b45E1589C8138fbf47ad7aa8c1ab0d52",
+  "Marketplace": "0xcb6E00327FF11AF4b8b2830f4779817fb0A94a71",
+  "Leaderboard": "0x0C66919F860710BaC7F0B226A1AB8d9DcbfaC40C",
+  "AchievementVerifier": "0x90a6Eccf261fF79d9110743f056e2779C61c1b10",
+  "deployer": "0x586b7DE650cf0e808573091af047f43B7b4D6363",
+  "network": "hedera_testnet",
+  "deployedAt": "2025-11-06T15:39:03.657Z"
+}

@@ -20,9 +20,11 @@
         "copyfiles": "^2.4.1",
         "dpdm": "^3.14.0",
         "lerna": "^8.1.9",
-        "rimraf": "^6.0.1",
+        "rimraf": "^6.1.0",
         "typedoc": "^0.27.5",
-        "undici-types": "^7.16.0"
+        "undici-types": "^7.16.0",
+        "webpack": "^5.102.1",
+        "webpack-cli": "^6.0.1"
     },
     "private": true,
     "engines": {

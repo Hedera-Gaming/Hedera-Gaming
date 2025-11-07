@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
 	"name": "Node.js & TypeScript",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:16-bullseye",
 	"features": {
@@ -19,4 +20,40 @@
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
+=======
+    "name": "SpaceSim Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "20"
+        },
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "workspaceFolder": "/workspace/SpaceSim",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/SpaceSim,type=bind",
+    "forwardPorts": [4500, 8081],
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.vscode-typescript-tslint-plugin",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-node-azure-pack",
+                "eamodio.gitlens",
+                "dbaeumer.vscode-eslint",
+                "mhutchie.git-graph",
+                "formulahendry.auto-rename-tag",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    // "postCreateCommand": "npm install --workspaces && npm run build --workspaces && cd node_modules/phaser-game-server && npm install"
+    "postCreateCommand": "nvm install 22 && nvm use 22 && npm install -g npm@latest && npm install --workspaces && npm run build --workspaces"
+
+>>>>>>> Stashed changes
 }

@@ -1,5 +1,8 @@
 {
   "name": "fightgame-contracts",
+  "workspaces": [
+    "smartcontracts"
+  ],
   "version": "1.0.0",
   "description": "Smart Contracts for FightGame",
   "main": "index.js",

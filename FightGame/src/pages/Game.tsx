@@ -4,7 +4,8 @@ import { ArrowLeft, Play, RotateCcw, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GameScene } from '@/components/game/GameScene';
 import { GameHUD } from '@/components/game/GameHUD';
-import { useGameLogic } from '@/hooks/useGameLogic';
+// import { useGameLogic } from '@/hooks/useGameLogic';
+import { useEnhancedGameLogic as useGameLogic } from '@/hooks/useEnhancedGameLogic';
 import { useWalletConnect } from '@/hooks/useWalletConnect';
 import { WalletConnectModal } from '@/components/WalletConnectModal';
 import { ActivityFeed } from '@/components/ActivityFeed';
@@ -29,16 +30,16 @@ const Game = () => {
     resetGame,
   } = useGameLogic();
 
-  const { 
-    wallet, 
-    isConnecting, 
+  const {
+    wallet,
+    isConnecting,
     isInitialized,
-    connectMetaMask, 
+    connectMetaMask,
     connectHashPack,
-    disconnect 
+    disconnect,
   } = useWalletConnect();
 
-  const enemiesRemaining = enemies.filter(e => e.isActive).length;
+  const enemiesRemaining = enemies.filter((e) => e.isActive).length;
 
   // Show wallet modal if not connected
   const showWalletModal = isInitialized && !wallet;
@@ -106,7 +107,7 @@ const Game = () => {
                 bullets={bullets}
                 onShoot={shoot}
               />
-              
+
               <GameHUD
                 score={score}
                 health={playerHealth}
@@ -122,13 +123,23 @@ const Game = () => {
               {isPaused && !gameOver && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/90 backdrop-blur-md z-50">
                   <Card className="glass-card p-8">
-                    <h2 className="text-4xl font-bold mb-6 text-center">PAUSED</h2>
+                    <h2 className="text-4xl font-bold mb-6 text-center">
+                      PAUSED
+                    </h2>
                     <div className="space-y-4">
-                      <Button variant="hero" onClick={() => setIsPaused(false)} className="w-full">
+                      <Button
+                        variant="hero"
+                        onClick={() => setIsPaused(false)}
+                        className="w-full"
+                      >
                         <Play className="mr-2" />
                         Resume Game
                       </Button>
-                      <Button variant="outline" onClick={resetGame} className="w-full">
+                      <Button
+                        variant="outline"
+                        onClick={resetGame}
+                        className="w-full"
+                      >
                         <RotateCcw className="mr-2" />
                         Restart
                       </Button>
@@ -146,30 +157,48 @@ const Game = () => {
               {gameOver && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/90 backdrop-blur-md z-50">
                   <Card className="glass-card p-8 max-w-md">
-                    <h2 className="text-4xl font-bold mb-2 text-center text-destructive">GAME OVER</h2>
+                    <h2 className="text-4xl font-bold mb-2 text-center text-destructive">
+                      GAME OVER
+                    </h2>
                     <p className="text-center text-muted-foreground mb-6">
-                      {playerHealth <= 0 ? 'Your health reached zero!' : 'You ran out of fuel!'}
+                      {playerHealth <= 0
+                        ? 'Your health reached zero!'
+                        : 'You ran out of fuel!'}
                     </p>
                     <div className="space-y-3 mb-6">
                       <div className="flex justify-between text-lg">
-                        <span className="text-muted-foreground">Final Score:</span>
+                        <span className="text-muted-foreground">
+                          Final Score:
+                        </span>
                         <span className="font-bold text-primary">{score}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Level Reached:</span>
+                        <span className="text-muted-foreground">
+                          Level Reached:
+                        </span>
                         <span className="font-bold">{level}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Enemies Killed:</span>
+                        <span className="text-muted-foreground">
+                          Enemies Killed:
+                        </span>
                         <span className="font-bold">{enemiesKilled}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Time Survived:</span>
-                        <span className="font-bold">{Math.floor(elapsedTime)}s</span>
+                        <span className="text-muted-foreground">
+                          Time Survived:
+                        </span>
+                        <span className="font-bold">
+                          {Math.floor(elapsedTime)}s
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-3">
-                      <Button variant="hero" onClick={resetGame} className="w-full">
+                      <Button
+                        variant="hero"
+                        onClick={resetGame}
+                        className="w-full"
+                      >
                         <RotateCcw className="mr-2" />
                         Play Again
                       </Button>

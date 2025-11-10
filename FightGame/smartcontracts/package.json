@@ -1,0 +1,25 @@
+{
+  "name": "fightgame-contracts",
+  "workspaces": [
+    "smartcontracts"
+  ],
+  "version": "1.0.0",
+  "description": "Smart Contracts for FightGame",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network hedera_testnet",
+    "test": "hardhat test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@hashgraph/sdk": "^2.49.2",
+    "dotenv": "^16.4.5"
+  }
+}

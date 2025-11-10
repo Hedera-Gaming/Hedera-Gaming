@@ -1,0 +1,50 @@
+{
+    "name": "space-sim-shared",
+    "version": "1.0.0",
+    "description": "shared components for space-sim client and server",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "clean": "rimraf ./dist",
+        "build:tsc": "npm run clean && tsc",
+        "post:build": "tsc-esm-fix ./dist",
+        "build": "npm run build:tsc && npm run post:build",
+        "build:dev": "npm run build:tsc && npm run post:build",
+        "test": "cross-env NODE_ENV=test nyc mocha --require ts-node/register --require jsdom-global/register --extensions ts --recursive \"test/**/*.spec.ts\"",
+        "start": "npm run build",
+        "start:dev": "npm run build:dev"
+    },
+    "keywords": [
+        "phaser",
+        "html game",
+        "typescript game",
+        "spaceship game"
+    ],
+    "author": "Jason Holt Smith <bicarbon8@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@mikewesthad/dungeon": "^2.0.1",
+        "dynamic-data-store": "^2.1.0",
+        "phaser": "^3.87.0"
+    },
+    "devDependencies": {
+        "@types/chai": "^5.0.1",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^22.10.2",
+        "@types/sinon": "^17.0.3",
+        "chai": "^5.1.2",
+        "cross-env": "^7.0.3",
+        "jsdom": "^25.0.1",
+        "jsdom-global": "^3.0.2",
+        "mocha": "^10.8.2",
+        "nyc": "^17.1.0",
+        "replace-in-file": "^8.3.0",
+        "rimraf": "^6.0.1",
+        "sinon": "^19.0.2",
+        "ts-node": "^10.9.2",
+        "tsc-esm-fix": "^3.1.2",
+        "typescript": "^5.7.2",
+        "undici-types": "^6.21.0"
+    }
+}

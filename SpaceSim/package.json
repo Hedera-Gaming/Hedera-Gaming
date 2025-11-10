@@ -1,0 +1,42 @@
+{
+    "name": "space-sim",
+    "workspaces": [
+        "projects/shared",
+        "projects/server",
+        "projects/client"
+    ],
+    "scripts": {
+        "clean": "rimraf ./dist && rimraf ./docs",
+        "build": "npm run build --workspaces --if-present && npm run copy-dist-to-root && npm run copy-docs-to-root",
+        "build:dev": "npm run build:dev --workspaces --if-present",
+        "copy-dist-to-root": "copyfiles -u 3 \"./projects/**/dist/**/*\" ./dist/",
+        "copy-docs-to-root": "copyfiles -u 3 \"./projects/**/docs/**/*\" ./docs/",
+        "test": "npm run test --workspaces --if-present",
+        "start": "npm run start --workspaces --if-present",
+        "start:dev": "npm run start:dev --workspaces --if-present",
+        "test:shared": "npm run test -w space-sim-shared"
+    },
+    "devDependencies": {
+        "copyfiles": "^2.4.1",
+        "dpdm": "^3.14.0",
+        "lerna": "^8.1.9",
+        "rimraf": "^6.1.0",
+        "typedoc": "^0.27.5",
+        "undici-types": "^7.16.0",
+        "webpack": "^5.102.1",
+        "webpack-cli": "^6.0.1"
+    },
+    "private": true,
+    "engines": {
+        "node": ">=22.21.0",
+        "npm": ">=11.4.1"
+    },
+    "dependencies": {
+        "asynckit": "^0.4.0",
+        "canvas": "^2.11.2",
+        "phaser": "^3.87.0"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+    }
+}

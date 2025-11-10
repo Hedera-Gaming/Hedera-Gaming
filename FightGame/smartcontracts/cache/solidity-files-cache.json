@@ -1,0 +1,150 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Dieudo\\OneDrive\\Desktop\\Hedera-Gaming-FightgameSmartcontracts\\Hedera-Gaming-FightgameSmartcontracts\\FightGame\\smartcontracts\\contracts\\AchievementVerifier.sol": {
+      "lastModificationDate": 1762506523218,
+      "contentHash": "daf0e93cf1d5fd6b5895e2c5e8cbeb6d",
+      "sourceName": "contracts/AchievementVerifier.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "AchievementVerifier"
+      ]
+    },
+    "C:\\Users\\Dieudo\\OneDrive\\Desktop\\Hedera-Gaming-FightgameSmartcontracts\\Hedera-Gaming-FightgameSmartcontracts\\FightGame\\smartcontracts\\contracts\\Leaderboard.sol": {
+      "lastModificationDate": 1762506523248,
+      "contentHash": "d707aa3bd7d9a43d0a31f66c048e66ce",
+      "sourceName": "contracts/Leaderboard.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Leaderboard"
+      ]
+    },
+    "C:\\Users\\Dieudo\\OneDrive\\Desktop\\Hedera-Gaming-FightgameSmartcontracts\\Hedera-Gaming-FightgameSmartcontracts\\FightGame\\smartcontracts\\contracts\\Marketplace.sol": {
+      "lastModificationDate": 1762506523272,
+      "contentHash": "b968b673a8ce5794b2f70d9297fab486",
+      "sourceName": "contracts/Marketplace.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "INFTCollection",
+        "Marketplace"
+      ]
+    },
+    "C:\\Users\\Dieudo\\OneDrive\\Desktop\\Hedera-Gaming-FightgameSmartcontracts\\Hedera-Gaming-FightgameSmartcontracts\\FightGame\\smartcontracts\\contracts\\NFTCollection.sol": {
+      "lastModificationDate": 1762506523291,
+      "contentHash": "35096a9ed5083b0bd5317731b4c143e4",
+      "sourceName": "contracts/NFTCollection.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "NFTCollection"
+      ]
+    }
+  }
+}

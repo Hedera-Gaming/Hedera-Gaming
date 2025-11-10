@@ -1,0 +1,60 @@
+The Pros and Cons of Decentralized Gaming
+The Pros and Cons of Decentralized Gaming Decentralized gaming offers advances in privacy, player control and fairness, but problems exist in scalability…
+
+The web2 gaming ecosystem relies on centralized entities to develop games, host servers, track game states, and run tournaments. This system requires players to trust the developers with their account information and gaming assets, even though their servers have a single point of failure. On the other hand, the decentralized gaming ecosystem uses blockchain technology and smart contracts to store essential game data in a decentralized manner.
+
+In this article, we'll look at decentralized gaming, its pros and cons, and what its future may hold.
+
+What is decentralized gaming?
+Decentralized games store player data, digital assets, and game-state data in blockchain networks. These are more player-driven, as they typically aren't owned or moderated by a single entity. Still, it's important to note that there are varying levels of decentralization. Some may be completely decentralized, while others rely on a central team of developers to keep the game running and may moderate player interactions for enhanced safety.
+
+Common decentralized gaming elements
+There isn't a one-size-fits-all formula for decentralized gaming. Still, many blockchain games have similar components.
+
+Distributed ledger technology (DLT)
+Decentralized games use DLT to store gaming elements. The games themselves aren't stored with DLT, but they use dApps to let players connect their wallets to the game software. Game assets, character data, and in-game currencies are often minted as non-fungible or fungible tokens and stored on a distributed ledger.
+
+Decentralized games can let people use blockchain-based decentralized identifiers for their player information. When players' personal information is stored in a decentralized way, it's less susceptible to being exposed during a hack.
+
+Non-fungible and fungible tokens
+Many decentralized games mint in-game assets as non-fungible or fungible tokens, letting players trade them with others. This method gives players true ownership of their gaming assets and a way to make money as they play.
+
+Often, decentralized games have an associated cryptocurrency that players use to make in-game purchases. In some cases, players are awarded digital currencies as they complete tasks. For example, "Illuvium" rewards players with the ILV token when they unlock achievements. Additionally, players can catch creatures called illuvials, which are stored on the blockchain and can be sold to other players.
+
+The Solana network introduced semi-fungible tokens, which have elements of non-fungible and fungible tokens. Semi-fungible tokens are primarily used in the blockchain gaming ecosystem. These tokens let developers create items that can be upgraded into one-of-a-kind assets as people play. For example, a developer may mint 1,000 SFTs representing a set of iron armor. Players can upgrade their iron armor SFT as they level up to create a unique armor NFT with special in-game characteristics.
+
+Decentralized autonomous organizations (DAOs)
+Some decentralized games allow players to vote on significant developments. Usually, players can buy or earn the game's governance token and stake their tokens to vote on proposals that impact the game's future.
+
+In some cases, game developers may choose to operate their studio as a DAO, meaning no centralized entity is in charge of the game's development.
+
+Decentralized gaming benefits
+Security. Decentralized games can offer more protection than traditional gaming since developers can store game data on a distributed ledger. These ledgers are hosted by a global network of interconnected nodes and are typically protected by cryptography.
+
+Privacy. Many decentralized games let people sign in with their crypto wallet or a decentralized identifier. In doing so, they give players additional protection against their personal information being exposed.
+
+Player control. The decentralized gaming community gets to vote on important game developments and own their in-game items.
+
+Fairness. Distributed ledgers like Hedera offer lightning-fast finality, allowing game developers to validate player actions quickly. This validation system eliminates the possibility of cheating or fraud. However, it's important to note that many DLTs aren't fast or affordable enough to prevent cheating reliably.
+
+Decentralized gaming drawbacks
+Scalability. Many distributed ledgers suffer from slow transaction speeds and high transaction costs. Developers using these DLTs risk being unable to accommodate a growing player base, as the network can't keep up with the transactions.
+
+Interoperability. Decentralized games open the door for inter-game items and characters, meaning they can enhance interoperability between games. However, blockchain interoperability is a longstanding issue impacting nearly every decentralized use case, including decentralized gaming. Games built on the Ethereum blockchain are less appealing to Solana users. Similarly, games created with Hedera Hashgraph may not appeal to people without a Hedera wallet or HBAR tokens.
+
+Technical know-how. Decentralized games require players to understand how to set up a cryptocurrency wallet, protect their passphrase, and buy and sell tokens. These technical requirements may be overwhelming for some players.
+
+The future of decentralized gaming
+In recent years, we've seen many gaming industry publishers release unfinished games at high price points. In some cases, these publishers were threatened with class-action lawsuits over the quality of their products.
+
+Issues like these will surely leave people desiring an alternative. Decentralized gaming gives players more control over the games they love and the in-game possessions they earn. We'll likely see many traditional gamers turn to the decentralized ecosystem because some decentralized developers let fans partake in their decision-making processes.
+
+Decentralized systems will continue to advance, opening the door to new use cases and fewer problems. For example, last year Animoca Brands, Helix, and Hedera Hashgraph partnered to create Helix Warp, a distributed online gaming platform. Helix Warp lets developers create server-side simulations to eliminate cheating in online games.
+
+How Hedera can enhance decentralized gaming
+Decentralized games have many benefits, but there are several barriers developers must overcome for them to reach mass appeal. The Hedera Consensus service lets developers validate player interactions and can act as an immutable, verifiable log for messages. The Hedera Token Service enables the creation and transfer of native fungible and non-fungible tokens.
+
+Additionally, the Hedera Network is asynchronous byzantine fault tolerant (ABFT), allowing honest nodes to agree on consensus fairly and securely. ABFT is the highest level of security a DLT can possess, meaning decentralized developers can rest easy knowing their players’ data is secure.
+
+
+Link: https://hedera.com/learning/gaming/decentralized-gaming

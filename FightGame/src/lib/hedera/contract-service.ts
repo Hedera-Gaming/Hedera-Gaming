@@ -1,10 +1,10 @@
 import { ethers } from 'ethers';
 
 // Import ABI (you'll generate these after compilation)
-import NFTCollectionABI from '../../../artifacts/contracts/NFTCollection.sol/NFTCollection.json';
-import MarketplaceABI from '../../../artifacts/contracts/Marketplace.sol/Marketplace.json';
-import LeaderboardABI from '../../../artifacts/contracts/Leaderboard.sol/Leaderboard.json';
-import VerifierABI from '../../../artifacts/contracts/AchievementVerifier.sol/AchievementVerifier.json';
+import NFTCollectionABI from '../../../smartcontracts/artifacts/contracts/NFTCollection.sol/NFTCollection.json';
+import MarketplaceABI from '../../../smartcontracts/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import LeaderboardABI from '../../../smartcontracts/artifacts/contracts/Leaderboard.sol/Leaderboard.json';
+import VerifierABI from '../../../smartcontracts/artifacts/contracts/AchievementVerifier.sol/AchievementVerifier.json';
 
 const RPC_URL = 'https://testnet.hashio.io/api';
 

@@ -31,18 +31,29 @@ export const useGameLogic = () => {
   const [gameOver, setGameOver] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [enemiesKilled, setEnemiesKilled] = useState(0);
+  const [totalShots, setTotalShots] = useState(0);
+  const [successfulHits, setSuccessfulHits] = useState(0);
+  const [currentAccuracy, setCurrentAccuracy] = useState(0);
+  const [nftsEarned, setNftsEarned] = useState<string[]>([]);
+  const [killStreak, setKillStreak] = useState(0);
+  const [maxKillStreak, setMaxKillStreak] = useState(0);
   
   const keysPressed = useRef<Set<string>>(new Set());
   const gameStartTime = useRef(Date.now());
   const lastEnemySpawn = useRef(Date.now());
 
-  // Spawn enemies based on level
+  // Spawn enemies based on level - Progressive difficulty
   const spawnEnemies = useCallback(() => {
     const now = Date.now();
-    const spawnInterval = Math.max(1000, 3000 - (level * 200)); // Faster spawns at higher levels
+    // Spawn interval decreases with level (faster spawns)
+    const spawnInterval = Math.max(800, 3000 - (level * 250));
+    // Max enemies increases with level
+    const maxEnemies = Math.min(15, 3 + level * 2);
     
-    if (now - lastEnemySpawn.current > spawnInterval && enemies.filter(e => e.isActive).length < level * 3) {
+    if (now - lastEnemySpawn.current > spawnInterval && enemies.filter(e => e.isActive).length < maxEnemies) {
       lastEnemySpawn.current = now;
+      // Enemy health increases with level
+      const enemyHealth = 100 + (level - 1) * 20;
       const newEnemy: EnemyData = {
         id: `enemy-${now}-${Math.random()}`,
         position: [
@@ -50,7 +61,7 @@ export const useGameLogic = () => {
           Math.random() * 5,
           -20 - Math.random() * 10,
         ],
-        health: 100,
+        health: enemyHealth,
         isActive: true,
         lastShot: now,
       };
@@ -63,6 +74,7 @@ export const useGameLogic = () => {
     if (ammo <= 0 || isPaused || gameOver) return;
     
     setAmmo((prev) => Math.max(0, prev - 1));
+    setTotalShots((prev) => prev + 1); // Track shots fired
     const bulletId = `bullet-${Date.now()}-${Math.random()}`;
     const newBullet: BulletData = {
       id: bulletId,
@@ -74,10 +86,11 @@ export const useGameLogic = () => {
     setBullets((prev) => [...prev, newBullet]);
   }, [ammo, playerPosition, isPaused, gameOver]);
 
-  // Enemy shooting
+  // Enemy shooting - Faster at higher levels
   const enemyShoot = useCallback((enemy: EnemyData) => {
     const now = Date.now();
-    if (now - enemy.lastShot < 2000) return; // Shoot every 2 seconds
+    const shootInterval = Math.max(1200, 2000 - (level * 100)); // Enemies shoot faster at higher levels
+    if (now - enemy.lastShot < shootInterval) return;
     
     const bulletId = `enemy-bullet-${now}-${Math.random()}`;
     const direction: [number, number, number] = [
@@ -126,15 +139,29 @@ export const useGameLogic = () => {
         
         if (distance < 0.8) {
           // Hit!
+          setSuccessfulHits((prev) => prev + 1); // Track successful hits
           setBullets((prev) => prev.filter((b) => b.id !== bullet.id));
           setEnemies((prev) =>
             prev.map((e) => {
               if (e.id === enemy.id) {
                 const newHealth = e.health - 50;
                 if (newHealth <= 0) {
-                  setScore((s) => s + 100);
+                  // Score increases with level and kill streak
+                  const basePoints = 100;
+                  const levelBonus = level * 20;
+                  const streakBonus = Math.min(killStreak * 10, 200);
+                  const totalPoints = basePoints + levelBonus + streakBonus;
+                  
+                  setScore((s) => s + totalPoints);
                   setEnemiesKilled((k) => k + 1);
-                  toast.success('+100 points!');
+                  setKillStreak((prev) => prev + 1);
+                  setMaxKillStreak((prev) => Math.max(prev, killStreak + 1));
+                  
+                  if (streakBonus > 0) {
+                    toast.success(`+${totalPoints} points! 🔥 Streak x${killStreak + 1}`);
+                  } else {
+                    toast.success(`+${totalPoints} points!`);
+                  }
                   return { ...e, isActive: false };
                 }
                 return { ...e, health: newHealth };
@@ -160,7 +187,8 @@ export const useGameLogic = () => {
         // Player hit!
         setBullets((prev) => prev.filter((b) => b.id !== bullet.id));
         setPlayerHealth((h) => Math.max(0, h - 10));
-        toast.error('-10 HP!');
+        setKillStreak(0); // Reset kill streak on hit
+        toast.error('-10 HP! 💥 Streak Reset');
       }
     });
 
@@ -174,7 +202,8 @@ export const useGameLogic = () => {
         // Enemy reached player - damage player
         if (newZ > playerPosition[2]) {
           setPlayerHealth((h) => Math.max(0, h - 20));
-          toast.error('Enemy reached you! -20 HP!');
+          setKillStreak(0); // Reset kill streak
+          toast.error('Enemy reached you! -20 HP! 💥');
           return { ...enemy, isActive: false };
         }
         
@@ -255,12 +284,23 @@ export const useGameLogic = () => {
       // Check collisions
       checkCollisions();
 
-      // Check level progression
-      if (enemiesKilled >= level * 10) {
+      // Update accuracy in real-time
+      if (totalShots > 0) {
+        const acc = (successfulHits / totalShots) * 100;
+        setCurrentAccuracy(acc);
+      }
+
+      // Check level progression - More kills required per level
+      const killsNeeded = 10 + (level - 1) * 5;
+      if (enemiesKilled >= killsNeeded) {
         setLevel((l) => l + 1);
         setEnemiesKilled(0);
-        setAmmo((a) => a + 50);
-        toast.success(`Level ${level + 1}! +50 Ammo`);
+        const ammoBonus = 50 + level * 10;
+        setAmmo((a) => a + ammoBonus);
+        setFuel((f) => Math.min(100, f + 20)); // Fuel bonus
+        toast.success(`🎉 Level ${level + 1}! +${ammoBonus} Ammo +20 Fuel`, {
+          duration: 3000,
+        });
       }
 
       // Check game over
@@ -270,7 +310,7 @@ export const useGameLogic = () => {
     }, 1000 / 60); // 60 FPS
 
     return () => clearInterval(interval);
-  }, [isPaused, gameOver, spawnEnemies, enemyShoot, checkCollisions, playerHealth, fuel, enemiesKilled, level, enemies]);
+  }, [isPaused, gameOver, spawnEnemies, enemyShoot, checkCollisions, playerHealth, fuel, enemiesKilled, level, enemies, totalShots, successfulHits, killStreak]);
 
   // Save game session when game over
   useEffect(() => {
@@ -287,56 +327,53 @@ export const useGameLogic = () => {
 
         const wallet = JSON.parse(walletData);
         
+        // Save game history to localStorage
+        const historyKey = `game_history_${wallet.address}`;
+        const existingHistory = localStorage.getItem(historyKey);
+        const history = existingHistory ? JSON.parse(existingHistory) : [];
+        
+        const gameSession = {
+          timestamp: Date.now(),
+          score,
+          kills: enemiesKilled,
+          accuracy: currentAccuracy,
+          maxStreak: maxKillStreak,
+          level,
+          duration: Math.floor(elapsedTime),
+          nftsEarned: nftsEarned.length,
+          nftsList: nftsEarned, // List of NFT names/types earned
+        };
+        
+        history.unshift(gameSession); // Add to beginning
+        // Keep only last 50 games
+        if (history.length > 50) {
+          history.pop();
+        }
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        
         // Call update-score edge function
-        const { data, error } = await supabase.functions.invoke('update-score', {
+        const { error } = await supabase.functions.invoke('update-score', {
           body: {
             profileId: wallet.profileId,
             score,
             kills: enemiesKilled,
+            accuracy: currentAccuracy,
             duration: Math.floor(elapsedTime),
           },
         });
 
         if (error) throw error;
 
-        console.log('Game session saved:', data);
-        toast.success('Score enregistré sur la blockchain!');
-
-        // Award NFT based on enemies killed
-        const killThresholds = [5, 10, 20, 30, 50]; // Different thresholds for NFT rewards
-        const nftTypes = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond']; // Different NFT types
-        
-        // Find the highest threshold achieved
-        let nftIndex = -1;
-        for (let i = killThresholds.length - 1; i >= 0; i--) {
-          if (enemiesKilled >= killThresholds[i]) {
-            nftIndex = i;
-            break;
-          }
-        }
-
-        if (nftIndex >= 0) {
-          const { data: nftData, error: nftError } = await supabase.functions.invoke('mint-nft-reward', {
-            body: {
-              profileId: wallet.profileId,
-              rewardType: `${nftTypes[nftIndex]} Fighter NFT`,
-              metadata: {
-                score,
-                kills: enemiesKilled,
-                level,
-                nftTier: nftTypes[nftIndex],
-                timestamp: new Date().toISOString(),
-              },
-            },
-          });
-
-          if (nftError) {
-            console.error('Error minting NFT:', nftError);
-          } else {
-            console.log('NFT minted:', nftData);
-            toast.success(`🎉 Félicitations ${wallet.playerName}! Vous avez reçu un NFT ${nftTypes[nftIndex]} Fighter pour avoir éliminé ${enemiesKilled} ennemis!`);
-          }
-        }
+        console.log('Game session saved:', {
+          score,
+          kills: enemiesKilled,
+          accuracy: currentAccuracy,
+          timeSurvived: Math.floor(elapsedTime),
+          maxStreak: maxKillStreak,
+          nftsEarned: nftsEarned.length,
+          level
+        });
+        toast.success('Score enregistré!');
       } catch (error) {
         console.error('Error saving session:', error);
         toast.error('Erreur lors de l\'enregistrement');
@@ -344,7 +381,7 @@ export const useGameLogic = () => {
     };
 
     saveSession();
-  }, [gameOver, score, enemiesKilled, elapsedTime, level]);
+  }, [gameOver, score, enemiesKilled, elapsedTime, level, currentAccuracy, maxKillStreak, nftsEarned]);
 
   const resetGame = () => {
     setPlayerPosition([0, 0, 0]);
@@ -359,6 +396,12 @@ export const useGameLogic = () => {
     setIsPaused(false);
     setElapsedTime(0);
     setEnemiesKilled(0);
+    setTotalShots(0);
+    setSuccessfulHits(0);
+    setCurrentAccuracy(0);
+    setNftsEarned([]);
+    setKillStreak(0);
+    setMaxKillStreak(0);
     gameStartTime.current = Date.now();
     lastEnemySpawn.current = Date.now();
   };
@@ -376,8 +419,15 @@ export const useGameLogic = () => {
     gameOver,
     elapsedTime,
     enemiesKilled,
+    totalShots,
+    successfulHits,
+    currentAccuracy,
+    nftsEarned,
+    killStreak,
+    maxKillStreak,
     shoot,
     setIsPaused,
+    setNftsEarned,
     resetGame,
   };
 };

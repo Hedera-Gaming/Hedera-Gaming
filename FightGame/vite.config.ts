@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+// Use the standard React plugin (esbuild) to avoid native SWC binding issues on
+// systems with Node versions that don't match prebuilt @swc/core binaries.
+import react from "@vitejs/plugin-react";
 import path from "path";
 // removed lovable-tagger to prevent Lovable branding/logo from being injected
 

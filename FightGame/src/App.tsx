@@ -7,6 +7,7 @@ import { Navigation } from "./components/Navigation";
 import { SpaceBackground } from "./components/SpaceBackground";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
+import Profile from "./pages/Profile";
 import Marketplace from "./pages/Marketplace";
 import Leaderboard from "./pages/Leaderboard";
 import Community from "./pages/Community";
@@ -26,6 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game" element={<Game />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/community" element={<Community />} />

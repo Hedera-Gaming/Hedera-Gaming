@@ -10,6 +10,7 @@ export const Navigation = () => {
 
   const navItems = [
     { name: 'GAME', path: '/game' },
+    { name: 'PROFILE', path: '/profile' },
     { name: 'MARKETPLACE', path: '/marketplace' },
     { name: 'LEADERBOARD', path: '/leaderboard' },
     { name: 'COMMUNITY', path: '/community' },

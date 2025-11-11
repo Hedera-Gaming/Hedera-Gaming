@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Trophy, Shield, Rocket, TrendingUp, Users, Coins } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SpaceFightersLogo } from '@/components/SpaceFightersLogo';
 
 const Home = () => {
   const features = [
@@ -31,14 +32,17 @@ const Home = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
+      <section className="relative py-20 md:py-32 overflow-hidden min-h-[80vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
-        <div className="container mx-auto px-4 relative z-10">
+        
+        {/* Logo Space Fighters */}
+        <div className="absolute top-0 left-0 right-0 pt-8">
+          <SpaceFightersLogo />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10 mt-40">
           <div className="max-w-4xl mx-auto text-center animate-slide-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
-              HEDERA NEXUS
-            </h1>
-            <p className="text-2xl md:text-3xl mb-4 text-primary">
+            <p className="text-2xl md:text-3xl mb-4 text-primary font-bold">
               Welcome! Play. Earn. Own Forever.
             </p>
             <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">

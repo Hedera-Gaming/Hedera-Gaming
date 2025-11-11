@@ -28,10 +28,16 @@ contract NFTCollection {
     mapping(address => uint256[]) public ownerTokens;
     mapping(uint256 => Achievement) public achievements;
     mapping(address => mapping(uint256 => bool)) public hasEarnedAchievement;
+    
+    // Approval mappings (ERC-721 standard)
+    mapping(uint256 => address) private tokenApprovals; // tokenId => approved address
+    mapping(address => mapping(address => bool)) private operatorApprovals; // owner => operator => approved
 
     event NFTMinted(uint256 indexed tokenId, address indexed owner, uint256 achievementId);
     event NFTTransferred(uint256 indexed tokenId, address indexed from, address indexed to);
     event AchievementCreated(uint256 indexed achievementId, string name);
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only admin can call this");
@@ -92,11 +98,23 @@ contract NFTCollection {
         return tokenId;
     }
 
-    function transferNFT(uint256 tokenId, address to) external onlyOwner(tokenId) {
+    function transferNFT(uint256 tokenId, address to) external {
         require(nfts[tokenId].exists, "NFT does not exist");
         require(to != address(0), "Invalid address");
-
+        
         address from = nfts[tokenId].owner;
+        
+        // Check if caller is authorized (owner, approved, or operator)
+        require(
+            msg.sender == from || 
+            msg.sender == tokenApprovals[tokenId] || 
+            operatorApprovals[from][msg.sender],
+            "Not authorized to transfer"
+        );
+
+        // Clear approvals
+        delete tokenApprovals[tokenId];
+        
         nfts[tokenId].owner = to;
 
         _removeTokenFromOwner(from, tokenId);
@@ -141,5 +159,52 @@ contract NFTCollection {
     function setRoyaltyPercentage(uint256 percentage) external onlyAdmin {
         require(percentage <= 10, "Royalty too high");
         royaltyPercentage = percentage;
+    }
+
+    // ========== APPROVAL FUNCTIONS (ERC-721 Standard) ==========
+
+    /**
+     * @dev Approve a specific address to transfer a specific token
+     * @param to Address to approve
+     * @param tokenId Token ID to approve
+     */
+    function approve(address to, uint256 tokenId) external {
+        address owner = nfts[tokenId].owner;
+        require(msg.sender == owner || operatorApprovals[owner][msg.sender], "Not authorized");
+        require(to != owner, "Cannot approve owner");
+        
+        tokenApprovals[tokenId] = to;
+        emit Approval(owner, to, tokenId);
+    }
+
+    /**
+     * @dev Approve or remove an operator for all tokens owned by msg.sender
+     * @param operator Address to set as operator
+     * @param approved True to approve, false to revoke
+     */
+    function setApprovalForAll(address operator, bool approved) external {
+        require(msg.sender != operator, "Cannot set approval for self");
+        operatorApprovals[msg.sender][operator] = approved;
+        emit ApprovalForAll(msg.sender, operator, approved);
+    }
+
+    /**
+     * @dev Get the approved address for a specific token
+     * @param tokenId Token ID to query
+     * @return Address approved for this token
+     */
+    function getApproved(uint256 tokenId) external view returns (address) {
+        require(nfts[tokenId].exists, "NFT does not exist");
+        return tokenApprovals[tokenId];
+    }
+
+    /**
+     * @dev Check if an operator is approved for all tokens of an owner
+     * @param owner Owner address
+     * @param operator Operator address
+     * @return True if operator is approved
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool) {
+        return operatorApprovals[owner][operator];
     }
 }

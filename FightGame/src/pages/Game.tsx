@@ -2,13 +2,16 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowLeft, Play, RotateCcw, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { GameScene } from '@/components/game/GameScene';
-import { GameHUD } from '@/components/game/GameHUD';
+import { GameHUDAdvanced } from '@/components/game/GameHUDAdvanced';
 import { useGameLogic } from '@/hooks/useGameLogic';
 import { useWalletConnect } from '@/hooks/useWalletConnect';
 import { WalletConnectModal } from '@/components/WalletConnectModal';
 import { ActivityFeed } from '@/components/ActivityFeed';
 import { NFTRewardsDisplay } from '@/components/NFTRewardsDisplay';
+import { useNFTRewards } from '@/hooks/useNFTRewards';
+import { toast } from 'sonner';
 
 const Game = () => {
   const {
@@ -24,8 +27,15 @@ const Game = () => {
     gameOver,
     elapsedTime,
     enemiesKilled,
+    totalShots,
+    successfulHits,
+    currentAccuracy,
+    nftsEarned,
+    killStreak,
+    maxKillStreak,
     shoot,
     setIsPaused,
+    setNftsEarned,
     resetGame,
   } = useGameLogic();
 
@@ -38,10 +48,58 @@ const Game = () => {
     disconnect 
   } = useWalletConnect();
 
+  // Hook that connects to contracts and exposes verify/mint
+  const { verifyAndMintNFT } = useNFTRewards(wallet);
+
   const enemiesRemaining = enemies.filter(e => e.isActive).length;
 
   // Show wallet modal if not connected
   const showWalletModal = isInitialized && !wallet;
+
+  // Track which kill thresholds we've already awarded to avoid duplicate mints
+  const awardedThresholdsRef = useRef<Set<number>>(new Set());
+
+  // Progressive NFT Rewards System
+  useEffect(() => {
+    if (!wallet || !verifyAndMintNFT) return;
+
+    // More aggressive thresholds: every 10 kills
+    const killThresholds = [10, 20, 30, 40, 50, 75, 100, 150, 200];
+
+    (async () => {
+      for (const t of killThresholds) {
+        if (enemiesKilled >= t && !awardedThresholdsRef.current.has(t)) {
+          awardedThresholdsRef.current.add(t);
+
+          try {
+            // Determine NFT rarity based on performance
+            let nftType = 'Bronze Fighter';
+            if (enemiesKilled >= 150) nftType = 'Diamond Ace 💎';
+            else if (enemiesKilled >= 100) nftType = 'Platinum Elite 🏆';
+            else if (enemiesKilled >= 75) nftType = 'Gold Master 👑';
+            else if (enemiesKilled >= 50) nftType = 'Silver Hero ⭐';
+            else if (enemiesKilled >= 30) nftType = 'Bronze Fighter 🥉';
+
+            // Add to NFT earned list immediately
+            setNftsEarned(prev => [...prev, `${nftType} (${t} kills)`]);
+            
+            // Show toast notification
+            toast.success(`🎉 NFT Earned: ${nftType}!`, {
+              description: `${t} enemies eliminated with ${currentAccuracy.toFixed(1)}% accuracy!`,
+              duration: 5000,
+            });
+
+            // Verify and mint on blockchain
+            await verifyAndMintNFT(score, enemiesKilled, currentAccuracy, Math.floor(elapsedTime));
+          } catch (e) {
+            // Allow retry on next kill
+            awardedThresholdsRef.current.delete(t);
+            console.error('Error minting NFT for threshold', t, e);
+          }
+        }
+      }
+    })();
+  }, [enemiesKilled, wallet, verifyAndMintNFT, score, elapsedTime, currentAccuracy, setNftsEarned]);
 
   return (
     <div className="min-h-screen pt-16">
@@ -107,7 +165,7 @@ const Game = () => {
                 onShoot={shoot}
               />
               
-              <GameHUD
+              <GameHUDAdvanced
                 score={score}
                 health={playerHealth}
                 ammo={ammo}
@@ -116,6 +174,12 @@ const Game = () => {
                 enemiesRemaining={enemiesRemaining}
                 level={level}
                 elapsedTime={elapsedTime}
+                currentAccuracy={currentAccuracy}
+                killStreak={killStreak}
+                maxKillStreak={maxKillStreak}
+                totalShots={totalShots}
+                successfulHits={successfulHits}
+                nftsEarned={nftsEarned}
               />
 
               {/* Pause Overlay */}
@@ -164,6 +228,18 @@ const Game = () => {
                         <span className="font-bold">{enemiesKilled}</span>
                       </div>
                       <div className="flex justify-between">
+                        <span className="text-muted-foreground">Accuracy:</span>
+                        <span className="font-bold text-cyan-400">{currentAccuracy.toFixed(1)}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Max Streak:</span>
+                        <span className="font-bold text-orange-500">🔥 x{maxKillStreak}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">NFTs Earned:</span>
+                        <span className="font-bold text-green-400">{nftsEarned.length}</span>
+                      </div>
+                      <div className="flex justify-between">
                         <span className="text-muted-foreground">Time Survived:</span>
                         <span className="font-bold">{Math.floor(elapsedTime)}s</span>
                       </div>
@@ -194,7 +270,7 @@ const Game = () => {
           <div className="lg:col-span-1 space-y-4">
             {wallet && (
               <>
-                <NFTRewardsDisplay profileId={wallet.profileId} limit={3} />
+                <NFTRewardsDisplay limit={3} />
                 <ActivityFeed />
               </>
             )}

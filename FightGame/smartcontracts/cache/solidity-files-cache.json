@@ -111,8 +111,8 @@
       ]
     },
     "C:\\Users\\Dieudo\\OneDrive\\Desktop\\Hedera-Gaming-FightgameSmartcontracts\\Hedera-Gaming-FightgameSmartcontracts\\FightGame\\smartcontracts\\contracts\\NFTCollection.sol": {
-      "lastModificationDate": 1762506523291,
-      "contentHash": "35096a9ed5083b0bd5317731b4c143e4",
+      "lastModificationDate": 1762788056676,
+      "contentHash": "69c58297778b694a89c9674c0a907b41",
       "sourceName": "contracts/NFTCollection.sol",
       "solcConfig": {
         "version": "0.8.20",

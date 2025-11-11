@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as Phaser from "phaser";
 import Dungeon from "@mikewesthad/dungeon";
 import { Helpers } from "../utilities/helpers";
@@ -6,6 +7,16 @@ import { BaseScene } from "../scenes/base-scene";
 import { NumberOrRange } from "../interfaces/number-range";
 import { SpaceSim } from "../space-sim";
 import { HasState } from "../interfaces/has-state";
+=======
+import * as Phaser from 'phaser';
+import Dungeon from '@mikewesthad/dungeon';
+import { Helpers } from '../utilities/helpers';
+import { Ship } from '../ships/ship';
+import { BaseScene } from '../scenes/base-scene';
+import { NumberOrRange } from '../interfaces/number-range';
+import { SpaceSim } from '../space-sim';
+import { HasState } from '../interfaces/has-state';
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 
 export type GameTile = {
     name: string;
@@ -25,7 +36,11 @@ export type GameRoom = {
 };
 
 export type GameLevelConfig = {
+<<<<<<< HEAD
     rooms: Array<GameRoom>
+=======
+    rooms: Array<GameRoom>;
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 };
 
 export type GameLevelOptions = Partial<GameLevelConfig> & {
@@ -40,7 +55,14 @@ export type GameLevelOptions = Partial<GameLevelConfig> & {
     tileHeight?: number;
 };
 
+<<<<<<< HEAD
 export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameLevelConfig> {
+=======
+export class GameLevel
+    extends Phaser.Tilemaps.Tilemap
+    implements HasState<GameLevelConfig>
+{
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     public scene: BaseScene;
 
     private readonly _rooms = new Array<GameRoom>();
@@ -54,6 +76,7 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
             seed: 'bicarbon8',
             width: 200, // in tiles, not pixels
             height: 200,
+<<<<<<< HEAD
             roomWidth: {min: 10, max: 25}, // in tiles, not pixels
             roomHeight: {min: 25, max: 25},
             doorPadding: 2,
@@ -68,6 +91,25 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
             width: opts.width,
             height: opts.height
         }));
+=======
+            roomWidth: { min: 10, max: 25 }, // in tiles, not pixels
+            roomHeight: { min: 25, max: 25 },
+            doorPadding: 2,
+            maxRooms: 1, //100 number of rooms to attempt to create
+            tileWidth: 96, // 96 pixels
+            tileHeight: 96,
+            ...options,
+        };
+        super(
+            scene,
+            new Phaser.Tilemaps.MapData({
+                tileWidth: opts.tileWidth,
+                tileHeight: opts.tileHeight,
+                width: opts.width,
+                height: opts.height,
+            })
+        );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 
         if (!opts.rooms.length) {
             opts.rooms = this._createRooms(opts);
@@ -78,7 +120,11 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
 
     get currentState(): GameLevelConfig {
         return {
+<<<<<<< HEAD
             rooms: this.rooms
+=======
+            rooms: this.rooms,
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         };
     }
 
@@ -91,8 +137,13 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
     }
 
     setAlpha(alpha: number): this {
+<<<<<<< HEAD
         this._wallsLayer.forEachTile(tile => tile.setAlpha(alpha));
         this._radarLayer.forEachTile(tile => tile.setAlpha(alpha));
+=======
+        this._wallsLayer.forEachTile((tile) => tile.setAlpha(alpha));
+        this._radarLayer.forEachTile((tile) => tile.setAlpha(alpha));
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         return this;
     }
 
@@ -108,12 +159,39 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
         return this._rooms;
     }
 
+<<<<<<< HEAD
     getMapTileWorldLocation(tilePositionX: number, tilePositionY: number): Phaser.Math.Vector2 {
         return this.tileToWorldXY(tilePositionX, tilePositionY, null, this.scene.cameras.main, this._radarLayer);
     }
 
     isWithinTile(worldLocation: Phaser.Types.Math.Vector2Like, tilePosition: Phaser.Types.Math.Vector2Like): boolean {
         const tileLoc = this.getTileAtWorldXY(worldLocation.x, worldLocation.y, false, this.scene.cameras.main, this._radarLayer);
+=======
+    getMapTileWorldLocation(
+        tilePositionX: number,
+        tilePositionY: number
+    ): Phaser.Math.Vector2 {
+        return this.tileToWorldXY(
+            tilePositionX,
+            tilePositionY,
+            null,
+            this.scene.cameras.main,
+            this._radarLayer
+        );
+    }
+
+    isWithinTile(
+        worldLocation: Phaser.Types.Math.Vector2Like,
+        tilePosition: Phaser.Types.Math.Vector2Like
+    ): boolean {
+        const tileLoc = this.getTileAtWorldXY(
+            worldLocation.x,
+            worldLocation.y,
+            false,
+            this.scene.cameras.main,
+            this._radarLayer
+        );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         if (tileLoc) {
             if (tileLoc.x === tilePosition.x && tileLoc.y === tilePosition.y) {
                 return true;
@@ -123,7 +201,17 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
     }
 
     getRoomAt(tileX: number, tileY: number): GameRoom {
+<<<<<<< HEAD
         return this._rooms.find(r => r.left <= tileX && tileX < r.left+r.width && r.top <= tileY && tileY < r.top+r.height);
+=======
+        return this._rooms.find(
+            (r) =>
+                r.left <= tileX &&
+                tileX < r.left + r.width &&
+                r.top <= tileY &&
+                tileY < r.top + r.height
+        );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     }
 
     getRoomAtWorldXY(x: number, y: number): GameRoom {
@@ -134,7 +222,11 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
     getRoomClosestToOrigin(): GameRoom {
         const zero = Helpers.vector2();
         let closest: GameRoom;
+<<<<<<< HEAD
         this._rooms.forEach(room => {
+=======
+        this._rooms.forEach((room) => {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             const centerX = room.left + Math.floor(room.width / 2);
             const centerY = room.top + Math.floor(room.height / 2);
             if (closest) {
@@ -142,7 +234,14 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 const closestCenterY = room.top + Math.floor(room.height / 2);
                 const pos = this.tileToWorldXY(closestCenterX, closestCenterY);
                 const newPos = this.tileToWorldXY(centerX, centerY);
+<<<<<<< HEAD
                 if (Phaser.Math.Distance.BetweenPoints(zero, newPos) < Phaser.Math.Distance.BetweenPoints(zero, pos)) {
+=======
+                if (
+                    Phaser.Math.Distance.BetweenPoints(zero, newPos) <
+                    Phaser.Math.Distance.BetweenPoints(zero, pos)
+                ) {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                     closest = room;
                 }
             } else {
@@ -155,7 +254,11 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
     getRoomFurthestFromOrigin(): GameRoom {
         const zero = Helpers.vector2();
         let furthest: GameRoom;
+<<<<<<< HEAD
         this._rooms.forEach(room => {
+=======
+        this._rooms.forEach((room) => {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             const centerX = room.left + Math.floor(room.width / 2);
             const centerY = room.top + Math.floor(room.height / 2);
             if (furthest) {
@@ -163,7 +266,14 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 const closestCenterY = room.top + Math.floor(room.height / 2);
                 const pos = this.tileToWorldXY(closestCenterX, closestCenterY);
                 const newPos = this.tileToWorldXY(centerX, centerY);
+<<<<<<< HEAD
                 if (Phaser.Math.Distance.BetweenPoints(zero, newPos) > Phaser.Math.Distance.BetweenPoints(zero, pos)) {
+=======
+                if (
+                    Phaser.Math.Distance.BetweenPoints(zero, newPos) >
+                    Phaser.Math.Distance.BetweenPoints(zero, pos)
+                ) {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                     furthest = room;
                 }
             } else {
@@ -173,6 +283,7 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
         return furthest;
     }
 
+<<<<<<< HEAD
     getActiveShipsWithinRadius(location: Phaser.Types.Math.Vector2Like, radius: number): Array<Ship> {
         return this.scene.getShips()
             .filter(s => {
@@ -183,6 +294,23 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 }
                 return false;
             });
+=======
+    getActiveShipsWithinRadius(
+        location: Phaser.Types.Math.Vector2Like,
+        radius: number
+    ): Array<Ship> {
+        return this.scene.getShips().filter((s) => {
+            if (s?.active) {
+                if (
+                    Phaser.Math.Distance.BetweenPoints(s.location, location) <=
+                    radius
+                ) {
+                    return true;
+                }
+            }
+            return false;
+        });
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     }
 
     /**
@@ -192,9 +320,30 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
      * @param end a world location for the deisired ending position
      * @returns an array of world locations (not tile) that form a valid path to the `end`
      */
+<<<<<<< HEAD
     findPathTo(start: Phaser.Types.Math.Vector2Like, end: Phaser.Types.Math.Vector2Like): Array<Phaser.Types.Math.Vector2Like> {
         const startTileLoc = this.getTileAtWorldXY(start.x, start.y, true, this.scene.cameras.main, this._radarLayer);
         const endTileLoc = this.getTileAtWorldXY(end.x, end.y, true, this.scene.cameras.main, this._radarLayer);
+=======
+    findPathTo(
+        start: Phaser.Types.Math.Vector2Like,
+        end: Phaser.Types.Math.Vector2Like
+    ): Array<Phaser.Types.Math.Vector2Like> {
+        const startTileLoc = this.getTileAtWorldXY(
+            start.x,
+            start.y,
+            true,
+            this.scene.cameras.main,
+            this._radarLayer
+        );
+        const endTileLoc = this.getTileAtWorldXY(
+            end.x,
+            end.y,
+            true,
+            this.scene.cameras.main,
+            this._radarLayer
+        );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         // no path if select invalid tile
         if (!this._radarLayer.getTileAt(endTileLoc.x, endTileLoc.y)) {
             return null; // no path
@@ -204,8 +353,17 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
             return null; // no path
         }
 
+<<<<<<< HEAD
         const toKey = (loc: Phaser.Types.Math.Vector2Like) => `${loc.x}x${loc.y}`;
         type TilePosition = {key: string, position: Phaser.Types.Math.Vector2Like};
+=======
+        const toKey = (loc: Phaser.Types.Math.Vector2Like) =>
+            `${loc.x}x${loc.y}`;
+        type TilePosition = {
+            key: string;
+            position: Phaser.Types.Math.Vector2Like;
+        };
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         const queue = new Array<Phaser.Types.Math.Vector2Like>();
         const parentForKey = new Map<string, TilePosition>();
 
@@ -213,13 +371,18 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
         const targetKey = toKey(endTileLoc);
         parentForKey.set(startKey, null); // no parent for starting location so we end
 
+<<<<<<< HEAD
         queue.push(startTileLoc)
+=======
+        queue.push(startTileLoc);
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 
         while (queue.length > 0) {
             const currentLoc = queue.shift();
             const currentKey = toKey(currentLoc);
 
             if (currentKey === targetKey) {
+<<<<<<< HEAD
                 break
             }
 
@@ -228,6 +391,16 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 { x: currentLoc.x + 1, y: currentLoc.y }, 	// right
                 { x: currentLoc.x, y: currentLoc.y + 1 },	// bottom
                 { x: currentLoc.x - 1, y: currentLoc.y}		// left
+=======
+                break;
+            }
+
+            const neighbors = [
+                { x: currentLoc.x, y: currentLoc.y - 1 }, // top
+                { x: currentLoc.x + 1, y: currentLoc.y }, // right
+                { x: currentLoc.x, y: currentLoc.y + 1 }, // bottom
+                { x: currentLoc.x - 1, y: currentLoc.y }, // left
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             ];
 
             for (let i = 0; i < neighbors.length; ++i) {
@@ -242,7 +415,11 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
 
                 parentForKey.set(key, {
                     key: currentKey,
+<<<<<<< HEAD
                     position: { x: currentLoc.x, y: currentLoc.y }
+=======
+                    position: { x: currentLoc.x, y: currentLoc.y },
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                 });
                 queue.push(neighbor);
             }
@@ -250,6 +427,7 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
 
         const path = new Array<Phaser.Types.Math.Vector2Like>();
 
+<<<<<<< HEAD
         let currentKey = targetKey
         let currentPos = parentForKey.get(targetKey)?.position
 
@@ -259,6 +437,20 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
             pos.y += this._radarLayer.tilemap.tileHeight * 0.5
 
             path.push(pos)
+=======
+        let currentKey = targetKey;
+        let currentPos = parentForKey.get(targetKey)?.position;
+
+        while (currentKey !== startKey) {
+            const pos = this._radarLayer.tileToWorldXY(
+                currentPos.x,
+                currentPos.y
+            );
+            pos.x += this._radarLayer.tilemap.tileWidth * 0.5;
+            pos.y += this._radarLayer.tilemap.tileHeight * 0.5;
+
+            path.push(pos);
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 
             const tilePosition = parentForKey.get(currentKey);
             if (!tilePosition) {
@@ -279,17 +471,38 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
      * @returns true if a wall is obscuring the view between the `start`
      * and `end` locations
      */
+<<<<<<< HEAD
     isWallObscuring(start: Phaser.Types.Math.Vector2Like, end: Phaser.Types.Math.Vector2Like): boolean {
+=======
+    isWallObscuring(
+        start: Phaser.Types.Math.Vector2Like,
+        end: Phaser.Types.Math.Vector2Like
+    ): boolean {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         const ray = new Phaser.Geom.Line(start.x, start.y, end.x, end.y);
         // TODO: doesn't work due to https://github.com/photonstorm/phaser/issues/5640
         // const wallTiles = this.getTilesWithinShape(ray, {
         //         isColliding: true
         //     }, this.scene.cameras.main, this._wallsLayer);
+<<<<<<< HEAD
         
         const rayPoints = ray.getPoints(0, 5);
         const wallTiles = new Array<Phaser.Tilemaps.Tile>();
         for (let p of rayPoints) {
             const tile = this.getTileAtWorldXY(p.x, p.y, false, this.scene.cameras.main, this._wallsLayer);
+=======
+
+        const rayPoints = ray.getPoints(0, 5);
+        const wallTiles = new Array<Phaser.Tilemaps.Tile>();
+        for (let p of rayPoints) {
+            const tile = this.getTileAtWorldXY(
+                p.x,
+                p.y,
+                false,
+                this.scene.cameras.main,
+                this._wallsLayer
+            );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             if (tile) {
                 wallTiles.push(tile);
             }
@@ -315,17 +528,27 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                     min: NumberOrRange.min(options.roomHeight), // in tiles, not pixels
                     max: NumberOrRange.max(options.roomHeight),
                 },
+<<<<<<< HEAD
                 maxRooms: options.maxRooms
             },
             doorPadding: doorPadding
         });
 
         const rooms = dungeon.rooms.map(r => {
+=======
+                maxRooms: options.maxRooms,
+            },
+            doorPadding: doorPadding,
+        });
+
+        const rooms = dungeon.rooms.map((r) => {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             const wallTiles = new Array<GameTile>();
             const floorTiles = new Array<GameTile>();
             const doors = r.getDoorLocations(); // door locations are relative to room, not dungeon
             // widen doorways
             const widerDoors = new Array<Phaser.Types.Math.Vector2Like>();
+<<<<<<< HEAD
             doors.forEach(d => {
                 widerDoors.push(d);
                 // left or right wall
@@ -343,31 +566,79 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 for (let j=0; j<r.height; j++) {
                     const p = {x: i+r.x, y: j+r.y};
                     if (widerDoors.find(d => Helpers.vector2(d).equals({x: i, y: j}))) {
+=======
+            doors.forEach((d) => {
+                widerDoors.push(d);
+                // left or right wall
+                if (d.x === 0 || d.x === r.width - 1) {
+                    widerDoors.push({ x: d.x, y: d.y - 1 });
+                    widerDoors.push({ x: d.x, y: d.y + 1 });
+                }
+                // top or bottom wall
+                if (d.y === 0 || d.y === r.height - 1) {
+                    widerDoors.push({ x: d.x - 1, y: d.y });
+                    widerDoors.push({ x: d.x + 1, y: d.y });
+                }
+            });
+            for (let i = 0; i < r.width; i++) {
+                for (let j = 0; j < r.height; j++) {
+                    const p = { x: i + r.x, y: j + r.y };
+                    if (
+                        widerDoors.find((d) =>
+                            Helpers.vector2(d).equals({ x: i, y: j })
+                        )
+                    ) {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         // ensure floor tile at door locations
                         floorTiles.push({
                             x: p.x,
                             y: p.y,
                             index: 0,
+<<<<<<< HEAD
                             name: 'minimaptile'
+=======
+                            name: 'minimaptile',
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         });
                         continue; // move to next location
                     }
 
+<<<<<<< HEAD
                     const index = Phaser.Math.RND.pick(SpaceSim.Constants.GameLevels.Tiles.WALL);
                     // if along the left, right, top or bottom side
                     if ((j === 0 || j === r.height-1) || (i === 0 || i === r.width-1)) {
+=======
+                    const index = Phaser.Math.RND.pick(
+                        SpaceSim.Constants.GameLevels.Tiles.WALL
+                    );
+                    // if along the left, right, top or bottom side
+                    if (
+                        j === 0 ||
+                        j === r.height - 1 ||
+                        i === 0 ||
+                        i === r.width - 1
+                    ) {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         wallTiles.push({
                             x: p.x,
                             y: p.y,
                             index: index,
+<<<<<<< HEAD
                             name: 'metaltiles'
+=======
+                            name: 'metaltiles',
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         });
                     } else {
                         floorTiles.push({
                             x: p.x,
                             y: p.y,
                             index: 0,
+<<<<<<< HEAD
                             name: 'minimaptile'
+=======
+                            name: 'minimaptile',
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         });
                     }
                 }
@@ -378,7 +649,11 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 width: r.width,
                 height: r.height,
                 collisionTiles: wallTiles,
+<<<<<<< HEAD
                 nonCollisionTiles: floorTiles
+=======
+                nonCollisionTiles: floorTiles,
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             };
         });
 
@@ -387,11 +662,23 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
 
     private _createLayers(...rooms: Array<GameRoom>): void {
         if (!this._wallsLayer) {
+<<<<<<< HEAD
             const wallsTileSet = this.addTilesetImage('tiles', 'metaltiles', 96, 96, 0, 0);
+=======
+            const wallsTileSet = this.addTilesetImage(
+                'tiles',
+                'metaltiles',
+                96,
+                96,
+                0,
+                0
+            );
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             this._wallsLayer = this.createBlankLayer('walls', wallsTileSet);
             this._wallsLayer.setCollisionBetween(1, 14);
         }
         if (!this._radarLayer) {
+<<<<<<< HEAD
             const radarTileSet = this.addTilesetImage('minimaptile', 'minimaptile', 96, 96, 0, 0);
             this._radarLayer = this.createBlankLayer('radar', radarTileSet);
         }
@@ -402,9 +689,32 @@ export class GameLevel extends Phaser.Tilemaps.Tilemap implements HasState<GameL
                 this._radarLayer.removeTileAt(t.x, t.y);
             });
             room.nonCollisionTiles.forEach(t => {
+=======
+            const radarTileSet = this.addTilesetImage(
+                'minimaptile',
+                'minimaptile',
+                96,
+                96,
+                0,
+                0
+            );
+            this._radarLayer = this.createBlankLayer('radar', radarTileSet);
+        }
+
+        rooms.forEach((room) => {
+            room.collisionTiles.forEach((t) => {
+                this._wallsLayer.putTileAt(t.index, t.x, t.y);
+                this._radarLayer.removeTileAt(t.x, t.y);
+            });
+            room.nonCollisionTiles.forEach((t) => {
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                 this._radarLayer.putTileAt(t.index, t.x, t.y);
                 this._wallsLayer.removeTileAt(t.x, t.y);
             });
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8

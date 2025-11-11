@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
@@ -22,3 +23,26 @@
   },
   "references": [{"path": "../shared"}]
 }
+=======
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "declaration": true,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "noEmit": false,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2020",
+        "module": "ES2020",
+        "lib": ["es2018", "dom", "scripthost"],
+        "allowSyntheticDefaultImports": true,
+        "strictNullChecks": false
+    },
+    "references": [{ "path": "../shared" }]
+    // "include": ["src/**/*.ts"], // Inclut tous les fichiers TS sous src
+    // "exclude": ["node_modules", "dist"] // Exclut node_modules et dist
+}
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8

@@ -18,4 +18,9 @@
         "strictNullChecks": false,
         "types": ["mocha", "chai", "sinon", "node"]
     }
+<<<<<<< HEAD
+=======
+    // "include": ["src/**/*.ts"], // Inclut tous les fichiers TS sous src
+    // "exclude": ["node_modules", "dist"] // Exclut node_modules et dist
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 }

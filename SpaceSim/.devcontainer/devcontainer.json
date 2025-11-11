@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 	"name": "Node.js & TypeScript",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:16-bullseye",
@@ -21,22 +22,32 @@
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 =======
+=======
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     "name": "SpaceSim Dev Container",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."
     },
     "features": {
+<<<<<<< HEAD
         "ghcr.io/devcontainers/features/node:1": {
             "version": "20"
         },
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
+=======
+        "ghcr.io/devcontainers/features/git:1": {}
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     },
     "workspaceFolder": "/workspace/SpaceSim",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/SpaceSim,type=bind",
     "forwardPorts": [4500, 8081],
+<<<<<<< HEAD
+=======
+    "postCreateCommand": "npm install --workspaces && cd node_modules/phaser-game-server && npm install canvas --legacy-peer-deps",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     "remoteUser": "node",
     "customizations": {
         "vscode": {
@@ -44,6 +55,7 @@
                 "ms-vscode.vscode-typescript-tslint-plugin",
                 "esbenp.prettier-vscode",
                 "ms-vscode.vscode-node-azure-pack",
+<<<<<<< HEAD
                 "eamodio.gitlens",
                 "dbaeumer.vscode-eslint",
                 "mhutchie.git-graph",
@@ -56,4 +68,10 @@
     "postCreateCommand": "nvm install 22 && nvm use 22 && npm install -g npm@latest && npm install --workspaces && npm run build --workspaces"
 
 >>>>>>> Stashed changes
+=======
+                "eamodio.gitlens"
+            ]
+        }
+    }
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 }

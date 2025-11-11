@@ -9,9 +9,14 @@ bazel-out
 docs
 
 # dependencies
+<<<<<<< HEAD
 node_modules/
 FightGame/node_modules/
 FightGame/smartcontracts/node_modules/
+=======
+node_modules
+
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
@@ -57,7 +62,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+<<<<<<< HEAD
 node_modules/
+=======
+node_modules
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 dist
 dist-ssr
 *.local
@@ -72,3 +81,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.env 
+.env

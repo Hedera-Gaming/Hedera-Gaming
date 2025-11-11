@@ -20,6 +20,10 @@
                     "builder": "ngx-build-plus:browser",
                     "options": {
                         "outputPath": "dist/space-sim",
+<<<<<<< HEAD
+=======
+                        "baseHref": "/Hedera-Gaming/",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -88,18 +92,30 @@
                 "serve": {
                     "builder": "ngx-build-plus:dev-server",
                     "options": {
+<<<<<<< HEAD
                         "browserTarget": "space-sim:build",
+=======
+                        "buildTarget": "space-sim:build",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         "port": 4500,
                         "publicHost": "http://localhost:4500",
                         "extraWebpackConfig": "webpack.config.cjs"
                     },
                     "configurations": {
                         "development": {
+<<<<<<< HEAD
                             "browserTarget": "space-sim:build:development",
                             "extraWebpackConfig": "webpack.config.cjs"
                         },
                         "production": {
                             "browserTarget": "space-sim:build:production",
+=======
+                            "buildTarget": "space-sim:build:development",
+                            "extraWebpackConfig": "webpack.config.cjs"
+                        },
+                        "production": {
+                            "buildTarget": "space-sim:build:production",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                             "extraWebpackConfig": "webpack.prod.config.cjs"
                         }
                     },
@@ -108,7 +124,11 @@
                 "extract-i18n": {
                     "builder": "ngx-build-plus:extract-i18n",
                     "options": {
+<<<<<<< HEAD
                         "browserTarget": "space-sim:build",
+=======
+                        "buildTarget": "space-sim:build",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                         "extraWebpackConfig": "webpack.config.cjs"
                     }
                 },

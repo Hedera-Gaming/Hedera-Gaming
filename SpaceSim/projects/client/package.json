@@ -27,6 +27,10 @@
         "@angular/router": "^18.2.13",
         "@mikewesthad/dungeon": "^2.0.1",
         "bootstrap": "^5.3.3",
+<<<<<<< HEAD
+=======
+        "canvas": "^2.11.2",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         "get-browser-fingerprint": "^2.1.1",
         "phaser": "^3.87.0",
         "phaser-ui-components": "^3.1.3",
@@ -41,6 +45,10 @@
         "@angular/cli": "^18.2.12",
         "@angular/compiler-cli": "^18.2.14",
         "@cypress/schematic": "^2.5.2",
+<<<<<<< HEAD
+=======
+        "@rollup/rollup-win32-x64-msvc": "^4.52.5",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         "@types/jasmine": "^5.1.4",
         "@types/node": "^22.10.2",
         "cypress": "^13.17.0",

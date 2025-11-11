@@ -35,5 +35,20 @@ module.exports = (env) => {
                 },
             },
         },
+<<<<<<< HEAD
+=======
+
+        watchOptions: {
+            ignored: [
+                "**/node_modules/**",
+                "**/dist/**",
+                "C:/System Volume Information",
+                "C:/pagefile.sys",
+                "C:/hiberfil.sys",
+                "C:/swapfile.sys",
+                "C:/DumpStack.log.tmp",
+            ],
+        },
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     };
 };

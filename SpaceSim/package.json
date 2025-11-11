@@ -5,6 +5,13 @@
         "projects/server",
         "projects/client"
     ],
+<<<<<<< HEAD
+=======
+    "author": "Hedera-Gaming",
+    "description": "A space war game",
+    "version": "1.0.0",
+    "main": "main.js",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     "scripts": {
         "clean": "rimraf ./dist && rimraf ./docs",
         "build": "npm run build --workspaces --if-present && npm run copy-dist-to-root && npm run copy-docs-to-root",
@@ -14,11 +21,43 @@
         "test": "npm run test --workspaces --if-present",
         "start": "npm run start --workspaces --if-present",
         "start:dev": "npm run start:dev --workspaces --if-present",
+<<<<<<< HEAD
         "test:shared": "npm run test -w space-sim-shared"
+=======
+        "test:shared": "npm run test -w space-sim-shared",
+        "build:client": "cd projects/client && npm run build",
+        "build:pages": "npm run build -w client && copyfiles -u 3 \"./projects/client/dist/**/*\" ./dist/",
+        "electron": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "npm run build:client && electron-builder",
+        "uml:server": "tsuml2 --glob ./projects/server/src/**/*.ts --tsconfig ./projects/server/tsconfig.json --outFile diagramsGamePlay/server.svg --modifiers true --propertyTypes true --memberAssociations true --nomnoml \"#spacing: 60\" \"#padding: 15\" \"#arrowSize: 1\" \"#lineWidth: 2\" \"#fill: #0a0a0a\" \"#stroke: #818cf8\" \"#.interface: fill=#1e1b4b stroke=#818cf8 dashed\" \"#.class: fill=#134e4a stroke=#2dd4bf bold\" \"#.enumeration: fill=#701a75 stroke=#e879f9\" \"#.type: fill=#7c2d12 stroke=#fb923c\"",
+        "uml:client": "tsuml2 --glob ./projects/client/src/**/*.ts --tsconfig ./projects/client/tsconfig.json --outFile diagramsGamePlay/client.svg --modifiers true --propertyTypes true --memberAssociations true --nomnoml \"#spacing: 60\" \"#padding: 15\" \"#arrowSize: 1\" \"#lineWidth: 2\" \"#fill: #0a0a0a\" \"#stroke: #818cf8\" \"#.interface: fill=#1e1b4b stroke=#818cf8 dashed\" \"#.class: fill=#134e4a stroke=#2dd4bf bold\" \"#.enumeration: fill=#701a75 stroke=#e879f9\" \"#.type: fill=#7c2d12 stroke=#fb923c\"",
+        "uml:shared": "tsuml2 --glob ./projects/shared/src/**/*.ts --tsconfig ./projects/shared/tsconfig.json --outFile diagramsGamePlay/shared.svg --modifiers true --propertyTypes true --memberAssociations true --nomnoml \"#spacing: 60\" \"#padding: 15\" \"#arrowSize: 1\" \"#lineWidth: 2\" \"#fill: #0a0a0a\" \"#stroke: #818cf8\" \"#.interface: fill=#1e1b4b stroke=#818cf8 dashed\" \"#.class: fill=#134e4a stroke=#2dd4bf bold\" \"#.enumeration: fill=#701a75 stroke=#e879f9\" \"#.type: fill=#7c2d12 stroke=#fb923c\"",
+        "uml:all": "npm run uml:server && npm run uml:client && npm run uml:shared",
+        "uml:combined": "tsuml2 --glob ./projects/**/src/**/*.ts --tsconfig ./projects/server/tsconfig.json --outFile diagramsGamePlay/combined.svg --modifiers true --propertyTypes true --memberAssociations true --nomnoml \"#spacing: 60\" \"#padding: 15\" \"#arrowSize: 1\" \"#lineWidth: 2\" \"#fill: #0a0a0a\" \"#stroke: #818cf8\" \"#.interface: fill=#1e1b4b stroke=#818cf8 dashed\" \"#.class: fill=#134e4a stroke=#2dd4bf bold\" \"#.enumeration: fill=#701a75 stroke=#e879f9\" \"#.type: fill=#7c2d12 stroke=#fb923c\"",
+        "uml:mermaid:server": "tsuml2 --glob ./projects/server/src/**/*.ts --tsconfig ./projects/server/tsconfig.json --outMermaidDsl diagramsGamePlay/server.mmd --modifiers true --propertyTypes true",
+        "uml:mermaid:client": "tsuml2 --glob ./projects/client/src/**/*.ts --tsconfig ./projects/client/tsconfig.json --outMermaidDsl diagramsGamePlay/client.mmd --modifiers true --propertyTypes true",
+        "uml:mermaid:shared": "tsuml2 --glob ./projects/shared/src/**/*.ts --tsconfig ./projects/shared/tsconfig.json --outMermaidDsl diagramsGamePlay/shared.mmd --modifiers true --propertyTypes true",
+        "uml:mermaid:all": "npm run uml:mermaid:server && npm run uml:mermaid:client && npm run uml:mermaid:shared",
+        "uml:mermaid:combined": "tsuml2 --glob ./projects/**/src/**/*.ts --tsconfig ./projects/server/tsconfig.json --outMermaidDsl diagramsGamePlay/combined.mmd --modifiers true --propertyTypes true",
+        "uml:simple": "tsuml2 --glob ./projects/server/src/**/*.ts --tsconfig ./projects/server/tsconfig.json --outFile diagramsGamePlay/server-simple.svg --modifiers false --propertyTypes false --exportedTypesOnly true --nomnoml \"#spacing: 60\" \"#padding: 15\" \"#arrowSize: 1\" \"#lineWidth: 2\" \"#fill: #0a0a0a\" \"#stroke: #818cf8\" \"#.interface: fill=#1e1b4b stroke=#818cf8 dashed\" \"#.class: fill=#134e4a stroke=#2dd4bf bold\" \"#.enumeration: fill=#701a75 stroke=#e879f9\" \"#.type: fill=#7c2d12 stroke=#fb923c\""
+    },
+    "build": {
+        "appId": "com.spacesim.client",
+        "productName": "SpaceSim",
+        "files": [
+            "main.js",
+            "projects/client/dist/**/*"
+        ],
+        "win": {
+            "target": "nsis"
+        }
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
     },
     "devDependencies": {
         "copyfiles": "^2.4.1",
         "dpdm": "^3.14.0",
+<<<<<<< HEAD
         "lerna": "^8.1.9",
         "rimraf": "^6.1.0",
         "typedoc": "^0.27.5",
@@ -29,6 +68,19 @@
     "private": true,
     "engines": {
         "node": ">=22.21.0",
+=======
+        "electron": "^39.0.0",
+        "electron-builder": "^26.0.12",
+        "lerna": "^8.1.9",
+        "rimraf": "^6.0.1",
+        "tsuml2": "^0.17.1",
+        "typedoc": "^0.27.5",
+        "undici-types": "^7.16.0"
+    },
+    "private": true,
+    "engines": {
+        "node": "22.21.0",
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
         "npm": ">=11.4.1"
     },
     "dependencies": {

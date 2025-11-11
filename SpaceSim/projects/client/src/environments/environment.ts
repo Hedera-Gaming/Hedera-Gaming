@@ -3,10 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+<<<<<<< HEAD
   production: false,
   baseUrl: 'http://localhost:4500',
   baseHref: '/',
   websocket: 'ws://localhost:8081'
+=======
+    production: false,
+    baseUrl: 'http://localhost:4500',
+    baseHref: '/',
+    websocket: 'wss://space-sim-server.onrender.com', // ← Changement ici
+
+    // websocket: 'ws://localhost:8081',
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 };
 
 /*

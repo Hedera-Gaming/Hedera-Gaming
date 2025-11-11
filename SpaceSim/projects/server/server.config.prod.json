@@ -1,8 +1,13 @@
 {
     "allowedCorsOrigin": "https://bicarbon8.github.io",
     "serverRoot": "./dist",
+<<<<<<< HEAD
     "scripts": [
         "vendors.bundle.js",
         "engine.bundle.js"
     ]
 }
+=======
+    "scripts": ["vendors.bundle.js", "engine.bundle.js"]
+}
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8

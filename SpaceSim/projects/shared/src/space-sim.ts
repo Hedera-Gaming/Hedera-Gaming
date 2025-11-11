@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { GameScoreTracker } from "./utilities/game-score-tracker";
 import { Sanitiser } from "./utilities/sanitiser";
+=======
+import { GameScoreTracker } from './utilities/game-score-tracker';
+import { Sanitiser } from './utilities/sanitiser';
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
 
 export module SpaceSim {
     export var game: Phaser.Game;
@@ -29,7 +34,11 @@ export module SpaceSim {
         export function sanitise(data: UserData): UserData {
             return {
                 fingerprint: Sanitiser.sanitise(data.fingerprint),
+<<<<<<< HEAD
                 name: Sanitiser.sanitise(data.name)
+=======
+                name: Sanitiser.sanitise(data.name),
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             } as const;
         }
         /**
@@ -43,7 +52,12 @@ export module SpaceSim {
                 const sanitised = UserData.sanitise(data);
                 if (!sanitised) return false;
                 if (!sanitised.name || sanitised.name.length < 3) return false;
+<<<<<<< HEAD
                 if (!sanitised.fingerprint || sanitised.fingerprint.length < 5) return false;
+=======
+                if (!sanitised.fingerprint || sanitised.fingerprint.length < 5)
+                    return false;
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
                 return true;
             }
             return false;
@@ -87,7 +101,13 @@ export module SpaceSim {
         export module GameLevels {
             export module Tiles {
                 // frame 0 is empty so don't use it for walls
+<<<<<<< HEAD
                 export const WALL = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+=======
+                export const WALL = [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                ];
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             }
         }
         export module Events {
@@ -97,7 +117,11 @@ export module SpaceSim {
             export const SHIP_ANGLE = 'ship-angle';
         }
         export module Socket {
+<<<<<<< HEAD
             export const MAX_USERS_PER_ROOM = 100;
+=======
+            export const MAX_USERS_PER_ROOM = 1000;
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8
             export const TOO_MANY_CONNECTIONS = 'too-many-connections';
             export const SET_PLAYER_DATA = 'set-player-data';
             export const JOIN_ROOM = 'join-room';
@@ -127,4 +151,8 @@ export module SpaceSim {
             export const DISCONNECT_TIMEOUT_MS = 30000; // 30 sec
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4ed3e92086a86513a081020eb7f6a2f3b4dca0a8

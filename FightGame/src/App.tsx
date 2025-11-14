@@ -1,18 +1,18 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/shared/components/ui/toaster";
+import { Toaster as Sonner } from "@/shared/components/ui/sonner";
+import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navigation } from "./components/Navigation";
-import { SpaceBackground } from "./components/SpaceBackground";
-import Home from "./pages/Home";
-import Game from "./pages/Game";
-import Profile from "./pages/Profile";
-import Marketplace from "./pages/Marketplace";
-import Leaderboard from "./pages/Leaderboard";
-import Community from "./pages/Community";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import { Navigation } from "./shared/components/Navigation";
+import { SpaceBackground } from "./shared/components/SpaceBackground";
+import Home from "./features/homepage/Home";
+import Game from "./features/game/Game";
+import Profile from "./features/profile/Profile";
+import Marketplace from "./features/marketplace/Marketplace";
+import Leaderboard from "./features/leaderboard/Leaderboard";
+import Community from "./features/community/Community";
+import Contact from "./features/contact/Contact";
+import NotFound from "./features/notfound/NotFound";
 
 const queryClient = new QueryClient();
 
